@@ -1,31 +1,69 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    <i-layout :style="{minHeight: '100vh'}">
+        <i-header>
+            <i-menu mode="horizontal" theme="dark" active-name="1">
+                <div class="layout-logo"></div>
+                <div class="layout-nav">
+                    <i-menu-item name="1">
+                        <i-icon type="ios-navigate"></i-icon>
+                        Item 1
+                    </i-menu-item>
+                </div>
+            </i-menu>
+        </i-header>
+        <i-layout>
+            <i-sider hide-trigger :style="{background: '#fff'}">
+                <i-menu theme="light" width="auto" :open-names="['1']" style="height: 100%">
+                    <i-submenu :name="i" :key="i" v-for="(collValue,collKey, i) in apiData.collection">
+                        <template slot="title">
+                            <i-icon type="ios-book"></i-icon>
+                            {{collKey}}
+                        </template>
+
+                        <template v-for="(item,j) in collValue">
+                            <i-menu-item :name="i+'-'+j" :key="j">
+                                <i-icon type="ios-bookmark"></i-icon>
+                                {{item.name}}
+                            </i-menu-item>
+                        </template>
+                    </i-submenu>
+                </i-menu>
+            </i-sider>
+            <i-layout :style="{minHeight: '100vh'}">
+                <i-content :style="{padding: '24px', background: '#fff'}">
+                    <i-tabs>
+                        <i-tab-pane label="API 文档">API 文档</i-tab-pane>
+                        <i-tab-pane label="在线调试"></i-tab-pane>
+                    </i-tabs>
+                </i-content>
+            </i-layout>
+        </i-layout>
+    </i-layout>
 </template>
+<script>
+    import store from './store'
 
+    export default {
+        name: 'app',
+        data() {
+            return {
+                split1: 0.5
+            }
+        },
+        methods: {},
+        computed: {
+            apiData() {
+                return store.state.apiData
+            }
+        }
+    }
+</script>
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+    html {
+        height: 100%;
+    }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+    body {
+        height: 100%;
+    }
 </style>
