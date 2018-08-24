@@ -51,12 +51,12 @@
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    请求内容类型: {{httpInfo.consumes}}
+                                    请求体类型: {{httpInfo.consumes}}
                                 </i-col>
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    响应内容类型: {{httpInfo.produces}}
+                                    响应体类型: {{httpInfo.produces}}
                                 </i-col>
                             </i-row>
                             <i-row>
