@@ -51,12 +51,12 @@
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    请求类型: {{httpInfo.consumes}}
+                                    请求内容类型: {{httpInfo.consumes}}
                                 </i-col>
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    响应类型: {{httpInfo.produces}}
+                                    响应内容类型: {{httpInfo.produces}}
                                 </i-col>
                             </i-row>
                             <i-row>
@@ -153,8 +153,8 @@
                     console.log(schemaElement)
                     const responseOk = findSchema(store.state.apiData, schemaElement);
                     this.$data.responseOk = responseOk;
-                }else {
-                    this.$data.responseOk ={}
+                } else {
+                    this.$data.responseOk = {}
                 }
             }
         },
