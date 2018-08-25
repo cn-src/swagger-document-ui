@@ -61,10 +61,13 @@ export function fixSwaggerJson(swaggerJson) {
 function fixDefinitions(definitions) {
     let fixDefinitions = {};
     for (let defName in definitions) {
-        let fixObj = {};
-        fixObj.title = definitions[defName].title;
-        fixObj.type = definitions[defName].type;
-        fixObj.props = [];
+        let fixObj = emptyFixObj();
+        if (definitions[defName].title) {
+            fixObj.title = definitions[defName].title;
+        }
+        if (definitions[defName].type) {
+            fixObj.type = definitions[defName].type;
+        }
         for (let propName in definitions[defName].properties) {
             let prop = definitions[defName].properties[propName];
             let fixProp = {};
@@ -96,17 +99,19 @@ export function findAllSchema(fixObj, definitions, subFixObjs) {
     if (typeof(fixObj) === 'undefined' || fixObj === null
         || typeof(definitions) === 'undefined' || definitions === null
         || typeof(fixObj.props) === "undefined") {
-        return null
+        return emptyFixObj()
     }
     for (let prop of fixObj.props) {
         if (prop.hasRef) {
             const subObj = definitions[prop.schemaName];
-            if (subFixObjs.filter(fb => {
-                fb.schemaName === prop.schemaName
-            }).length === 0) {
-                subFixObjs.push(subObj)
+            if (subObj) {
+                if (subFixObjs.filter(fb => {
+                    fb.schemaName === prop.schemaName
+                }).length === 0) {
+                    subFixObjs.push(subObj)
+                }
+                findAllSchema(subObj, definitions, subFixObjs)
             }
-            findAllSchema(subObj, definitions, subFixObjs)
         }
     }
 }
@@ -120,13 +125,9 @@ export function findAllSchema(fixObj, definitions, subFixObjs) {
  */
 function fixParams(parameters) {
     if (typeof(parameters) === 'undefined' || parameters === null) {
-        let empty = {};
-        empty.props = [];
-        return empty
+        return emptyFixObj()
     }
-    let fixObj = {};
-    fixObj.title = '';
-    fixObj.type = '';
+    let fixObj = emptyFixObj()
 
     fixObj.props = parameters.map(p => {
         let fixProp = {};
@@ -143,11 +144,7 @@ function fixParams(parameters) {
 }
 
 function fixResponses(responses) {
-    let fixObj = {};
-    fixObj.title = '';
-    fixObj.type = '';
-    fixObj.props = [];
-    fixObj.props = [];
+    let fixObj = emptyFixObj()
     for (let resKey in responses) {
         let fixProp = {};
         fixProp.status = resKey;
@@ -212,4 +209,12 @@ function fixIfSchema(tar, src) {
  */
 function getSchemaName(schemaRef) {
     return schemaRef.substring('#/definitions/'.length)
+}
+
+function emptyFixObj() {
+    let empty = {}
+    empty.title = ''
+    empty.type = ''
+    empty.props = []
+    return empty
 }
