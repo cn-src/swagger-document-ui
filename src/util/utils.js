@@ -20,7 +20,7 @@
  */
 export function fixSwaggerJson(swaggerJson) {
     let apiData = {
-        definitions: Object.assign({}, swaggerJson.definitions),
+        definitions: fixDefinitions(swaggerJson.definitions),
         collection: {}
     }
 
@@ -56,6 +56,19 @@ export function fixSwaggerJson(swaggerJson) {
         }
     }
     return apiData
+}
+
+function fixDefinitions(definitions) {
+    for (let defName in definitions) {
+        for (let propName in definitions[defName].properties) {
+            let prop = definitions[defName].properties[propName]
+            if (prop.type === 'array' && typeof(prop.items['$ref']) !== undefined) {
+                prop.format = prop.items['$ref'].substring('#/definitions/'.length)
+            }
+        }
+
+    }
+    return definitions
 }
 
 export function findHttpInfo(apiData, index) {

@@ -1,7 +1,7 @@
 import swagger from './swagger.json'
 import {fixSwaggerJson, findSchema} from '@/util/utils'
 
-test('findByLevel', () => {
+test('fixSwaggerJson', () => {
     console.log(fixSwaggerJson(swagger));
 
     expect(3).toBe(3);
