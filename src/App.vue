@@ -23,9 +23,9 @@
                         <template v-for="httpInfo in httpInfos">
                             <i-menu-item :name="httpInfo.index" :key="httpInfo.index">
                                 <i-tag v-if="httpInfo.method ==='GET'" color="success">{{httpInfo.method}}</i-tag>
-                                <i-tag v-if="httpInfo.method ==='POST'" color="warning">{{httpInfo.method}}</i-tag>
-                                <i-tag v-if="httpInfo.method ==='PUT'" color="primary">{{httpInfo.method}}</i-tag>
-                                <i-tag v-if="httpInfo.method ==='DELETE'" color="error">{{httpInfo.method}}</i-tag>
+                                <i-tag v-else-if="httpInfo.method ==='POST'" color="warning">{{httpInfo.method}}</i-tag>
+                                <i-tag v-else-if="httpInfo.method ==='PUT'" color="primary">{{httpInfo.method}}</i-tag>
+                                <i-tag v-else-if="httpInfo.method ==='DELETE'" color="error">{{httpInfo.method}}</i-tag>
                                 <i-tag v-else color="default">{{httpInfo.method}}</i-tag>
                                 {{httpInfo.name}}
                             </i-menu-item>
