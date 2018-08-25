@@ -32,13 +32,12 @@
             <i-layout :style="{minHeight: '100vh'}">
                 <i-content :style="{padding: '24px', background: '#fff'}">
                     <i-tabs>
-                        <i-tab-pane label="API 文档">
-                            <i-row>
-                                <i-col span="24">
+                        <i-tab-pane label="API 文档" class="row-padding-bottom">
+
+                            <i-row class="no-border">
+                                <i-col>
                                     <h2>接口说明</h2>
                                 </i-col>
-                            </i-row>
-                            <i-row class="no-border">
                                 <i-col>
                                     <i-table :columns="apiInfoColumns" :data="apiInfo" :show-header="false"></i-table>
                                 </i-col>
@@ -46,24 +45,20 @@
 
                             <!--参数信息-->
                             <i-row>
-                                <i-col span="24">
+                                <i-col>
                                     <h2>请求参数</h2>
                                 </i-col>
-                            </i-row>
-                            <i-row>
-                                <i-col span="24">
+                                <i-col>
                                     <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
                                 </i-col>
                             </i-row>
 
                             <template v-for="sub of subParams">
-                                <i-row :key="sub.title">
-                                    <i-col span="24">
+                                <i-row :key="sub.name">
+                                    <i-col>
                                         <h3>{{sub.title}}</h3>
                                     </i-col>
-                                </i-row>
-                                <i-row :key="sub.name">
-                                    <i-col span="24">
+                                    <i-col>
                                         <i-table border :columns="objectColumns" :data="sub.props"></i-table>
                                     </i-col>
                                 </i-row>
@@ -71,24 +66,21 @@
 
                             <!--响应信息-->
                             <i-row>
-                                <i-col span="24">
+                                <i-col>
                                     <h2>响应信息</h2>
                                 </i-col>
-                            </i-row>
-                            <i-row>
-                                <i-col span="24">
+                                <i-col>
                                     <i-table border :columns="responsesColumns" :data="rootResponses.props"></i-table>
                                 </i-col>
                             </i-row>
 
                             <template v-for="sub of subResponses">
-                                <i-row :key="sub.title">
-                                    <i-col span="24">
+
+                                <i-row :key="sub.name">
+                                    <i-col>
                                         <h3>{{sub.title}}</h3>
                                     </i-col>
-                                </i-row>
-                                <i-row :key="sub.name">
-                                    <i-col span="24">
+                                    <i-col>
                                         <i-table border :columns="objectColumns" :data="sub.props"></i-table>
                                     </i-col>
                                 </i-row>
@@ -197,6 +189,10 @@
 
     body {
         height: 100%;
+    }
+
+    .row-padding-bottom .ivu-row {
+        padding-bottom: 50px;
     }
 
     .no-border .ivu-table-wrapper {
