@@ -143,15 +143,14 @@
         },
         methods: {
             menuItemAction(index) {
-                const httpInfo = findHttpInfo(store.state.apiData, index);
+                let httpInfo = findHttpInfo(store.state.apiData, index);
                 this.$data.httpInfo = httpInfo
-                const hasRef = (typeof(httpInfo.responses) !== undefined)
+                let hasRef = (typeof(httpInfo.responses) !== undefined)
                     && (typeof(httpInfo.responses['200']) !== undefined)
                     && (typeof(httpInfo.responses['200'].schema['$ref']) !== undefined);
                 if (hasRef) {
-                    const schemaElement = httpInfo.responses['200'].schema['$ref'];
-                    console.log(schemaElement)
-                    const responseOk = findSchema(store.state.apiData, schemaElement);
+                    let schemaElement = httpInfo.responses['200'].schema['$ref'];
+                    let responseOk = findSchema(store.state.apiData, schemaElement);
                     this.$data.responseOk = responseOk;
                 } else {
                     this.$data.responseOk = {}
