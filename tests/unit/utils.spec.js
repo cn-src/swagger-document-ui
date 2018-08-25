@@ -1,5 +1,5 @@
 import swagger from './swagger.json'
-import {fixSwaggerJson, findAllSchema} from '@/util/utils'
+import {fixSwaggerJson, findAllSchema, toFixObj} from '@/util/utils'
 
 test('fixSwaggerJson', () => {
     console.log(JSON.stringify(fixSwaggerJson(swagger)));
@@ -15,6 +15,14 @@ test('findAllSchema', () => {
     }]
     let allParams = []
     findAllSchema(fixObj, fixSwaggerJson(swagger).definitions, allParams)
+    console.log(allParams);
+    expect(3).toBe(3);
+});
+test('findAllSchema responses', () => {
+    let allParams = []
+    const req = fixSwaggerJson(swagger).collection['用户管理'][0];
+    findAllSchema(toFixObj({}, req.responses['200']), fixSwaggerJson(swagger).definitions, allParams);
+
     console.log(allParams);
     expect(3).toBe(3);
 });

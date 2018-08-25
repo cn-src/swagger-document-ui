@@ -88,19 +88,22 @@
                             <!--响应信息-->
                             <i-row>
                                 <i-col span="24">
-                                    <h2>响应格式</h2>
+                                    <h2>正确响应(200)</h2>
                                 </i-col>
                             </i-row>
-                            <i-row>
-                                <i-col span="24">
-                                    <h3>200 - 正确响应</h3>
-                                </i-col>
-                            </i-row>
-                            <i-row>
-                                <i-col span="24">
-                                    <!--<Table border :columns="objectColumns" :data="responseOk.properties"></Table>-->
-                                </i-col>
-                            </i-row>
+                            <!--<template v-for="sub of responseOk">-->
+                                <!--<i-row :key="sub.title">-->
+                                    <!--<i-col span="24">-->
+                                        <!--<h3>{{sub.title}}</h3>-->
+                                    <!--</i-col>-->
+                                <!--</i-row>-->
+                                <!--<i-row :key="sub.name">-->
+                                    <!--<i-col span="24">-->
+                                        <!--<Table border :columns="objectColumns" :data="sub.props"></Table>-->
+                                    <!--</i-col>-->
+                                <!--</i-row>-->
+                            <!--</template>-->
+
                         </i-tab-pane>
                         <i-tab-pane label="在线调试"></i-tab-pane>
                     </i-tabs>
@@ -111,7 +114,7 @@
 </template>
 <script>
     import store from '@/store'
-    import {findHttpInfo, findAllSchema} from '@/util/utils'
+    import {findHttpInfo, findAllSchema, toFixObj} from '@/util/utils'
 
     export default {
         name: 'app',
@@ -157,7 +160,7 @@
                 httpInfo: {},
                 rootParams: {},
                 subParams: [],
-                responseOk: {}
+                responseOk: []
             }
         },
         methods: {
@@ -169,16 +172,12 @@
                 findAllSchema(httpInfo.params, store.state.apiData.definitions, subParams);
                 this.$data.subParams = subParams
 
-                // let hasRef = (typeof(httpInfo.responses) !== 'undefined')
-                //     && (typeof(httpInfo.responses['200']) !== 'undefined')
-                //     && (typeof(httpInfo.responses['200'].schema['$ref']) !== 'undefined');
-                // if (hasRef) {
-                //     let schemaElement = httpInfo.responses['200'].schema['$ref'];
-                //     let responseOk = findSchema(store.state.apiData, schemaElement);
-                //     this.$data.responseOk = responseOk;
-                // } else {
-                //     this.$data.responseOk = {}
-                // }
+                let hasResponsOk = httpInfo.responses && httpInfo.responses['200']
+                if (hasResponsOk && httpInfo.responses['200'].schema && httpInfo.responses['200'].schema['$ref']) {
+                    let responseOk = []
+                    findAllSchema(toFixObj({}, httpInfo.responses['200']), store.state.apiData.definitions, responseOk);
+                    this.$data.responseOk = responseOk;
+                }
             }
         },
         computed: {

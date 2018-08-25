@@ -94,7 +94,8 @@ export function findHttpInfo(apiData, index) {
  */
 export function findAllSchema(fixObj, definitions, subFixObjs) {
     if (typeof(fixObj) === 'undefined' || fixObj === null
-        || typeof(definitions) === 'undefined' || definitions === null) {
+        || typeof(definitions) === 'undefined' || definitions === null
+        || typeof(fixObj.props) === "undefined") {
         return null
     }
     for (let prop of fixObj.props) {
@@ -141,7 +142,7 @@ function fixParams(parameters) {
     return fixObj
 }
 
-function toFixObj(tar, src) {
+export function toFixObj(tar, src) {
     let fixedSchema = fixIfSchema(tar, src);
     return fixedSchema
 }
@@ -157,7 +158,7 @@ function fixIfSchema(tar, src) {
     const schemaIsArray = src.schema && src.schema.type === 'array';
     // ref
     if (src.schema && src.schema['$ref']) {
-        const schemaName = getSchemaName(src.schema['$ref']);
+        let schemaName = getSchemaName(src.schema['$ref']);
         tar.type = schemaIsArray ? 'array' : schemaName;
         tar.format = schemaIsArray ? '[ ' + schemaName + ']' : schemaName;
         tar.hasRef = true;
