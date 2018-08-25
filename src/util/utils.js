@@ -22,33 +22,33 @@ export function fixSwaggerJson(swaggerJson) {
     let apiData = {
         definitions: fixDefinitions(swaggerJson.definitions),
         collection: {}
-    }
+    };
 
     for (let tag of swaggerJson.tags) {
         apiData.collection[tag.name] = []
     }
 
     let paths = swaggerJson.paths;
-    let index = 0
+    let index = 0;
     for (let path in paths) {
-        let pathInfo = paths[path]
+        let pathInfo = paths[path];
 
         for (let method in pathInfo) {
 
-            let methodInfo = pathInfo[method]
+            let methodInfo = pathInfo[method];
             for (let tag of methodInfo.tags) {
 
                 for (let collKey in apiData.collection) {
                     if (tag === collKey) {
-                        let httpInfo = {}
-                        httpInfo.index = index++
-                        httpInfo.name = methodInfo.summary
-                        httpInfo.path = path
-                        httpInfo.method = method.toUpperCase()
-                        httpInfo.produces = methodInfo.produces
-                        httpInfo.consumes = methodInfo.consumes
-                        httpInfo.params = fixParams(methodInfo.parameters)
-                        httpInfo.responses = methodInfo.responses
+                        let httpInfo = {};
+                        httpInfo.index = index++;
+                        httpInfo.name = methodInfo.summary;
+                        httpInfo.path = path;
+                        httpInfo.method = method.toUpperCase();
+                        httpInfo.produces = methodInfo.produces;
+                        httpInfo.consumes = methodInfo.consumes;
+                        httpInfo.params = fixParams(methodInfo.parameters);
+                        httpInfo.responses = methodInfo.responses;
                         apiData.collection[collKey].push(httpInfo)
                     }
                 }
@@ -59,20 +59,20 @@ export function fixSwaggerJson(swaggerJson) {
 }
 
 function fixDefinitions(definitions) {
-    let fixDefinitions = {}
+    let fixDefinitions = {};
     for (let defName in definitions) {
-        let fixObj = {}
-        fixObj.title = definitions[defName].title
-        fixObj.type = definitions[defName].type
-        fixObj.props = []
+        let fixObj = {};
+        fixObj.title = definitions[defName].title;
+        fixObj.type = definitions[defName].type;
+        fixObj.props = [];
         for (let propName in definitions[defName].properties) {
-            let prop = definitions[defName].properties[propName]
-            let fixProp = {}
-            fixProp.name = propName
-            fixProp.description = prop.description
-            fixProp.type = prop.type
-            fixProp.format = prop.format
-            fixObj.props.push(fixIfSchema(fixProp, prop))
+            let prop = definitions[defName].properties[propName];
+            let fixProp = {};
+            fixProp.name = propName;
+            fixProp.description = prop.description;
+            fixProp.type = prop.type;
+            fixProp.format = prop.format;
+            fixObj.props.push(toFixObj(fixProp, prop))
         }
         fixDefinitions[defName] = fixObj
     }
@@ -89,30 +89,10 @@ export function findHttpInfo(apiData, index) {
     }
 }
 
-export function findSchema(apiData, schemaRef) {
-    const ref = schemaRef.substring('#/definitions/'.length)
-    const definitions = apiData.definitions
-    for (const key in definitions) {
-        if (key === ref) {
-            const properties = definitions[key].properties
-            const propsArray = []
-            for (const propName in properties) {
-                properties[propName].name = propName
-                propsArray.push(properties[propName])
-            }
-            const schema = {}
-            Object.assign(schema, definitions[key])
-            schema.properties = propsArray
-            return schema
-        }
-    }
-    return {}
-}
-
 /**
- * 根据参数，尾递归找到所有的参数信息.
+ * 根据参数，尾递归找到所有的Schema信息.
  */
-export function findSubParams(fixObj, definitions, subFixObjs) {
+export function findAllSchema(fixObj, definitions, subFixObjs) {
     if (typeof(fixObj) === 'undefined' || fixObj === null
         || typeof(definitions) === 'undefined' || definitions === null) {
         return null
@@ -125,7 +105,7 @@ export function findSubParams(fixObj, definitions, subFixObjs) {
             }).length === 0) {
                 subFixObjs.push(subObj)
             }
-            findSubParams(subObj, definitions, subFixObjs)
+            findAllSchema(subObj, definitions, subFixObjs)
         }
     }
 }
@@ -139,25 +119,31 @@ export function findSubParams(fixObj, definitions, subFixObjs) {
  */
 function fixParams(parameters) {
     if (typeof(parameters) === 'undefined' || parameters === null) {
-        return null
+        let empty = {};
+        empty.props = [];
+        return empty
     }
-    let fixObj = {}
-    fixObj.title = ''
-    fixObj.type = ''
+    let fixObj = {};
+    fixObj.title = '';
+    fixObj.type = '';
 
-    let fixObjProps = parameters.map(p => {
-        let fixProp = {}
-        fixProp.name = p.name
-        fixProp.description = p.description
-        fixProp.in = p.in
-        fixProp.required = p.required
-        fixProp.type = p.type
-        fixProp.format = p.format
-        return fixIfSchema(fixProp, p)
+    fixObj.props = parameters.map(p => {
+        let fixProp = {};
+        fixProp.name = p.name;
+        fixProp.description = p.description;
+        fixProp.in = p.in;
+        fixProp.required = p.required;
+        fixProp.type = p.type;
+        fixProp.format = p.format;
+        return toFixObj(fixProp, p)
     });
-    fixObj.props = fixObjProps
 
     return fixObj
+}
+
+function toFixObj(tar, src) {
+    let fixedSchema = fixIfSchema(tar, src);
+    return fixedSchema
 }
 
 /**
@@ -168,18 +154,35 @@ function fixParams(parameters) {
  * @returns {*}
  */
 function fixIfSchema(tar, src) {
+    const schemaIsArray = src.schema && src.schema.type === 'array';
+    // ref
     if (src.schema && src.schema['$ref']) {
-        tar.type = 'object'
-        tar.format = getSchemaName(src.schema['$ref'])
-        tar.hasRef = true
-        tar.schemaName = getSchemaName(src.schema['$ref'])
-    } else if (src.type === 'array' && src.items && src.items['$ref']) {
-        tar.format = getSchemaName(src.items['$ref'])
-        tar.schemaName = getSchemaName(src.items['$ref'])
-        tar.hasRef = true
-    } else {
-        tar.hasRef = false
+        const schemaName = getSchemaName(src.schema['$ref']);
+        tar.type = schemaIsArray ? 'array' : schemaName;
+        tar.format = schemaIsArray ? '[ ' + schemaName + ']' : schemaName;
+        tar.hasRef = true;
+        tar.schemaName = schemaName;
+        return tar
     }
+    if (src.type === 'array' && src.items && src.items['$ref']) {
+        const schemaName = getSchemaName(src.items['$ref']);
+        tar.format = schemaName;
+        tar.schemaName = schemaName;
+        tar.hasRef = true;
+        return tar
+    }
+
+    // items type
+    if (src.schema && src.schema.items && src.schema.items.type) {
+        tar.type = schemaIsArray ? 'array' : src.schema.items.type;
+        if (src.schema.items.format) {
+            let format = src.schema.items.type + '#' + src.schema.items.format;
+            tar.format = schemaIsArray ? '[ ' + format + ' ]' : format
+        } else {
+            tar.format = schemaIsArray ? '[ ' + src.schema.items.type + ' ]' : src.schema.items.type;
+        }
+    }
+    tar.hasRef = false;
     return tar
 }
 

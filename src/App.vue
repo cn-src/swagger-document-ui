@@ -14,7 +14,7 @@
         <i-layout>
             <i-sider hide-trigger :style="{background: '#fff'}">
                 <i-menu theme="light" width="auto" :open-names="['1']" style="height: 100%" @on-select="menuItemAction">
-                    <i-submenu :name="i" :key="i" v-for="(httpInfos,tag, i) in apiData.collection">
+                    <i-submenu :name="'m'+i" :key="i" v-for="(httpInfos,tag, i) in apiData.collection">
                         <template slot="title">
                             <i-icon type="ios-book"></i-icon>
                             {{tag}}
@@ -59,6 +59,8 @@
                                     响应体类型: {{httpInfo.produces}}
                                 </i-col>
                             </i-row>
+
+                            <!--参数信息-->
                             <i-row>
                                 <i-col span="24">
                                     <h2>请求参数</h2>
@@ -66,9 +68,24 @@
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    <Table border :columns="paramsColumns" :data="httpInfo.params"></Table>
+                                    <Table border :columns="paramsColumns" :data="rootParams.props"></Table>
                                 </i-col>
                             </i-row>
+
+                            <template v-for="sub of subParams">
+                                <i-row :key="sub.title">
+                                    <i-col span="24">
+                                        <h3>{{sub.title}}</h3>
+                                    </i-col>
+                                </i-row>
+                                <i-row :key="sub.props">
+                                    <i-col span="24">
+                                        <Table border :columns="objectColumns" :data="sub.props"></Table>
+                                    </i-col>
+                                </i-row>
+                            </template>
+
+                            <!--响应信息-->
                             <i-row>
                                 <i-col span="24">
                                     <h2>响应格式</h2>
@@ -81,7 +98,7 @@
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    <Table border :columns="objectColumns" :data="responseOk.properties"></Table>
+                                    <!--<Table border :columns="objectColumns" :data="responseOk.properties"></Table>-->
                                 </i-col>
                             </i-row>
                         </i-tab-pane>
@@ -94,7 +111,7 @@
 </template>
 <script>
     import store from '@/store'
-    import {findHttpInfo, findSchema} from '@/util/utils'
+    import {findHttpInfo, findAllSchema} from '@/util/utils'
 
     export default {
         name: 'app',
@@ -138,6 +155,8 @@
                     }
                 ],
                 httpInfo: {},
+                rootParams: {},
+                subParams: [],
                 responseOk: {}
             }
         },
@@ -145,16 +164,21 @@
             menuItemAction(index) {
                 let httpInfo = findHttpInfo(store.state.apiData, index);
                 this.$data.httpInfo = httpInfo
-                let hasRef = (typeof(httpInfo.responses) !== undefined)
-                    && (typeof(httpInfo.responses['200']) !== undefined)
-                    && (typeof(httpInfo.responses['200'].schema['$ref']) !== undefined);
-                if (hasRef) {
-                    let schemaElement = httpInfo.responses['200'].schema['$ref'];
-                    let responseOk = findSchema(store.state.apiData, schemaElement);
-                    this.$data.responseOk = responseOk;
-                } else {
-                    this.$data.responseOk = {}
-                }
+                this.$data.rootParams = httpInfo.params
+                const subParams = []
+                findAllSchema(httpInfo.params, store.state.apiData.definitions, subParams);
+                this.$data.subParams = subParams
+
+                // let hasRef = (typeof(httpInfo.responses) !== 'undefined')
+                //     && (typeof(httpInfo.responses['200']) !== 'undefined')
+                //     && (typeof(httpInfo.responses['200'].schema['$ref']) !== 'undefined');
+                // if (hasRef) {
+                //     let schemaElement = httpInfo.responses['200'].schema['$ref'];
+                //     let responseOk = findSchema(store.state.apiData, schemaElement);
+                //     this.$data.responseOk = responseOk;
+                // } else {
+                //     this.$data.responseOk = {}
+                // }
             }
         },
         computed: {
