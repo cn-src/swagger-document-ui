@@ -88,21 +88,27 @@
                             <!--响应信息-->
                             <i-row>
                                 <i-col span="24">
-                                    <h2>正确响应(200)</h2>
+                                    <h2>响应信息</h2>
                                 </i-col>
                             </i-row>
-                            <!--<template v-for="sub of responseOk">-->
-                                <!--<i-row :key="sub.title">-->
-                                    <!--<i-col span="24">-->
-                                        <!--<h3>{{sub.title}}</h3>-->
-                                    <!--</i-col>-->
-                                <!--</i-row>-->
-                                <!--<i-row :key="sub.name">-->
-                                    <!--<i-col span="24">-->
-                                        <!--<Table border :columns="objectColumns" :data="sub.props"></Table>-->
-                                    <!--</i-col>-->
-                                <!--</i-row>-->
-                            <!--</template>-->
+                            <i-row>
+                                <i-col span="24">
+                                    <Table border :columns="responsesColumns" :data="rootResponses.props"></Table>
+                                </i-col>
+                            </i-row>
+
+                            <template v-for="sub of subResponses">
+                                <i-row :key="sub.title">
+                                    <i-col span="24">
+                                        <h3>{{sub.title}}</h3>
+                                    </i-col>
+                                </i-row>
+                                <i-row :key="sub.name">
+                                    <i-col span="24">
+                                        <Table border :columns="objectColumns" :data="sub.props"></Table>
+                                    </i-col>
+                                </i-row>
+                            </template>
 
                         </i-tab-pane>
                         <i-tab-pane label="在线调试"></i-tab-pane>
@@ -114,7 +120,7 @@
 </template>
 <script>
     import store from '@/store'
-    import {findHttpInfo, findAllSchema, toFixObj} from '@/util/utils'
+    import {findHttpInfo, findAllSchema} from '@/util/utils'
 
     export default {
         name: 'app',
@@ -141,7 +147,8 @@
                         title: '格式',
                         key: 'format'
                     }
-                ], objectColumns: [
+                ],
+                objectColumns: [
                     {
                         title: '名称',
                         key: 'name'
@@ -157,10 +164,28 @@
                         key: 'format'
                     }
                 ],
+                responsesColumns: [
+                    {
+                        title: '状态',
+                        key: 'status'
+                    },
+                    {
+                        title: '描述',
+                        key: 'description'
+                    }, {
+                        title: '类型',
+                        key: 'type'
+                    }, {
+                        title: '格式',
+                        key: 'format'
+                    }
+                ],
+
                 httpInfo: {},
                 rootParams: {},
                 subParams: [],
-                responseOk: []
+                rootResponses: {},
+                subResponses: []
             }
         },
         methods: {
@@ -172,12 +197,11 @@
                 findAllSchema(httpInfo.params, store.state.apiData.definitions, subParams);
                 this.$data.subParams = subParams
 
-                let hasResponsOk = httpInfo.responses && httpInfo.responses['200']
-                if (hasResponsOk && httpInfo.responses['200'].schema && httpInfo.responses['200'].schema['$ref']) {
-                    let responseOk = []
-                    findAllSchema(toFixObj({}, httpInfo.responses['200']), store.state.apiData.definitions, responseOk);
-                    this.$data.responseOk = responseOk;
-                }
+                this.$data.rootResponses = httpInfo.responses
+                const subResponses = []
+                findAllSchema(httpInfo.responses, store.state.apiData.definitions, subResponses);
+                this.$data.subResponses = subResponses
+
             }
         },
         computed: {
