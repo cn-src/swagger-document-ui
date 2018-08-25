@@ -139,6 +139,7 @@
                         title: '',
                         key: 'k1',
                         width: 100,
+                        align: 'right',
                         render: (h, params) => {
                             if (params.index === 0) {
                                 return h('Tag', params.row.k1, {
@@ -200,6 +201,6 @@
     }
 
     .no-border .ivu-table-wrapper td {
-        border-bottom: 0 solid #e8eaec;
+        border: 0 solid #e8eaec;
     }
 </style>
