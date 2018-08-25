@@ -96,7 +96,7 @@
 </template>
 <script>
     import store from '@/store'
-    import {findHttpInfo, findAllSchema} from '@/util/utils'
+    import {findHttpInfo, findAllSchema, methodRender} from '@/util/utils'
 
     export default {
         name: 'app',
@@ -140,17 +140,7 @@
                         key: 'k1',
                         width: 100,
                         align: 'right',
-                        render: (h, params) => {
-                            if (params.index === 0) {
-                                return h('Tag', params.row.k1, {
-                                    props: {
-                                        color: 'primary'
-                                    }
-                                });
-                            } else {
-                                return h('span', params.row.k1)
-                            }
-                        }
+                        render: methodRender,
                     }, {'title': '', 'key': 'k2'}];
 
                 this.$data.apiInfo = [{
