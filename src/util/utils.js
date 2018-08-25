@@ -196,6 +196,18 @@ function fixIfSchema(tar, src) {
     return tar
 }
 
+export function findHttpInfo(apiData, index) {
+    for (const httpInfosKey in apiData.collection) {
+        if (!apiData.collection.hasOwnProperty(httpInfosKey)) continue;
+
+        for (const httpInfo of apiData.collection[httpInfosKey]) {
+            if (httpInfo.index === index) {
+                return httpInfo
+            }
+        }
+    }
+}
+
 /**
  * 提取 schema ref 中的名称.
  *
