@@ -24,14 +24,18 @@
                             <i-icon type="ios-book"></i-icon>
                             {{tag}}
                         </template>
-
+                        <!--TODO 对齐方式-->
                         <template v-for="httpInfo in httpInfos">
                             <i-menu-item :name="httpInfo.index" :key="httpInfo.index">
-                                <i-tag v-if="httpInfo.method ==='GET'" color="success">{{httpInfo.method}}</i-tag>
-                                <i-tag v-else-if="httpInfo.method ==='POST'" color="warning">{{httpInfo.method}}</i-tag>
-                                <i-tag v-else-if="httpInfo.method ==='PUT'" color="primary">{{httpInfo.method}}</i-tag>
-                                <i-tag v-else-if="httpInfo.method ==='DELETE'" color="error">{{httpInfo.method}}</i-tag>
-                                <i-tag v-else color="default">{{httpInfo.method}}</i-tag>
+                                <span v-if="httpInfo.method ==='GET'"
+                                      style="font-size: 10px;font-weight:bold;color: #18BE6B;">{{httpInfo.method}}</span>
+                                <span v-else-if="httpInfo.method ==='POST'"
+                                      style="font-size: 10px;font-weight:bold;color: #FF9901;">{{httpInfo.method}}</span>
+                                <span v-else-if="httpInfo.method ==='PUT'"
+                                      style="font-size: 10px;font-weight:bold;color: #2D8CF0;">{{httpInfo.method}}</span>
+                                <span v-else-if="httpInfo.method ==='DELETE'"
+                                      style="font-size: 10px;font-weight:bold;color: #ED4114;">{{httpInfo.method}}</span>
+                                <span v-else style="font-size: 10px;font-weight:bold;color: #FFF1F0;">{{httpInfo.method}}</span>
                                 {{httpInfo.name}}
                             </i-menu-item>
                         </template>
