@@ -38,25 +38,9 @@
                                     <h2>接口说明</h2>
                                 </i-col>
                             </i-row>
-                            <i-row>
-                                <i-col span="6">
-                                    http 请求：
-                                </i-col>
-                                <i-col span="4">
-                                    <Tag checkable color="primary">{{httpInfo.method}}</Tag>
-                                </i-col>
-                                <i-col span="14">
-                                    {{httpInfo.path}}
-                                </i-col>
-                            </i-row>
-                            <i-row>
-                                <i-col span="24">
-                                    请求体类型: {{httpInfo.consumes}}
-                                </i-col>
-                            </i-row>
-                            <i-row>
-                                <i-col span="24">
-                                    响应体类型: {{httpInfo.produces}}
+                            <i-row class="no-border">
+                                <i-col>
+                                    <i-table :columns="apiInfoColumns" :data="apiInfo" :show-header="false"></i-table>
                                 </i-col>
                             </i-row>
 
@@ -68,7 +52,7 @@
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    <Table border :columns="paramsColumns" :data="rootParams.props"></Table>
+                                    <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
                                 </i-col>
                             </i-row>
 
@@ -80,7 +64,7 @@
                                 </i-row>
                                 <i-row :key="sub.name">
                                     <i-col span="24">
-                                        <Table border :columns="objectColumns" :data="sub.props"></Table>
+                                        <i-table border :columns="objectColumns" :data="sub.props"></i-table>
                                     </i-col>
                                 </i-row>
                             </template>
@@ -93,7 +77,7 @@
                             </i-row>
                             <i-row>
                                 <i-col span="24">
-                                    <Table border :columns="responsesColumns" :data="rootResponses.props"></Table>
+                                    <i-table border :columns="responsesColumns" :data="rootResponses.props"></i-table>
                                 </i-col>
                             </i-row>
 
@@ -105,7 +89,7 @@
                                 </i-row>
                                 <i-row :key="sub.name">
                                     <i-col span="24">
-                                        <Table border :columns="objectColumns" :data="sub.props"></Table>
+                                        <i-table border :columns="objectColumns" :data="sub.props"></i-table>
                                     </i-col>
                                 </i-row>
                             </template>
@@ -126,61 +110,25 @@
         name: 'app',
         data() {
             return {
+                apiInfoColumns: [],
                 paramsColumns: [
-                    {
-                        title: '名称',
-                        key: 'name'
-                    },
-                    {
-                        title: '描述',
-                        key: 'description'
-                    }, {
-                        title: '位置',
-                        key: 'in'
-                    }, {
-                        title: '必须',
-                        key: 'required'
-                    }, {
-                        title: '类型',
-                        key: 'type'
-                    }, {
-                        title: '格式',
-                        key: 'format'
-                    }
-                ],
+                    {title: '名称', key: 'name'},
+                    {title: '描述', key: 'description'},
+                    {title: '位置', key: 'in'},
+                    {title: '必须', key: 'required'},
+                    {title: '类型', key: 'type'},
+                    {title: '格式', key: 'format'}],
                 objectColumns: [
-                    {
-                        title: '名称',
-                        key: 'name'
-                    },
-                    {
-                        title: '描述',
-                        key: 'description'
-                    }, {
-                        title: '类型',
-                        key: 'type'
-                    }, {
-                        title: '格式',
-                        key: 'format'
-                    }
-                ],
+                    {title: '名称', key: 'name'},
+                    {title: '描述', key: 'description'},
+                    {title: '类型', key: 'type'},
+                    {title: '格式', key: 'format'}],
                 responsesColumns: [
-                    {
-                        title: '状态',
-                        key: 'status'
-                    },
-                    {
-                        title: '描述',
-                        key: 'description'
-                    }, {
-                        title: '类型',
-                        key: 'type'
-                    }, {
-                        title: '格式',
-                        key: 'format'
-                    }
-                ],
-
+                    {title: '状态', key: 'status'},
+                    {title: '描述', key: 'description'},
+                    {title: '类型', key: 'type'},
+                    {title: '格式', key: 'format'}],
+                apiInfo: [],
                 httpInfo: {},
                 rootParams: {},
                 subParams: [],
@@ -190,8 +138,39 @@
         },
         methods: {
             menuItemAction(index) {
+
                 let httpInfo = findHttpInfo(store.state.apiData, index);
                 this.$data.httpInfo = httpInfo;
+
+                this.$data.apiInfoColumns = [
+                    {
+                        title: '',
+                        key: 'k1',
+                        width: 100,
+                        render: (h, params) => {
+                            if (params.index === 0) {
+                                return h('Tag', params.row.k1, {
+                                    props: {
+                                        color: 'primary'
+                                    }
+                                });
+                            } else {
+                                return h('span', params.row.k1)
+                            }
+                        }
+                    }, {'title': '', 'key': 'k2'}];
+
+                this.$data.apiInfo = [{
+                    'k1': httpInfo.method,
+                    'k2': httpInfo.path
+                }, {
+                    'k1': '请求体类型:',
+                    'k2': httpInfo.consumes
+                }, {
+                    'k1': '响应体类型',
+                    'k2': httpInfo.produces
+                }];
+
                 this.$data.rootParams = httpInfo.params;
                 const subParams = [];
                 findAllSchema(httpInfo.params, store.state.apiData.definitions, subParams);
@@ -218,5 +197,13 @@
 
     body {
         height: 100%;
+    }
+
+    .no-border .ivu-table-wrapper {
+        border: 0 solid #dcdee2;
+    }
+
+    .no-border .ivu-table-wrapper td {
+        border-bottom: 0 solid #e8eaec;
     }
 </style>
