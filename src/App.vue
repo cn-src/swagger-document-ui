@@ -203,4 +203,9 @@
     .no-border .ivu-table-wrapper td {
         border: 0 solid #e8eaec;
     }
+
+    .no-border .ivu-table:after {
+        width: 0;
+    }
+
 </style>
