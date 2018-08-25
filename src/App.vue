@@ -22,7 +22,11 @@
 
                         <template v-for="httpInfo in httpInfos">
                             <i-menu-item :name="httpInfo.index" :key="httpInfo.index">
-                                <i-icon type="ios-bookmark"></i-icon>
+                                <i-tag v-if="httpInfo.method ==='GET'" color="success">{{httpInfo.method}}</i-tag>
+                                <i-tag v-if="httpInfo.method ==='POST'" color="warning">{{httpInfo.method}}</i-tag>
+                                <i-tag v-if="httpInfo.method ==='PUT'" color="primary">{{httpInfo.method}}</i-tag>
+                                <i-tag v-if="httpInfo.method ==='DELETE'" color="error">{{httpInfo.method}}</i-tag>
+                                <i-tag v-else color="default">{{httpInfo.method}}</i-tag>
                                 {{httpInfo.name}}
                             </i-menu-item>
                         </template>
@@ -96,7 +100,7 @@
 </template>
 <script>
     import store from '@/store'
-    import {findHttpInfo, findAllSchema, methodRender} from '@/util/utils'
+    import {findHttpInfo, findAllSchema, methodColumnRender} from '@/util/utils'
 
     export default {
         name: 'app',
@@ -140,7 +144,7 @@
                         key: 'k1',
                         width: 100,
                         align: 'right',
-                        render: methodRender,
+                        render: methodColumnRender,
                     }, {'title': '', 'key': 'k2'}];
 
                 this.$data.apiInfo = [{

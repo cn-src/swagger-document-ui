@@ -208,13 +208,27 @@ export function findHttpInfo(apiData, index) {
     }
 }
 
-export function methodRender(h, params) {
-    const colorsMap = {
-        'GET': 'success',
-        'POST': 'warning',
-        'PUT': 'primary',
-        'DELETE': 'error'
-    };
+const colorsMap = {
+    'GET': 'success',
+    'POST': 'warning',
+    'PUT': 'primary',
+    'DELETE': 'error'
+};
+
+// TODO
+export function methodRender(h, method) {
+
+    const colorFromMap = colorsMap[method];
+    let color = colorFromMap ? colorFromMap : 'default';
+
+    return h('Tag', {
+        props: {
+            color: color
+        }
+    })
+}
+
+export function methodColumnRender(h, params) {
     if (params.index === 0) {
 
         const colorFromMap = colorsMap[params.row.k1];
