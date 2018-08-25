@@ -102,16 +102,14 @@ export function findAllSchema(fixObj, definitions, subFixObjs) {
         return emptyFixObj()
     }
     for (let prop of fixObj.props) {
-        if (prop.hasRef) {
+        if (prop.hasRef && definitions.hasOwnProperty(prop.schemaName)) {
             const subObj = definitions[prop.schemaName];
-            if (subObj) {
-                if (subFixObjs.filter(fb => {
-                    fb.schemaName === prop.schemaName
-                }).length === 0) {
-                    subFixObjs.push(subObj)
-                }
-                findAllSchema(subObj, definitions, subFixObjs)
+            if (subFixObjs.filter(fb => {
+                return fb.schemaName === prop.schemaName
+            }).length === 0) {
+                subFixObjs.push(subObj)
             }
+            findAllSchema(subObj, definitions, subFixObjs)
         }
     }
 }
@@ -127,7 +125,7 @@ function fixParams(parameters) {
     if (typeof(parameters) === 'undefined' || parameters === null) {
         return emptyFixObj()
     }
-    let fixObj = emptyFixObj()
+    let fixObj = emptyFixObj();
 
     fixObj.props = parameters.map(p => {
         let fixProp = {};
@@ -144,7 +142,7 @@ function fixParams(parameters) {
 }
 
 function fixResponses(responses) {
-    let fixObj = emptyFixObj()
+    let fixObj = emptyFixObj();
     for (let resKey in responses) {
         let fixProp = {};
         fixProp.status = resKey;
@@ -212,9 +210,9 @@ function getSchemaName(schemaRef) {
 }
 
 function emptyFixObj() {
-    let empty = {}
-    empty.title = ''
-    empty.type = ''
-    empty.props = []
+    let empty = {};
+    empty.title = '';
+    empty.type = '';
+    empty.props = [];
     return empty
 }
