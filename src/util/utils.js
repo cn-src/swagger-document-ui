@@ -47,7 +47,7 @@ export function fixSwaggerJson(swaggerJson) {
                         httpInfo.method = method.toUpperCase()
                         httpInfo.produces = methodInfo.produces
                         httpInfo.consumes = methodInfo.consumes
-                        httpInfo.params = methodInfo.parameters
+                        httpInfo.params = fixParams(methodInfo.parameters)
                         httpInfo.responses = methodInfo.responses
                         apiData.collection[collKey].push(httpInfo)
                     }
@@ -59,17 +59,24 @@ export function fixSwaggerJson(swaggerJson) {
 }
 
 function fixDefinitions(definitions) {
+    let fixDefinitions = {}
     for (let defName in definitions) {
+        let fixObj = {}
+        fixObj.title = definitions[defName].title
+        fixObj.type = definitions[defName].type
+        fixObj.props = []
         for (let propName in definitions[defName].properties) {
             let prop = definitions[defName].properties[propName]
-            if (prop.type === 'array' && typeof(prop.items['$ref']) !== undefined) {
-                const objectType = prop.items['$ref'].substring('#/definitions/'.length);
-                prop.format = '[ ' + objectType + ' ]'
-            }
+            let fixProp = {}
+            fixProp.name = propName
+            fixProp.description = prop.description
+            fixProp.type = prop.type
+            fixProp.format = prop.format
+            fixObj.props.push(fixIfSchema(fixProp, prop))
         }
-
+        fixDefinitions[defName] = fixObj
     }
-    return definitions
+    return fixDefinitions
 }
 
 export function findHttpInfo(apiData, index) {
@@ -102,3 +109,86 @@ export function findSchema(apiData, schemaRef) {
     return {}
 }
 
+/**
+ * 根据参数，尾递归找到所有的参数信息.
+ */
+export function findSubParams(fixObj, definitions, subFixObjs) {
+    if (typeof(fixObj) === 'undefined' || fixObj === null
+        || typeof(definitions) === 'undefined' || definitions === null) {
+        return null
+    }
+    for (let prop of fixObj.props) {
+        if (prop.hasRef) {
+            const subObj = definitions[prop.schemaName];
+            if (subFixObjs.filter(fb => {
+                fb.schemaName === prop.schemaName
+            }).length === 0) {
+                subFixObjs.push(subObj)
+            }
+            findSubParams(subObj, definitions, subFixObjs)
+        }
+    }
+}
+
+
+/**
+ * 标准化请求参数，便于渲染.
+ *
+ * @param parameters
+ * @returns {*}
+ */
+function fixParams(parameters) {
+    if (typeof(parameters) === 'undefined' || parameters === null) {
+        return null
+    }
+    let fixObj = {}
+    fixObj.title = ''
+    fixObj.type = ''
+
+    let fixObjProps = parameters.map(p => {
+        let fixProp = {}
+        fixProp.name = p.name
+        fixProp.description = p.description
+        fixProp.in = p.in
+        fixProp.required = p.required
+        fixProp.type = p.type
+        fixProp.format = p.format
+        return fixIfSchema(fixProp, p)
+    });
+    fixObj.props = fixObjProps
+
+    return fixObj
+}
+
+/**
+ * 根据源对象 schema 信息来统一标准化对象格式.
+ *
+ * @param tar
+ * @param src
+ * @returns {*}
+ */
+function fixIfSchema(tar, src) {
+    if (src.schema && src.schema['$ref']) {
+        tar.type = 'object'
+        tar.format = getSchemaName(src.schema['$ref'])
+        tar.hasRef = true
+        tar.schemaName = getSchemaName(src.schema['$ref'])
+    } else if (src.type === 'array' && src.items && src.items['$ref']) {
+        tar.format = getSchemaName(src.items['$ref'])
+        tar.schemaName = getSchemaName(src.items['$ref'])
+        tar.hasRef = true
+    } else {
+        tar.hasRef = false
+    }
+    return tar
+}
+
+/**
+ * 提取 schema ref 中的名称.
+ *
+ * @param schemaRef Schema Ref
+ * @returns {string} name
+ */
+function getSchemaName(schemaRef) {
+    return schemaRef.substring('#/definitions/'.length)
+}
