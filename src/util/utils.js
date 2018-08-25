@@ -210,10 +210,10 @@ export function findHttpInfo(apiData, index) {
 
 export function methodRender(h, params) {
     const colorsMap = {
-        'GET': 'green',
-        'POST': 'yellow',
-        'PUT': 'blue',
-        'DELETE': 'red'
+        'GET': 'success',
+        'POST': 'warning',
+        'PUT': 'primary',
+        'DELETE': 'error'
     };
     if (params.index === 0) {
 
