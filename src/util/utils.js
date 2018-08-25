@@ -15,8 +15,6 @@
  *   }
  * }
  *
- * @param swaggerJson
- * @returns {{collection: {}}}
  */
 export function fixSwaggerJson(swaggerJson) {
     let apiData = {
@@ -31,14 +29,18 @@ export function fixSwaggerJson(swaggerJson) {
     let paths = swaggerJson.paths;
     let index = 0;
     for (let path in paths) {
+        if (!paths.hasOwnProperty(path)) continue;
         let pathInfo = paths[path];
 
         for (let method in pathInfo) {
-
+            if (!pathInfo.hasOwnProperty(method)) continue;
             let methodInfo = pathInfo[method];
+
             for (let tag of methodInfo.tags) {
 
                 for (let collKey in apiData.collection) {
+                    if (!apiData.collection.hasOwnProperty(collKey)) continue;
+
                     if (tag === collKey) {
                         let httpInfo = {};
                         httpInfo.index = index++;
@@ -61,7 +63,9 @@ export function fixSwaggerJson(swaggerJson) {
 function fixDefinitions(definitions) {
     let fixDefinitions = {};
     for (let defName in definitions) {
+        if (!definitions.hasOwnProperty(defName)) continue;
         let fixObj = emptyFixObj();
+
         if (definitions[defName].title) {
             fixObj.title = definitions[defName].title;
         }
@@ -69,27 +73,19 @@ function fixDefinitions(definitions) {
             fixObj.type = definitions[defName].type;
         }
         for (let propName in definitions[defName].properties) {
-            let prop = definitions[defName].properties[propName];
-            let fixProp = {};
-            fixProp.name = propName;
-            fixProp.description = prop.description;
-            fixProp.type = prop.type;
-            fixProp.format = prop.format;
-            fixObj.props.push(toFixObj(fixProp, prop))
+            if (definitions[defName].properties.hasOwnProperty(propName)) {
+                let prop = definitions[defName].properties[propName];
+                let fixProp = {};
+                fixProp.name = propName;
+                fixProp.description = prop.description;
+                fixProp.type = prop.type;
+                fixProp.format = prop.format;
+                fixObj.props.push(toFixObj(fixProp, prop))
+            }
         }
         fixDefinitions[defName] = fixObj
     }
     return fixDefinitions
-}
-
-export function findHttpInfo(apiData, index) {
-    for (const httpInfosKey in apiData.collection) {
-        for (const httpInfo of apiData.collection[httpInfosKey]) {
-            if (httpInfo.index === index) {
-                return httpInfo
-            }
-        }
-    }
 }
 
 /**
@@ -144,7 +140,9 @@ function fixParams(parameters) {
 function fixResponses(responses) {
     let fixObj = emptyFixObj();
     for (let resKey in responses) {
+        if (!responses.hasOwnProperty(resKey)) continue;
         let fixProp = {};
+
         fixProp.status = resKey;
         fixProp.description = responses[resKey].description;
         fixProp = toFixObj(fixProp, responses[resKey]);
@@ -155,8 +153,7 @@ function fixResponses(responses) {
 }
 
 export function toFixObj(tar, src) {
-    let fixedSchema = fixIfSchema(tar, src);
-    return fixedSchema
+    return fixIfSchema(tar, src)
 }
 
 /**
