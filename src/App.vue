@@ -78,7 +78,7 @@
                                         <h3>{{sub.title}}</h3>
                                     </i-col>
                                 </i-row>
-                                <i-row :key="sub.title">
+                                <i-row :key="sub.name">
                                     <i-col span="24">
                                         <Table border :columns="objectColumns" :data="sub.props"></Table>
                                     </i-col>
