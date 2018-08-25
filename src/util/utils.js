@@ -48,7 +48,7 @@ export function fixSwaggerJson(swaggerJson) {
                         httpInfo.produces = methodInfo.produces;
                         httpInfo.consumes = methodInfo.consumes;
                         httpInfo.params = fixParams(methodInfo.parameters);
-                        httpInfo.responses = methodInfo.responses;
+                        httpInfo.responses = fixResponses(methodInfo.responses);
                         apiData.collection[collKey].push(httpInfo)
                     }
                 }
@@ -138,6 +138,23 @@ function fixParams(parameters) {
         fixProp.format = p.format;
         return toFixObj(fixProp, p)
     });
+
+    return fixObj
+}
+
+function fixResponses(responses) {
+    let fixObj = {};
+    fixObj.title = '';
+    fixObj.type = '';
+    fixObj.props = [];
+    fixObj.props = [];
+    for (let resKey in responses) {
+        let fixProp = {};
+        fixProp.status = resKey;
+        fixProp.description = responses[resKey].description;
+        fixProp = toFixObj(fixProp, responses[resKey]);
+        fixObj.props.push(fixProp)
+    }
 
     return fixObj
 }
