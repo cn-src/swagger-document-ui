@@ -191,14 +191,14 @@
         methods: {
             menuItemAction(index) {
                 let httpInfo = findHttpInfo(store.state.apiData, index);
-                this.$data.httpInfo = httpInfo
-                this.$data.rootParams = httpInfo.params
-                const subParams = []
+                this.$data.httpInfo = httpInfo;
+                this.$data.rootParams = httpInfo.params;
+                const subParams = [];
                 findAllSchema(httpInfo.params, store.state.apiData.definitions, subParams);
-                this.$data.subParams = subParams
+                this.$data.subParams = subParams;
 
-                this.$data.rootResponses = httpInfo.responses
-                const subResponses = []
+                this.$data.rootResponses = httpInfo.responses;
+                const subResponses = [];
                 findAllSchema(httpInfo.responses, store.state.apiData.definitions, subResponses);
                 this.$data.subResponses = subResponses
 
