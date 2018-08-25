@@ -8,11 +8,16 @@
                         <i-icon type="ios-navigate"></i-icon>
                         Item 1
                     </i-menu-item>
+                    <i-menu-item name="2">
+                        <i-icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}"
+                                type="md-menu" size="24"></i-icon>
+                    </i-menu-item>
                 </div>
             </i-menu>
         </i-header>
         <i-layout>
-            <i-sider hide-trigger :style="{background: '#fff'}">
+            <i-sider ref="side1" hide-trigger :style="{background: '#fff'}" collapsible :collapsed-width="0"
+                     v-model="isCollapsed">
                 <i-menu theme="light" width="auto" :open-names="['1']" style="height: 100%" @on-select="menuItemAction">
                     <i-submenu :name="'m'+i" :key="i" v-for="(httpInfos,tag, i) in apiData.collection">
                         <template slot="title">
@@ -35,6 +40,7 @@
             </i-sider>
             <i-layout :style="{minHeight: '100vh'}">
                 <i-content :style="{padding: '24px', background: '#fff'}">
+
                     <i-tabs>
                         <i-tab-pane label="API 文档" class="row-padding-bottom">
 
@@ -106,6 +112,7 @@
         name: 'app',
         data() {
             return {
+                isCollapsed: false,
                 apiInfoColumns: [],
                 paramsColumns: [
                     {title: '名称', key: 'name'},
@@ -133,6 +140,9 @@
             }
         },
         methods: {
+            collapsedSider() {
+                this.$refs.side1.toggleCollapse();
+            },
             menuItemAction(index) {
 
                 let httpInfo = findHttpInfo(store.state.apiData, index);
