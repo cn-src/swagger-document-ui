@@ -56,7 +56,7 @@
                             <template v-for="sub of subParams">
                                 <i-row :key="sub.name">
                                     <i-col>
-                                        <h3>{{sub.title}}</h3>
+                                        <h3>类型：{{sub.title}}</h3>
                                     </i-col>
                                     <i-col>
                                         <i-table border :columns="objectColumns" :data="sub.props"></i-table>
@@ -78,7 +78,7 @@
 
                                 <i-row :key="sub.name">
                                     <i-col>
-                                        <h3>{{sub.title}}</h3>
+                                        <h3>类型：{{sub.title}}</h3>
                                     </i-col>
                                     <i-col>
                                         <i-table border :columns="objectColumns" :data="sub.props"></i-table>
