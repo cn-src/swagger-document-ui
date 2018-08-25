@@ -64,7 +64,7 @@ function fixDefinitions(definitions) {
             let prop = definitions[defName].properties[propName]
             if (prop.type === 'array' && typeof(prop.items['$ref']) !== undefined) {
                 const objectType = prop.items['$ref'].substring('#/definitions/'.length);
-                prop.format = '[' + objectType + ']'
+                prop.format = '[ ' + objectType + ' ]'
             }
         }
 
