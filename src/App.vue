@@ -165,10 +165,10 @@
                     'k1': httpInfo.method,
                     'k2': httpInfo.path
                 }, {
-                    'k1': '请求体类型:',
+                    'k1': '请求体类型：',
                     'k2': httpInfo.consumes
                 }, {
-                    'k1': '响应体类型',
+                    'k1': '响应体类型：',
                     'k2': httpInfo.produces
                 }];
 
