@@ -53,6 +53,7 @@
     </scm>
 
     <build>
+        <sourceDirectory>${project.build.directory}/${project.artifactId}-${project.version}</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.jamesward</groupId>
