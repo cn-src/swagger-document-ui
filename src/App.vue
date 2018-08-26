@@ -156,7 +156,7 @@
                     {
                         title: '',
                         key: 'k1',
-                        width: 100,
+                        width: 110,
                         align: 'right',
                         render: methodColumnRender,
                     }, {'title': '', 'key': 'k2'}];
