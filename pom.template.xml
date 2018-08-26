@@ -115,9 +115,6 @@
                                     <fileset
                                             dir="${project.build.directory}/${project.artifactId}-${version.unrevise}/dist"/>
                                 </copy>
-                                <jar basedir="${project.build.directory}/${project.artifactId}-${version.unrevise}"
-                                     destfile="${project.build.directory}/${project.artifactId}-${version.unrevise}-sources.jar"/>
-
                             </target>
                         </configuration>
                     </execution>
