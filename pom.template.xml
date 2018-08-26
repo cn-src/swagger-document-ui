@@ -107,7 +107,7 @@
                                 <unzip src="${project.build.directory}/${project.artifactId}.zip" dest="${project.build.directory}" />
                                 <echo message="moving resources" />
                                 <move todir="${destDir}">
-                                    <fileset dir="${project.build.directory}/swagger-ui-${version.unrevise}/dist" />
+                                    <fileset dir="${project.build.directory}/${project.artifactId}-${version.unrevise}/dist" />
                                 </move>
                             </target>
                         </configuration>
