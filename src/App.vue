@@ -165,24 +165,13 @@
                 this.$data.httpInfo = httpInfo;
 
                 this.$data.apiInfoColumns = [
-                    {
-                        title: '',
-                        key: 'k1',
-                        width: 110,
-                        align: 'right',
-                        render: methodColumnRender,
-                    }, {'title': '', 'key': 'k2'}];
+                    {title: '', key: 'k1', width: 110, align: 'right', render: methodColumnRender},
+                    {title: '', key: 'k2'}];
 
-                this.$data.apiInfo = [{
-                    'k1': httpInfo.method,
-                    'k2': httpInfo.path
-                }, {
-                    'k1': '请求体类型：',
-                    'k2': httpInfo.consumes
-                }, {
-                    'k1': '响应体类型：',
-                    'k2': httpInfo.produces
-                }];
+                this.$data.apiInfo = [
+                    {k1: httpInfo.method, k2: httpInfo.path},
+                    {k1: '请求体类型：', k2: httpInfo.consumes},
+                    {k1: '响应体类型：', k2: httpInfo.produces}];
 
                 this.$data.rootParams = httpInfo.params;
                 const subParams = [];
