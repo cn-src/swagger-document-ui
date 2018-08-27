@@ -24,7 +24,6 @@
                             <i-icon type="ios-book"></i-icon>
                             {{tag}}
                         </template>
-                        <!--TODO 对齐方式-->
                         <template v-for="httpInfo in httpInfos">
                             <i-menu-item :name="httpInfo.index" :key="httpInfo.index">
                                 <span v-if="httpInfo.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpInfo.method}}</span>
@@ -82,7 +81,7 @@
                                     </template>
 
                                     <!--响应信息-->
-                                    <i-row :style="{marginTop:'600px'}">
+                                    <i-row :style="{marginTop:'60px'}">
                                         <i-col>
                                             <h2 id="h2_3">响应信息</h2>
                                         </i-col>
