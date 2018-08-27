@@ -52,7 +52,7 @@
 
                                     <i-row class="no-border">
                                         <i-col>
-                                            <h2 id="接口说明">接口说明</h2>
+                                            <h2 id="h2_1">接口说明</h2>
                                         </i-col>
                                         <i-col>
                                             <i-table :columns="apiInfoColumns" :data="apiInfo"
@@ -63,7 +63,7 @@
                                     <!--参数信息-->
                                     <i-row>
                                         <i-col>
-                                            <h2 id="请求参数">请求参数</h2>
+                                            <h2 id="h2_2">请求参数</h2>
                                         </i-col>
                                         <i-col>
                                             <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
@@ -82,9 +82,9 @@
                                     </template>
 
                                     <!--响应信息-->
-                                    <i-row>
+                                    <i-row :style="{marginTop:'600px'}">
                                         <i-col>
-                                            <h2 id="响应信息">响应信息</h2>
+                                            <h2 id="h2_3">响应信息</h2>
                                         </i-col>
                                         <i-col>
                                             <i-table border :columns="responsesColumns"
@@ -108,11 +108,11 @@
                             </i-tabs>
                         </i-col>
                         <i-col span="4">
-                            <anchor show-ink>
-                                <anchor-link href="#接口说明" title="接口说明"/>
-                                <anchor-link href="#请求参数" title="请求参数"/>
-                                <anchor-link href="#响应信息" title="响应信息"/>
-                            </anchor>
+                            <i-anchor show-ink>
+                                <i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>
+                                <i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>
+                                <i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>
+                            </i-anchor>
                         </i-col>
                     </i-row>
                 </i-content>
