@@ -41,81 +41,78 @@
                     </i-submenu>
                 </i-menu>
             </i-sider>
-            <i-layout :style="{minHeight: '100vh'}">
-                <i-content :style="{padding: '24px', background: '#fff'}">
+            <i-content :style="{padding: '24px', background: '#fff'}">
+                <i-row :gutter="16">
+                    <i-col span="20">
+                        <i-tabs>
+                            <i-tab-pane label="API 文档" class="row-padding-bottom">
 
-                    <i-row :gutter="16">
-                        <i-col span="20">
-                            <i-tabs>
-                                <i-tab-pane label="API 文档" class="row-padding-bottom">
+                                <i-row class="no-border">
+                                    <i-col>
+                                        <h2 id="h2_1">接口说明</h2>
+                                    </i-col>
+                                    <i-col>
+                                        <i-table :columns="apiInfoColumns" :data="apiInfo"
+                                                 :show-header="false"></i-table>
+                                    </i-col>
+                                </i-row>
 
-                                    <i-row class="no-border">
+                                <!--参数信息-->
+                                <i-row>
+                                    <i-col>
+                                        <h2 id="h2_2">请求参数</h2>
+                                    </i-col>
+                                    <i-col>
+                                        <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
+                                    </i-col>
+                                </i-row>
+
+                                <template v-for="sub of subParams">
+                                    <i-row :key="sub.name">
                                         <i-col>
-                                            <h2 id="h2_1">接口说明</h2>
+                                            <h3>类型：{{sub.title}}</h3>
                                         </i-col>
                                         <i-col>
-                                            <i-table :columns="apiInfoColumns" :data="apiInfo"
-                                                     :show-header="false"></i-table>
-                                        </i-col>
-                                    </i-row>
-
-                                    <!--参数信息-->
-                                    <i-row>
-                                        <i-col>
-                                            <h2 id="h2_2">请求参数</h2>
-                                        </i-col>
-                                        <i-col>
-                                            <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
-                                        </i-col>
-                                    </i-row>
-
-                                    <template v-for="sub of subParams">
-                                        <i-row :key="sub.name">
-                                            <i-col>
-                                                <h3>类型：{{sub.title}}</h3>
-                                            </i-col>
-                                            <i-col>
-                                                <i-table border :columns="objectColumns" :data="sub.props"></i-table>
-                                            </i-col>
-                                        </i-row>
-                                    </template>
-
-                                    <!--响应信息-->
-                                    <i-row :style="{marginTop:'60px'}">
-                                        <i-col>
-                                            <h2 id="h2_3">响应信息</h2>
-                                        </i-col>
-                                        <i-col>
-                                            <i-table border :columns="responsesColumns"
-                                                     :data="rootResponses.props"></i-table>
+                                            <i-table border :columns="objectColumns" :data="sub.props"></i-table>
                                         </i-col>
                                     </i-row>
+                                </template>
 
-                                    <template v-for="sub of subResponses">
+                                <!--响应信息-->
+                                <i-row :style="{marginTop:'60px'}">
+                                    <i-col>
+                                        <h2 id="h2_3">响应信息</h2>
+                                    </i-col>
+                                    <i-col>
+                                        <i-table border :columns="responsesColumns"
+                                                 :data="rootResponses.props"></i-table>
+                                    </i-col>
+                                </i-row>
 
-                                        <i-row :key="sub.name">
-                                            <i-col>
-                                                <h3>类型：{{sub.title}}</h3>
-                                            </i-col>
-                                            <i-col>
-                                                <i-table border :columns="objectColumns" :data="sub.props"></i-table>
-                                            </i-col>
-                                        </i-row>
-                                    </template>
-                                </i-tab-pane>
-                                <i-tab-pane label="在线调试"></i-tab-pane>
-                            </i-tabs>
-                        </i-col>
-                        <i-col span="4">
-                            <i-anchor show-ink>
-                                <i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>
-                                <i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>
-                                <i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>
-                            </i-anchor>
-                        </i-col>
-                    </i-row>
-                </i-content>
-            </i-layout>
+                                <template v-for="sub of subResponses">
+
+                                    <i-row :key="sub.name">
+                                        <i-col>
+                                            <h3>类型：{{sub.title}}</h3>
+                                        </i-col>
+                                        <i-col>
+                                            <i-table border :columns="objectColumns" :data="sub.props"></i-table>
+                                        </i-col>
+                                    </i-row>
+                                </template>
+                            </i-tab-pane>
+                            <i-tab-pane label="在线调试"></i-tab-pane>
+                        </i-tabs>
+                    </i-col>
+                    <i-col span="4">
+                        <i-anchor show-ink>
+                            <i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>
+                            <i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>
+                            <i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>
+                        </i-anchor>
+                    </i-col>
+                </i-row>
+            </i-content>
         </i-layout>
     </i-layout>
 </template>
