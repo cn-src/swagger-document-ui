@@ -45,11 +45,11 @@
             <i-layout :style="{minHeight: '100vh'}">
                 <i-content :style="{padding: '24px', background: '#fff'}">
 
-                    <i-tabs>
-                        <i-tab-pane label="API 文档" class="row-padding-bottom">
+                    <i-row :gutter="16">
+                        <i-col span="20">
+                            <i-tabs>
+                                <i-tab-pane label="API 文档" class="row-padding-bottom">
 
-                            <i-row>
-                                <i-col span="18">
                                     <i-row class="no-border">
                                         <i-col>
                                             <h2 id="接口说明">接口说明</h2>
@@ -103,18 +103,18 @@
                                             </i-col>
                                         </i-row>
                                     </template>
-                                </i-col>
-                                <i-col span="6" style="height: 500px;position: relative">
-                                    <anchor show-ink style="height: inherit">
-                                        <anchor-link href="#接口说明" title="接口说明"/>
-                                        <anchor-link href="#请求参数" title="请求参数"/>
-                                        <anchor-link href="#响应信息" title="响应信息"/>
-                                    </anchor>
-                                </i-col>
-                            </i-row>
-                        </i-tab-pane>
-                        <i-tab-pane label="在线调试"></i-tab-pane>
-                    </i-tabs>
+                                </i-tab-pane>
+                                <i-tab-pane label="在线调试"></i-tab-pane>
+                            </i-tabs>
+                        </i-col>
+                        <i-col span="4">
+                            <anchor show-ink>
+                                <anchor-link href="#接口说明" title="接口说明"/>
+                                <anchor-link href="#请求参数" title="请求参数"/>
+                                <anchor-link href="#响应信息" title="响应信息"/>
+                            </anchor>
+                        </i-col>
+                    </i-row>
                 </i-content>
             </i-layout>
         </i-layout>
