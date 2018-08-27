@@ -1,15 +1,15 @@
 <template>
     <i-layout :style="{minHeight: '100vh'}">
-        <i-header>
+        <i-header :style="{padding: 0}">
             <i-menu mode="horizontal" theme="dark" active-name="1">
                 <div class="layout-logo"></div>
                 <div class="layout-nav">
-                    <i-menu-item name="1">
+                    <i-menu-item name="1" v-if="!isCollapsed" :style="{width: '200px'}">
                         <i-icon type="ios-navigate"></i-icon>
                         Item 1
                     </i-menu-item>
                     <i-menu-item name="2">
-                        <i-icon @click.native="collapsedSider" :style="{margin: '0 20px'}"
+                        <i-icon @click.native="collapsedSider"
                                 type="md-menu" size="24"></i-icon>
                     </i-menu-item>
                 </div>
