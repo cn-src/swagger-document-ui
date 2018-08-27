@@ -9,7 +9,7 @@
                         Item 1
                     </i-menu-item>
                     <i-menu-item name="2">
-                        <i-icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}"
+                        <i-icon @click.native="collapsedSider" :style="{margin: '0 20px'}"
                                 type="md-menu" size="24"></i-icon>
                     </i-menu-item>
                 </div>
@@ -27,15 +27,15 @@
                         <!--TODO 对齐方式-->
                         <template v-for="httpInfo in httpInfos">
                             <i-menu-item :name="httpInfo.index" :key="httpInfo.index">
-                                <span v-if="httpInfo.method ==='GET'"
-                                      style="font-size: 10px;font-weight:bold;color: #18BE6B;">{{httpInfo.method}}</span>
+                                <span v-if="httpInfo.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpInfo.method}}</span>
                                 <span v-else-if="httpInfo.method ==='POST'"
-                                      style="font-size: 10px;font-weight:bold;color: #FF9901;">{{httpInfo.method}}</span>
+                                      class="http-method-tag" style="color: #FF9901;">{{httpInfo.method}}</span>
                                 <span v-else-if="httpInfo.method ==='PUT'"
-                                      style="font-size: 10px;font-weight:bold;color: #2D8CF0;">{{httpInfo.method}}</span>
+                                      class="http-method-tag" style="color: #2D8CF0;">{{httpInfo.method}}</span>
                                 <span v-else-if="httpInfo.method ==='DELETE'"
-                                      style="font-size: 10px;font-weight:bold;color: #ED4114;">{{httpInfo.method}}</span>
-                                <span v-else style="font-size: 10px;font-weight:bold;color: #FFF1F0;">{{httpInfo.method}}</span>
+                                      class="http-method-tag" style="color: #ED4015;">{{httpInfo.method}}</span>
+                                <span v-else class="http-method-tag" style="color: #EEEEEE;">{{httpInfo.method}}</span>
+
                                 {{httpInfo.name}}
                             </i-menu-item>
                         </template>
@@ -48,58 +48,70 @@
                     <i-tabs>
                         <i-tab-pane label="API 文档" class="row-padding-bottom">
 
-                            <i-row class="no-border">
-                                <i-col>
-                                    <h2>接口说明</h2>
-                                </i-col>
-                                <i-col>
-                                    <i-table :columns="apiInfoColumns" :data="apiInfo" :show-header="false"></i-table>
-                                </i-col>
-                            </i-row>
-
-                            <!--参数信息-->
                             <i-row>
-                                <i-col>
-                                    <h2>请求参数</h2>
+                                <i-col span="18">
+                                    <i-row class="no-border">
+                                        <i-col>
+                                            <h2 id="接口说明">接口说明</h2>
+                                        </i-col>
+                                        <i-col>
+                                            <i-table :columns="apiInfoColumns" :data="apiInfo"
+                                                     :show-header="false"></i-table>
+                                        </i-col>
+                                    </i-row>
+
+                                    <!--参数信息-->
+                                    <i-row>
+                                        <i-col>
+                                            <h2 id="请求参数">请求参数</h2>
+                                        </i-col>
+                                        <i-col>
+                                            <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
+                                        </i-col>
+                                    </i-row>
+
+                                    <template v-for="sub of subParams">
+                                        <i-row :key="sub.name">
+                                            <i-col>
+                                                <h3>类型：{{sub.title}}</h3>
+                                            </i-col>
+                                            <i-col>
+                                                <i-table border :columns="objectColumns" :data="sub.props"></i-table>
+                                            </i-col>
+                                        </i-row>
+                                    </template>
+
+                                    <!--响应信息-->
+                                    <i-row>
+                                        <i-col>
+                                            <h2 id="响应信息">响应信息</h2>
+                                        </i-col>
+                                        <i-col>
+                                            <i-table border :columns="responsesColumns"
+                                                     :data="rootResponses.props"></i-table>
+                                        </i-col>
+                                    </i-row>
+
+                                    <template v-for="sub of subResponses">
+
+                                        <i-row :key="sub.name">
+                                            <i-col>
+                                                <h3>类型：{{sub.title}}</h3>
+                                            </i-col>
+                                            <i-col>
+                                                <i-table border :columns="objectColumns" :data="sub.props"></i-table>
+                                            </i-col>
+                                        </i-row>
+                                    </template>
                                 </i-col>
-                                <i-col>
-                                    <i-table border :columns="paramsColumns" :data="rootParams.props"></i-table>
+                                <i-col span="6" style="height: 500px;position: relative">
+                                    <anchor show-ink style="height: inherit">
+                                        <anchor-link href="#接口说明" title="接口说明"/>
+                                        <anchor-link href="#请求参数" title="请求参数"/>
+                                        <anchor-link href="#响应信息" title="响应信息"/>
+                                    </anchor>
                                 </i-col>
                             </i-row>
-
-                            <template v-for="sub of subParams">
-                                <i-row :key="sub.name">
-                                    <i-col>
-                                        <h3>类型：{{sub.title}}</h3>
-                                    </i-col>
-                                    <i-col>
-                                        <i-table border :columns="objectColumns" :data="sub.props"></i-table>
-                                    </i-col>
-                                </i-row>
-                            </template>
-
-                            <!--响应信息-->
-                            <i-row>
-                                <i-col>
-                                    <h2>响应信息</h2>
-                                </i-col>
-                                <i-col>
-                                    <i-table border :columns="responsesColumns" :data="rootResponses.props"></i-table>
-                                </i-col>
-                            </i-row>
-
-                            <template v-for="sub of subResponses">
-
-                                <i-row :key="sub.name">
-                                    <i-col>
-                                        <h3>类型：{{sub.title}}</h3>
-                                    </i-col>
-                                    <i-col>
-                                        <i-table border :columns="objectColumns" :data="sub.props"></i-table>
-                                    </i-col>
-                                </i-row>
-                            </template>
-
                         </i-tab-pane>
                         <i-tab-pane label="在线调试"></i-tab-pane>
                     </i-tabs>
@@ -198,6 +210,15 @@
 
     body {
         height: 100%;
+    }
+
+    .http-method-tag {
+        font-size: 10px;
+        font-weight: bold;
+        width: 40px;
+        display: inline-block;
+        text-align: right;
+        padding-right: 5px;
     }
 
     .row-padding-bottom .ivu-row {
