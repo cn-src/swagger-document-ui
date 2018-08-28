@@ -35,7 +35,7 @@
                             {{tag}}
                         </template>
                         <template v-for="httpEntity in httpEntities">
-                            <i-menu-item :name="httpEntity.index" :key="httpEntity.index">
+                            <i-menu-item :name="'httpEntity'+httpEntity.index" :key="httpEntity.index">
                                 <span v-if="httpEntity.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpEntity.method}}</span>
                                 <span v-else-if="httpEntity.method ==='POST'"
                                       class="http-method-tag" style="color: #FF9901;">{{httpEntity.method}}</span>
@@ -173,9 +173,10 @@
             collapsedSider() {
                 this.$refs.side1.toggleCollapse();
             },
-            menuItemAction(index) {
+            menuItemAction(menuItemName) {
+                if (!menuItemName.startsWith('httpEntity')) return;
 
-                let httpEntity = findHttpInfo(store.state.apiData, index);
+                let httpEntity = findHttpInfo(store.state.apiData, menuItemName);
                 this.$data.httpEntity = httpEntity;
 
                 this.$data.apiInfoColumns = [
