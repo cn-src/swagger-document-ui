@@ -195,13 +195,13 @@ function fixIfSchema(tar, src) {
     return tar
 }
 
-export function findHttpInfo(apiData, index) {
-    for (const httpInfosKey in apiData.collection) {
-        if (!apiData.collection.hasOwnProperty(httpInfosKey)) continue;
+export function findHttpEntity(apiData, id) {
+    for (const tagName in apiData.collection) {
+        if (!apiData.collection.hasOwnProperty(tagName)) continue;
 
-        for (const httpInfo of apiData.collection[httpInfosKey]) {
-            if (httpInfo.index === index) {
-                return httpInfo
+        for (const httpEntity of apiData.collection[tagName]) {
+            if (httpEntity.id === id) {
+                return httpEntity
             }
         }
     }

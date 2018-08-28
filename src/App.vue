@@ -135,7 +135,7 @@
 </template>
 <script>
     import store from '@/store'
-    import {findHttpInfo, findAllSchema, methodColumnRender} from '@/util/utils'
+    import {findHttpEntity, findAllSchema, methodColumnRender} from '@/util/utils'
 
     export default {
         name: 'app',
@@ -176,7 +176,7 @@
             menuItemAction(menuItemName) {
                 if (!menuItemName.startsWith('httpEntity')) return;
 
-                let httpEntity = findHttpInfo(store.state.apiData, menuItemName);
+                let httpEntity = findHttpEntity(store.state.apiData, menuItemName);
                 this.$data.httpEntity = httpEntity;
 
                 this.$data.apiInfoColumns = [
