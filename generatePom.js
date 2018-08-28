@@ -1,7 +1,7 @@
-var fs = require("fs");
+const fs = require("fs");
 
-var pg = JSON.parse(fs.readFileSync('package.json', {encoding: 'UTF-8'}));
-var data = fs.readFileSync('pom.template.xml', {encoding: 'UTF-8'});
+const pg = JSON.parse(fs.readFileSync('package.json', {encoding: 'UTF-8'}));
+let data = fs.readFileSync('pom.template.xml', {encoding: 'UTF-8'});
 
 data = data.replace(/{{artifactId}}/g, pg.name);
 data = data.replace(/{{version}}/g, pg.version);
@@ -15,6 +15,6 @@ data = data.replace(/{{license.name}}/g, pg.license);
 data = data.replace(/{{repo-git.url}}/g, pg.repository);
 data = data.replace(/{{repo.url}}/g, pg.repository.substring(0, pg.repository.length - 4));
 
-fs.writeFileSync('pom.xml', data)
+console.log("generate: pom.xml");
+fs.writeFileSync('pom.xml', data);
 
-// console.log("同步读取: " + data);
