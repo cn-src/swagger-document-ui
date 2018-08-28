@@ -29,13 +29,13 @@
                         首页
                     </i-menu-item>
 
-                    <i-submenu :name="'m'+i" :key="i" v-for="(httpEntities,tag, i) in apiData.collection">
+                    <i-submenu :name="'m'+i" :key="i" v-for="(httpEntities,tagName, i) in apiData.collection">
                         <template slot="title">
                             <i-icon type="ios-pricetags"></i-icon>
-                            {{tag}}
+                            {{tagName}}
                         </template>
                         <template v-for="httpEntity in httpEntities">
-                            <i-menu-item :name="'httpEntity'+httpEntity.index" :key="httpEntity.index">
+                            <i-menu-item :name="httpEntity.id" :key="httpEntity.id">
                                 <span v-if="httpEntity.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpEntity.method}}</span>
                                 <span v-else-if="httpEntity.method ==='POST'"
                                       class="http-method-tag" style="color: #FF9901;">{{httpEntity.method}}</span>

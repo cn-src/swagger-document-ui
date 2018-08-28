@@ -44,7 +44,7 @@ export function fixSwaggerJson(swaggerJson) {
 
                     if (tag === tagName) {
                         let httpEntity = {};
-                        httpEntity.index = index++;
+                        httpEntity.id = 'httpEntity' + index++;
                         httpEntity.name = methodInfo.summary;
                         httpEntity.path = path;
                         httpEntity.method = method.toUpperCase();
