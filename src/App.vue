@@ -15,7 +15,7 @@
                         <span style="font-size: 20px;">
                             {{apiData.info && apiData.info.title}}
                         </span>
-                        <i-icon type="md-repeat"></i-icon>
+                        <i-icon type="md-repeat" size="20"></i-icon>
                     </i-menu-item>
                 </div>
             </i-menu>
