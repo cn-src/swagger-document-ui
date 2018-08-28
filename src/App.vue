@@ -2,7 +2,7 @@
     <i-layout>
         <i-header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
             <i-menu mode="horizontal" theme="dark">
-                <i-menu-item name="0" :style="{width: '200px',height: '60px'}">
+                <i-menu-item name="0" :style="{width: '200px'}">
                     <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable v-show="!isCollapsed"/>
                 </i-menu-item>
                 <i-menu-item name="1">
@@ -19,7 +19,7 @@
         </i-header>
         <i-layout :style="{marginTop:'64px',background: '#FFF'}">
             <i-sider ref="side1" hide-trigger
-                     :style="{position: 'fixed',height: '100vh', left: 0,overflow: 'auto'}"
+                     :style="{height: '100vh'}"
                      collapsible
                      :collapsed-width="0"
                      v-model="isCollapsed">
@@ -53,12 +53,11 @@
                     </i-submenu>
                 </i-menu>
             </i-sider>
-            <i-content :style="{padding: '24px', background: '#fff',marginLeft: '200px'}">
-                <i-row :gutter="16">
-                    <i-col span="20">
-                        <i-tabs>
-                            <i-tab-pane label="API 文档" class="row-padding-bottom">
-
+            <i-content :style="{padding: '24px', background: '#fff'}">
+                <i-tabs>
+                    <i-tab-pane label="API 文档" icon="md-document">
+                        <div>
+                            <div>
                                 <i-row class="no-border">
                                     <i-col>
                                         <h2 id="h2_1">接口说明</h2>
@@ -118,18 +117,18 @@
                                         </i-col>
                                     </i-row>
                                 </template>
-                            </i-tab-pane>
-                            <i-tab-pane label="在线调试"></i-tab-pane>
-                        </i-tabs>
-                    </i-col>
-                    <i-col span="4">
-                        <!--<i-anchor show-ink>-->
-                        <!--<i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>-->
-                        <!--<i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>-->
-                        <!--<i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>-->
-                        <!--</i-anchor>-->
-                    </i-col>
-                </i-row>
+                            </div>
+                        </div>
+                        <div>
+                            <i-anchor show-ink>
+                                <i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>
+                                <i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>
+                                <i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>
+                            </i-anchor>
+                        </div>
+                    </i-tab-pane>
+                    <i-tab-pane label="在线调试" icon="md-bug">Waiting...</i-tab-pane>
+                </i-tabs>
             </i-content>
         </i-layout>
     </i-layout>
