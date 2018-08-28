@@ -3,7 +3,7 @@
         <i-header :style="{padding: 0,position: 'fixed', width: '100%'}">
             <i-menu mode="horizontal" theme="dark">
                 <i-menu-item name="0" :style="{width: '200px'}">
-                    <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable v-show="!isCollapsed"/>
+                    <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable v-show="!isCollapsed"></i-input>
                 </i-menu-item>
                 <i-menu-item name="1">
                     <i-icon @click.native="collapsedSider"
