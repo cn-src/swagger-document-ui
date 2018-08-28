@@ -1,9 +1,9 @@
 <template>
     <i-layout>
-        <i-header :style="{padding: 0}">
+        <i-header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
             <i-menu mode="horizontal" theme="dark">
-                <div class="layout-logo"></div>
-                <div class="layout-nav">
+                <div></div>
+                <div>
                     <i-menu-item name="0" :style="{width: '200px'}" v-if="!isCollapsed">
                         <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable/>
                     </i-menu-item>
@@ -20,10 +20,13 @@
                 </div>
             </i-menu>
         </i-header>
-        <i-layout>
-            <i-sider ref="side1" hide-trigger :style="{background: '#fff'}" collapsible :collapsed-width="0"
+        <i-layout :style="{marginTop:'64px'}">
+            <i-sider ref="side1" hide-trigger
+                     :style="{position: 'fixed',height: '100vh', left: 0,overflow: 'auto'}"
+                     collapsible
+                     :collapsed-width="0"
                      v-model="isCollapsed">
-                <i-menu theme="light" width="auto" :open-names="['1']" style="height: 100%" @on-select="menuItemAction">
+                <i-menu theme="dark" width="auto" @on-select="menuItemAction">
                     <i-menu-item :name="'home'">
                         <i-icon type="md-home"></i-icon>
                         首页
@@ -36,7 +39,8 @@
                         </template>
                         <template v-for="httpEntity in httpEntities">
                             <i-menu-item :name="httpEntity.id" :key="httpEntity.id">
-                                <span v-if="httpEntity.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpEntity.method}}</span>
+                                    <span v-if="httpEntity.method ==='GET'" style="color: #18BE6B;"
+                                          class="http-method-tag">{{httpEntity.method}}</span>
                                 <span v-else-if="httpEntity.method ==='POST'"
                                       class="http-method-tag" style="color: #FF9901;">{{httpEntity.method}}</span>
                                 <span v-else-if="httpEntity.method ==='PUT'"
@@ -52,7 +56,7 @@
                     </i-submenu>
                 </i-menu>
             </i-sider>
-            <i-content :style="{padding: '24px', background: '#fff'}">
+            <i-content :style="{padding: '24px', background: '#fff',marginLeft: '200px'}">
                 <i-row :gutter="16">
                     <i-col span="20">
                         <i-tabs>
@@ -122,11 +126,11 @@
                         </i-tabs>
                     </i-col>
                     <i-col span="4">
-                        <i-anchor show-ink>
-                            <i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>
-                            <i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>
-                            <i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>
-                        </i-anchor>
+                        <!--<i-anchor show-ink>-->
+                        <!--<i-anchor-link href="#h2_1" title="接口说明"></i-anchor-link>-->
+                        <!--<i-anchor-link href="#h2_2" title="请求参数"></i-anchor-link>-->
+                        <!--<i-anchor-link href="#h2_3" title="响应信息"></i-anchor-link>-->
+                        <!--</i-anchor>-->
                     </i-col>
                 </i-row>
             </i-content>
@@ -208,14 +212,6 @@
     }
 </script>
 <style>
-    html {
-        height: 100%;
-    }
-
-    body {
-        height: 100%;
-    }
-
     .http-method-tag {
         font-size: 10px;
         font-weight: bold;
