@@ -19,7 +19,7 @@
         </i-header>
         <i-layout :style="{marginTop:'64px',background: '#FFF'}">
             <i-sider ref="side1" hide-trigger
-                     :style="{width:'250px',minWidth:'250px',maxWidth:'250px',height: '100vh',overflow: 'scroll',whiteSpace:'nowrap'}"
+                     :style="{width:'250px',minWidth:'250px',maxWidth:'250px',height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
                      collapsible
                      :collapsed-width="0"
                      v-model="isCollapsed">
