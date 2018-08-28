@@ -76,7 +76,7 @@
                                     <i-row :key="sub.name">
                                         <i-col>
                                             <h3>类型
-                                                <i-icon type="md-arrow-dropright" size="20"/>
+                                                <i-icon type="md-arrow-dropright" size="20"></i-icon>
                                                 {{sub.title}}
                                             </h3>
                                         </i-col>
@@ -102,7 +102,7 @@
                                     <i-row :key="sub.name">
                                         <i-col>
                                             <h3>类型
-                                                <i-icon type="md-arrow-dropright" size="20"/>
+                                                <i-icon type="md-arrow-dropright" size="20"></i-icon>
                                                 {{sub.title}}
                                             </h3>
                                         </i-col>
