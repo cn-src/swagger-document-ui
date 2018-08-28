@@ -2,25 +2,22 @@
     <i-layout>
         <i-header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
             <i-menu mode="horizontal" theme="dark">
-                <div></div>
-                <div>
-                    <i-menu-item name="0" :style="{width: '200px'}" v-if="!isCollapsed">
-                        <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable/>
-                    </i-menu-item>
-                    <i-menu-item name="1">
-                        <i-icon @click.native="collapsedSider"
-                                type="md-menu" size="24"></i-icon>
-                    </i-menu-item>
-                    <i-menu-item name="2">
+                <i-menu-item name="0" :style="{width: '200px',height: '60px'}">
+                    <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable v-show="!isCollapsed"/>
+                </i-menu-item>
+                <i-menu-item name="1">
+                    <i-icon @click.native="collapsedSider"
+                            type="md-menu" size="24"></i-icon>
+                </i-menu-item>
+                <i-menu-item name="2">
                         <span style="font-size: 20px;">
                             {{apiData.info && apiData.info.title}}
                         </span>
-                        <i-icon type="md-repeat" size="20"></i-icon>
-                    </i-menu-item>
-                </div>
+                    <i-icon type="md-repeat" size="20"></i-icon>
+                </i-menu-item>
             </i-menu>
         </i-header>
-        <i-layout :style="{marginTop:'64px'}">
+        <i-layout :style="{marginTop:'64px',background: '#FFF'}">
             <i-sider ref="side1" hide-trigger
                      :style="{position: 'fixed',height: '100vh', left: 0,overflow: 'auto'}"
                      collapsible
