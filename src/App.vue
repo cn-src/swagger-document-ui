@@ -4,13 +4,18 @@
             <i-menu mode="horizontal" theme="dark" active-name="1">
                 <div class="layout-logo"></div>
                 <div class="layout-nav">
-                    <i-menu-item name="1" v-if="!isCollapsed" :style="{width: '200px'}">
-                        <i-icon type="ios-navigate"></i-icon>
-                        Item 1
+                    <i-menu-item name="0" :style="{width: '200px'}" v-if="!isCollapsed">
+                        <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable/>
                     </i-menu-item>
-                    <i-menu-item name="2">
+                    <i-menu-item name="1">
                         <i-icon @click.native="collapsedSider"
                                 type="md-menu" size="24"></i-icon>
+                    </i-menu-item>
+                    <i-menu-item name="2">
+                        <span style="font-size: 20px;">
+                            {{apiData.info && apiData.info.title}}
+                        </span>
+                        <i-icon type="md-repeat"></i-icon>
                     </i-menu-item>
                 </div>
             </i-menu>
@@ -124,6 +129,7 @@
         name: 'app',
         data() {
             return {
+                tagsKeyWord: '',
                 isCollapsed: false,
                 apiInfoColumns: [],
                 paramsColumns: [

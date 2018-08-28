@@ -18,6 +18,7 @@
  */
 export function fixSwaggerJson(swaggerJson) {
     let apiData = {
+        info: swaggerJson.info,
         definitions: fixDefinitions(swaggerJson.definitions),
         collection: {}
     };
