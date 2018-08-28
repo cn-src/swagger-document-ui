@@ -1,7 +1,7 @@
 <template>
-    <i-layout :style="{minHeight: '100vh'}">
+    <i-layout>
         <i-header :style="{padding: 0}">
-            <i-menu mode="horizontal" theme="dark" active-name="1">
+            <i-menu mode="horizontal" theme="dark">
                 <div class="layout-logo"></div>
                 <div class="layout-nav">
                     <i-menu-item name="0" :style="{width: '200px'}" v-if="!isCollapsed">
