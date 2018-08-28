@@ -24,9 +24,19 @@
             <i-sider ref="side1" hide-trigger :style="{background: '#fff'}" collapsible :collapsed-width="0"
                      v-model="isCollapsed">
                 <i-menu theme="light" width="auto" :open-names="['1']" style="height: 100%" @on-select="menuItemAction">
+                    <i-submenu :name="'base'">
+                        <template slot="title">
+                            <i-icon type="md-home"></i-icon>
+                            首页
+                        </template>
+                        <i-menu-item :name="'base_0'">
+
+                        </i-menu-item>
+                    </i-submenu>
+
                     <i-submenu :name="'m'+i" :key="i" v-for="(httpEntities,tag, i) in apiData.collection">
                         <template slot="title">
-                            <i-icon type="ios-book"></i-icon>
+                            <i-icon type="ios-pricetags"></i-icon>
                             {{tag}}
                         </template>
                         <template v-for="httpEntity in httpEntities">
