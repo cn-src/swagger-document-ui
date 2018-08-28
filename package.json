@@ -29,6 +29,8 @@
     "babel-jest": "^23.0.1",
     "iview-loader": "^1.2.1",
     "jest": "^23.5.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.17"
   }
 }
