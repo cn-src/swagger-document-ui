@@ -19,7 +19,7 @@
         </i-header>
         <i-layout :style="{marginTop:'64px',background: '#FFF'}">
             <i-sider ref="side1" hide-trigger
-                     :style="{width:'250px',maxWidth:'250px',height: '100vh',position: 'fixed',overflow: 'scroll',whiteSpace:'nowrap'}"
+                     :style="{width:'250px',minWidth:'250px',maxWidth:'250px',height: '100vh',overflow: 'scroll',whiteSpace:'nowrap'}"
                      collapsible
                      :collapsed-width="0"
                      v-model="isCollapsed">
@@ -53,7 +53,7 @@
                     </i-submenu>
                 </i-menu>
             </i-sider>
-            <i-content :style="{padding: '24px',marginLeft:'250px', background: '#fff'}">
+            <i-content :style="{padding: '24px', background: '#fff'}">
                 <i-tabs>
                     <i-tab-pane label="API 文档" icon="md-document" :style="{height: '100vh',overflow: 'scroll'}">
                         <div>
