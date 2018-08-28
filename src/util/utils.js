@@ -39,20 +39,20 @@ export function fixSwaggerJson(swaggerJson) {
 
             for (let tag of methodInfo.tags) {
 
-                for (let collKey in apiData.collection) {
-                    if (!apiData.collection.hasOwnProperty(collKey)) continue;
+                for (let tagName in apiData.collection) {
+                    if (!apiData.collection.hasOwnProperty(tagName)) continue;
 
-                    if (tag === collKey) {
-                        let httpInfo = {};
-                        httpInfo.index = index++;
-                        httpInfo.name = methodInfo.summary;
-                        httpInfo.path = path;
-                        httpInfo.method = method.toUpperCase();
-                        httpInfo.produces = methodInfo.produces;
-                        httpInfo.consumes = methodInfo.consumes;
-                        httpInfo.params = fixParams(methodInfo.parameters);
-                        httpInfo.responses = fixResponses(methodInfo.responses);
-                        apiData.collection[collKey].push(httpInfo)
+                    if (tag === tagName) {
+                        let httpEntity = {};
+                        httpEntity.index = index++;
+                        httpEntity.name = methodInfo.summary;
+                        httpEntity.path = path;
+                        httpEntity.method = method.toUpperCase();
+                        httpEntity.produces = methodInfo.produces;
+                        httpEntity.consumes = methodInfo.consumes;
+                        httpEntity.params = fixParams(methodInfo.parameters);
+                        httpEntity.responses = fixResponses(methodInfo.responses);
+                        apiData.collection[tagName].push(httpEntity)
                     }
                 }
             }

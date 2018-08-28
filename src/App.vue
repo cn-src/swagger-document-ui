@@ -24,23 +24,24 @@
             <i-sider ref="side1" hide-trigger :style="{background: '#fff'}" collapsible :collapsed-width="0"
                      v-model="isCollapsed">
                 <i-menu theme="light" width="auto" :open-names="['1']" style="height: 100%" @on-select="menuItemAction">
-                    <i-submenu :name="'m'+i" :key="i" v-for="(httpInfos,tag, i) in apiData.collection">
+                    <i-submenu :name="'m'+i" :key="i" v-for="(httpEntities,tag, i) in apiData.collection">
                         <template slot="title">
                             <i-icon type="ios-book"></i-icon>
                             {{tag}}
                         </template>
-                        <template v-for="httpInfo in httpInfos">
-                            <i-menu-item :name="httpInfo.index" :key="httpInfo.index">
-                                <span v-if="httpInfo.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpInfo.method}}</span>
-                                <span v-else-if="httpInfo.method ==='POST'"
-                                      class="http-method-tag" style="color: #FF9901;">{{httpInfo.method}}</span>
-                                <span v-else-if="httpInfo.method ==='PUT'"
-                                      class="http-method-tag" style="color: #2D8CF0;">{{httpInfo.method}}</span>
-                                <span v-else-if="httpInfo.method ==='DELETE'"
-                                      class="http-method-tag" style="color: #ED4015;">{{httpInfo.method}}</span>
-                                <span v-else class="http-method-tag" style="color: #EEEEEE;">{{httpInfo.method}}</span>
+                        <template v-for="httpEntity in httpEntities">
+                            <i-menu-item :name="httpEntity.index" :key="httpEntity.index">
+                                <span v-if="httpEntity.method ==='GET'" style="color: #18BE6B;" class="http-method-tag">{{httpEntity.method}}</span>
+                                <span v-else-if="httpEntity.method ==='POST'"
+                                      class="http-method-tag" style="color: #FF9901;">{{httpEntity.method}}</span>
+                                <span v-else-if="httpEntity.method ==='PUT'"
+                                      class="http-method-tag" style="color: #2D8CF0;">{{httpEntity.method}}</span>
+                                <span v-else-if="httpEntity.method ==='DELETE'"
+                                      class="http-method-tag" style="color: #ED4015;">{{httpEntity.method}}</span>
+                                <span v-else class="http-method-tag"
+                                      style="color: #EEEEEE;">{{httpEntity.method}}</span>
 
-                                {{httpInfo.name}}
+                                {{httpEntity.name}}
                             </i-menu-item>
                         </template>
                     </i-submenu>
@@ -156,7 +157,7 @@
                     {title: '类型', key: 'type'},
                     {title: '格式', key: 'format'}],
                 apiInfo: [],
-                httpInfo: {},
+                httpEntity: {},
                 rootParams: {},
                 subParams: [],
                 rootResponses: {},
@@ -169,26 +170,26 @@
             },
             menuItemAction(index) {
 
-                let httpInfo = findHttpInfo(store.state.apiData, index);
-                this.$data.httpInfo = httpInfo;
+                let httpEntity = findHttpInfo(store.state.apiData, index);
+                this.$data.httpEntity = httpEntity;
 
                 this.$data.apiInfoColumns = [
                     {title: '', key: 'k1', width: 110, align: 'right', render: methodColumnRender},
                     {title: '', key: 'k2'}];
 
                 this.$data.apiInfo = [
-                    {k1: httpInfo.method, k2: httpInfo.path},
-                    {k1: '请求体类型', k2: httpInfo.consumes},
-                    {k1: '响应体类型', k2: httpInfo.produces}];
+                    {k1: httpEntity.method, k2: httpEntity.path},
+                    {k1: '请求体类型', k2: httpEntity.consumes},
+                    {k1: '响应体类型', k2: httpEntity.produces}];
 
-                this.$data.rootParams = httpInfo.params;
+                this.$data.rootParams = httpEntity.params;
                 const subParams = [];
-                findAllSchema(httpInfo.params, store.state.apiData.definitions, subParams);
+                findAllSchema(httpEntity.params, store.state.apiData.definitions, subParams);
                 this.$data.subParams = subParams;
 
-                this.$data.rootResponses = httpInfo.responses;
+                this.$data.rootResponses = httpEntity.responses;
                 const subResponses = [];
-                findAllSchema(httpInfo.responses, store.state.apiData.definitions, subResponses);
+                findAllSchema(httpEntity.responses, store.state.apiData.definitions, subResponses);
                 this.$data.subResponses = subResponses
 
             }
