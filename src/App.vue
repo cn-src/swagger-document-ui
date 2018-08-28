@@ -1,6 +1,6 @@
 <template>
-    <i-layout>
-        <i-header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
+    <i-layout stype="overflow-y:hide">
+        <i-header :style="{padding: 0,position: 'fixed', width: '100%'}">
             <i-menu mode="horizontal" theme="dark">
                 <i-menu-item name="0" :style="{width: '200px'}">
                     <i-input v-model="tagsKeyWord" placeholder="过滤..." clearable v-show="!isCollapsed"/>
@@ -19,7 +19,7 @@
         </i-header>
         <i-layout :style="{marginTop:'64px',background: '#FFF'}">
             <i-sider ref="side1" hide-trigger
-                     :style="{height: '100vh'}"
+                     :style="{width:'300px',maxWidth:'250px',height: '100vh',position: 'fixed',overflow: 'scroll',whiteSpace:'nowrap'}"
                      collapsible
                      :collapsed-width="0"
                      v-model="isCollapsed">
@@ -53,9 +53,9 @@
                     </i-submenu>
                 </i-menu>
             </i-sider>
-            <i-content :style="{padding: '24px', background: '#fff'}">
+            <i-content :style="{padding: '24px',marginLeft:'250px', background: '#fff'}">
                 <i-tabs>
-                    <i-tab-pane label="API 文档" icon="md-document">
+                    <i-tab-pane label="API 文档" icon="md-document" :style="{height: '100vh',overflow: 'scroll'}">
                         <div>
                             <div>
                                 <i-row class="no-border">
@@ -208,6 +208,10 @@
     }
 </script>
 <style>
+    html {
+        overflow-y: hidden;
+    }
+
     .http-method-tag {
         font-size: 10px;
         font-weight: bold;
