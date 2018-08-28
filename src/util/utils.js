@@ -93,9 +93,7 @@ function fixDefinitions(definitions) {
  * 根据参数，尾递归找到所有的Schema信息.
  */
 export function findAllSchema(fixObj, definitions, subFixObjs) {
-    if (typeof(fixObj) === 'undefined' || fixObj === null
-        || typeof(definitions) === 'undefined' || definitions === null
-        || typeof(fixObj.props) === "undefined") {
+    if (!fixObj || !definitions || !fixObj.props) {
         return emptyFixObj()
     }
     for (let prop of fixObj.props) {
@@ -119,7 +117,7 @@ export function findAllSchema(fixObj, definitions, subFixObjs) {
  * @returns {*}
  */
 function fixParams(parameters) {
-    if (typeof(parameters) === 'undefined' || parameters === null) {
+    if (!parameters) {
         return emptyFixObj()
     }
     let fixObj = emptyFixObj();
