@@ -207,7 +207,7 @@
         }
     }
 </script>
-<style>
+<style lang="less">
     html {
         overflow-y: hidden;
     }
@@ -227,17 +227,20 @@
     }
 
     /*noinspection CssUnusedSymbol*/
+    .no-border {
+        .ivu-table-wrapper {
+            border: 0 solid #dcdee2;
+            td {
+                border: 0 solid #e8eaec;
+            }
+        }
+        .ivu-table:after {
+            width: 0;
+
+        }
+    }
+
     .no-border .ivu-table-wrapper {
-        border: 0 solid #dcdee2;
-    }
-
-    .no-border .ivu-table-wrapper td {
-        border: 0 solid #e8eaec;
-    }
-
-    /*noinspection CssUnusedSymbol*/
-    .no-border .ivu-table:after {
-        width: 0;
     }
 
 </style>
