@@ -36,17 +36,7 @@
                         </template>
                         <template v-for="httpEntity in httpEntities">
                             <i-menu-item :name="httpEntity.id" :key="httpEntity.id">
-                                    <span v-if="httpEntity.method ==='GET'" style="color: #18BE6B;"
-                                          class="http-method-tag">{{httpEntity.method}}</span>
-                                <span v-else-if="httpEntity.method ==='POST'"
-                                      class="http-method-tag" style="color: #FF9901;">{{httpEntity.method}}</span>
-                                <span v-else-if="httpEntity.method ==='PUT'"
-                                      class="http-method-tag" style="color: #2D8CF0;">{{httpEntity.method}}</span>
-                                <span v-else-if="httpEntity.method ==='DELETE'"
-                                      class="http-method-tag" style="color: #ED4015;">{{httpEntity.method}}</span>
-                                <span v-else class="http-method-tag"
-                                      style="color: #EEEEEE;">{{httpEntity.method}}</span>
-
+                                <method-tag :method="httpEntity.method"/>
                                 {{httpEntity.name}}
                             </i-menu-item>
                         </template>
@@ -135,10 +125,12 @@
 </template>
 <script>
     import store from '@/store'
+    import MethodTag from '@/components/method-tag'
     import {findHttpEntity, findAllSchema, methodColumnRender} from '@/util/utils'
 
     export default {
         name: 'app',
+        components: {MethodTag},
         data() {
             return {
                 tagsKeyWord: '',
@@ -210,15 +202,6 @@
 <style lang="less">
     html {
         overflow-y: hidden;
-    }
-
-    .http-method-tag {
-        font-size: 10px;
-        font-weight: bold;
-        width: 40px;
-        display: inline-block;
-        text-align: right;
-        padding-right: 5px;
     }
 
     /*noinspection CssUnusedSymbol*/
