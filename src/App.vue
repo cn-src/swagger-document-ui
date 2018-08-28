@@ -75,7 +75,10 @@
                                 <template v-for="sub of subParams">
                                     <i-row :key="sub.name">
                                         <i-col>
-                                            <h3>类型：{{sub.title}}</h3>
+                                            <h3>类型
+                                                <i-icon type="md-arrow-dropright" size="20"/>
+                                                {{sub.title}}
+                                            </h3>
                                         </i-col>
                                         <i-col>
                                             <i-table border :columns="objectColumns" :data="sub.props"></i-table>
@@ -98,7 +101,10 @@
 
                                     <i-row :key="sub.name">
                                         <i-col>
-                                            <h3>类型：{{sub.title}}</h3>
+                                            <h3>类型
+                                                <i-icon type="md-arrow-dropright" size="20"/>
+                                                {{sub.title}}
+                                            </h3>
                                         </i-col>
                                         <i-col>
                                             <i-table border :columns="objectColumns" :data="sub.props"></i-table>
@@ -172,8 +178,8 @@
 
                 this.$data.apiInfo = [
                     {k1: httpInfo.method, k2: httpInfo.path},
-                    {k1: '请求体类型：', k2: httpInfo.consumes},
-                    {k1: '响应体类型：', k2: httpInfo.produces}];
+                    {k1: '请求体类型', k2: httpInfo.consumes},
+                    {k1: '响应体类型', k2: httpInfo.produces}];
 
                 this.$data.rootParams = httpInfo.params;
                 const subParams = [];
