@@ -214,19 +214,6 @@ const colorsMap = {
     'DELETE': 'error'
 };
 
-// TODO
-export function methodRender(h, method) {
-
-    const colorFromMap = colorsMap[method];
-    let color = colorFromMap ? colorFromMap : 'default';
-
-    return h('Tag', {
-        props: {
-            color: color
-        }
-    })
-}
-
 export function methodColumnRender(h, params) {
     if (params.index === 0) {
 

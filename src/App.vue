@@ -225,10 +225,12 @@
         padding-right: 5px;
     }
 
+    /*noinspection CssUnusedSymbol*/
     .row-padding-bottom .ivu-row {
         padding-bottom: 50px;
     }
 
+    /*noinspection CssUnusedSymbol*/
     .no-border .ivu-table-wrapper {
         border: 0 solid #dcdee2;
     }
@@ -237,6 +239,7 @@
         border: 0 solid #e8eaec;
     }
 
+    /*noinspection CssUnusedSymbol*/
     .no-border .ivu-table:after {
         width: 0;
     }
