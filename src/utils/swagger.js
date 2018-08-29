@@ -16,7 +16,7 @@
  * }
  *
  */
-let data;
+let data = {};
 
 function fixSwaggerJson(swaggerJson) {
     data = {
