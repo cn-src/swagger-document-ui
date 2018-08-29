@@ -46,7 +46,7 @@
           </Submenu>
         </Menu>
       </Sider>
-      <Content :style="{padding: '24px', background: '#fff'}">
+      <Content :style="{padding: '24px 0 0 24px', background: '#fff'}">
         <Tabs>
           <TabPane :style="{height: '85vh',overflowY: 'auto'}" label="API 文档" icon="md-document">
             <div>
