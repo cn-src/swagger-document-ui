@@ -4,8 +4,8 @@ import App from './App.vue'
 import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-import {fixSwaggerJson} from '@/utils/swagger'
-import swagger from '../tests/unit/utils/swagger.json'
+import swagger from '@/utils/swagger'
+import swaggerJson from '../tests/unit/utils/swagger.json'
 
 Vue.use(iView);
 
@@ -16,7 +16,7 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app');
-store.commit('saveApiData', fixSwaggerJson(swagger));
+store.commit('saveApiData', swagger.fixSwaggerJson(swaggerJson));
 
 // axios.get('https://petstore.swagger.io/v2/swagger.json')
 //     .then(function (response) {
