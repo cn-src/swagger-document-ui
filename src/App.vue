@@ -226,7 +226,4 @@
         }
     }
 
-    .no-border .ivu-table-wrapper {
-    }
-
 </style>
