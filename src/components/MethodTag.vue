@@ -17,7 +17,12 @@
         return colorFromMap ? colorFromMap : '#EEEEEE';
       }
     },
-    props: {method: String}
+    props: {
+      method: {
+        type: String,
+        default: ''
+      }
+    }
   }
 </script>
 
