@@ -244,11 +244,11 @@ function getSchemaName(schemaRef) {
 }
 
 function emptyBean() {
-    let empty = {};
-    empty.title = '';
-    empty.type = '';
-    empty.props = [];
-    return empty
+    return {
+        title: '',
+        type: '',
+        props: []
+    }
 }
 
 export default {
