@@ -236,7 +236,11 @@ const colorsMap = {
  * @returns {string} name
  */
 function getSchemaName(schemaRef) {
-    return schemaRef.substring('#/definitions/'.length)
+    const REF = '#/definitions/';
+    if (schemaRef.startsWith(REF)) {
+        return schemaRef.substring(REF.length)
+    }
+    return ''
 }
 
 function emptyBean() {
