@@ -39,7 +39,7 @@
             </template>
             <template v-for="httpEntity in httpEntities">
               <MenuItem :name="httpEntity.id" :key="httpEntity.id">
-                <MethodTag :method="httpEntity.method"/>
+                <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
                 {{ httpEntity.name }}
               </MenuItem>
             </template>
