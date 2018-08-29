@@ -50,70 +50,70 @@
         <Tabs>
           <TabPane label="API 文档" icon="md-document">
             <div id="doc-content" :style="{height: '85vh',overflowY: 'auto'}">
-              <ul>
-                <li><h2 id="h2_1">接口说明</h2>
-                </li>
-                <li class="no-border">
-                  <Table :columns="apiInfoColumns" :data="apiInfo"
-                         :show-header="false"/>
-                </li>
-
-                <!--参数信息-->
-                <li>
-                  <h2 id="h2_2">请求参数</h2>
-                </li>
-                <li>
-                  <Table :columns="paramsColumns" :data="rootParams.props" border/>
-                </li>
-
-                <template v-for="sub of subParams">
-                  <li :key="sub.name">
-                    <ul>
-                      <li>
-                        <h3>类型
-                          <Icon type="md-arrow-dropright" size="20"/>
-                          {{ sub.title }}
-                        </h3>
-                      </li>
-                      <li>
-                        <Table :columns="objectColumns" :data="sub.props" border/>
-                      </li>
-                    </ul>
+              <div :style="{width:'75vw'}">
+                <ul>
+                  <li><h2 id="h2_1">接口说明</h2>
                   </li>
-                </template>
-
-                <!--响应信息-->
-                <li>
-                  <h2 id="h2_3">响应信息</h2>
-                </li>
-                <li>
-                  <Table :columns="responsesColumns" :data="rootResponses.props"
-                         border/>
-                </li>
-
-                <template v-for="sub of subResponses">
-                  <li :key="sub.name">
-                    <ul>
-                      <li>
-                        <h3>类型
-                          <Icon type="md-arrow-dropright" size="20"/>
-                          {{ sub.title }}
-                        </h3>
-                      </li>
-                      <li>
-                        <Table :columns="objectColumns" :data="sub.props" border/>
-                      </li>
-                    </ul>
+                  <li class="no-border">
+                    <Table :columns="apiInfoColumns" :data="apiInfo"
+                           :show-header="false"/>
                   </li>
-                </template>
-              </ul>
-              <div>
-                <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
-                  <AnchorLink href="#h2_1" title="接口说明"/>
-                  <AnchorLink href="#h2_2" title="请求参数"/>
-                  <AnchorLink href="#h2_3" title="响应信息"/>
-                </Anchor>
+
+                  <!--参数信息-->
+                  <li>
+                    <h2 id="h2_2">请求参数</h2>
+                  </li>
+                  <li>
+                    <Table :columns="paramsColumns" :data="rootParams.props" border/>
+                  </li>
+
+                  <template v-for="sub of subParams">
+                    <li :key="sub.name">
+                      <ul>
+                        <li>
+                          <h3>类型
+                            <Icon type="md-arrow-dropright" size="20"/>
+                            {{ sub.title }}
+                          </h3>
+                        </li>
+                        <li>
+                          <Table :columns="objectColumns" :data="sub.props" border/>
+                        </li>
+                      </ul>
+                    </li>
+                  </template>
+
+                  <!--响应信息-->
+                  <li>
+                    <h2 id="h2_3">响应信息</h2>
+                  </li>
+                  <li>
+                    <Table :columns="responsesColumns" :data="rootResponses.props"
+                           border/>
+                  </li>
+
+                  <template v-for="sub of subResponses">
+                    <li :key="sub.name">
+                      <ul>
+                        <li>
+                          <h3>类型
+                            <Icon type="md-arrow-dropright" size="20"/>
+                            {{ sub.title }}
+                          </h3>
+                        </li>
+                        <li>
+                          <Table :columns="objectColumns" :data="sub.props" border/>
+                        </li>
+                      </ul>
+                    </li>
+                  </template>
+                </ul>
               </div>
+              <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
+                <AnchorLink href="#h2_1" title="接口说明"/>
+                <AnchorLink href="#h2_2" title="请求参数"/>
+                <AnchorLink href="#h2_3" title="响应信息"/>
+              </Anchor>
             </div>
           </TabPane>
           <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
