@@ -11,7 +11,7 @@ module.exports = {
         'no-console': 'off',
         'no-debugger': 'off',
         'vue/max-attributes-per-line': 'off',
-        'vue/no-parsing-error': 'off'
+        "vue/no-parsing-error": [2, {"x-invalid-end-tag": false}]
     },
     parserOptions: {
         parser: 'babel-eslint'
