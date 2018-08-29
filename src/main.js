@@ -9,14 +9,14 @@ import swagger from '../tests/unit/swagger.json'
 
 Vue.use(iView);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
     router,
     store,
     render: h => h(App)
-}).$mount('#app')
-store.commit('saveApiData', fixSwaggerJson(swagger))
+}).$mount('#app');
+store.commit('saveApiData', fixSwaggerJson(swagger));
 
 // axios.get('https://petstore.swagger.io/v2/swagger.json')
 //     .then(function (response) {
