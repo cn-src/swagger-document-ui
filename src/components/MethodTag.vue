@@ -1,38 +1,38 @@
 <template>
-  <span :style="{color:actionColor(method)}" class="http-method-tag">{{ method }}</span>
+    <span :style="{color:actionColor(method)}" class="http-method-tag">{{ method }}</span>
 </template>
 
 <script>
-  const colorsMap = {
-    'GET': '#18BE6B',
-    'POST': '#FF9901',
-    'PUT': '#2D8CF0',
-    'DELETE': '#ED4015'
-  };
-  export default {
-    name: "MethodTag",
-    props: {
-      method: {
-        type: String,
-        default: ''
-      }
-    },
-    methods: {
-      actionColor(method) {
-        const colorFromMap = colorsMap[method];
-        return colorFromMap ? colorFromMap : '#EEEEEE';
-      }
-    },
-  }
+    const colorsMap = {
+        'GET': '#18BE6B',
+        'POST': '#FF9901',
+        'PUT': '#2D8CF0',
+        'DELETE': '#ED4015'
+    };
+    export default {
+        name: "MethodTag",
+        props: {
+            method: {
+                type: String,
+                default: ''
+            }
+        },
+        methods: {
+            actionColor(method) {
+                const colorFromMap = colorsMap[method];
+                return colorFromMap ? colorFromMap : '#EEEEEE';
+            }
+        },
+    }
 </script>
 
 <style scoped>
-  .http-method-tag {
-    font-size: 10px;
-    font-weight: bold;
-    width: 40px;
-    display: inline-block;
-    text-align: right;
-    padding-right: 5px;
-  }
+    .http-method-tag {
+        font-size: 10px;
+        font-weight: bold;
+        width: 40px;
+        display: inline-block;
+        text-align: right;
+        padding-right: 5px;
+    }
 </style>
