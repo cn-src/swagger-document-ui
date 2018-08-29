@@ -1,23 +1,23 @@
 <template>
   <Layout stype="overflow-y:hide">
-    <Header :style="{padding: 0,position: 'fixed', width: '100%'}">
+    <Header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
       <Menu mode="horizontal" theme="dark">
         <MenuItem :style="{width: '200px'}" name="0">
         <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
-                </MenuItem>
+        </MenuItem>
         <MenuItem name="1">
         <Icon type="md-menu"
               size="24" @click.native="collapsedSider"/>
-                </MenuItem>
+        </MenuItem>
         <MenuItem name="2">
         <span style="font-size: 20px;">
           {{ apiData.info && apiData.info.title }}
         </span>
         <Icon type="md-repeat" size="20"/>
-                </MenuItem>
+        </MenuItem>
       </Menu>
     </Header>
-    <Layout :style="{marginTop:'64px',background: '#FFF'}">
+    <Layout :style="{position:'relative',top:'64px',background: '#FFF'}">
       <!-- TODO class + !important提权 -->
       <!--自定义宽度在收缩时存在问题，因优先级问题只能用 style 内联更改 -->
       <Sider ref="side1" :style="{width: isCollapsed?0:'250px', minWidth: isCollapsed?0:'250px', maxWidth: isCollapsed?0:'250px', flex: isCollapsed?'0 0 0':'0 0 250px',
@@ -30,7 +30,7 @@
           <MenuItem :name="'home'">
           <Icon type="md-home"/>
           首页
-                    </MenuItem>
+          </MenuItem>
 
           <Submenu v-for="(httpEntities,tagName, i) in apiData.collection" :name="'m'+i" :key="i">
             <template slot="title">
@@ -41,83 +41,79 @@
               <MenuItem :name="httpEntity.id" :key="httpEntity.id">
               <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
               {{ httpEntity.name }}
-                            </MenuItem>
+              </MenuItem>
             </template>
           </Submenu>
         </Menu>
       </Sider>
       <Content :style="{padding: '24px 0 0 24px', background: '#fff'}">
         <Tabs>
-          <TabPane :style="{height: '85vh',overflowY: 'auto'}" label="API 文档" icon="md-document">
-            <div>
-              <div>
-                <Row class="no-border">
-                  <Col>
-                  <h2 id="h2_1">接口说明</h2>
-                                    </Col>
-                  <Col>
+          <TabPane label="API 文档" icon="md-document">
+            <div id="doc-content" :style="{height: '85vh',overflowY: 'auto'}">
+              <ul>
+                <li><h2 id="h2_1">接口说明</h2>
+                </li>
+                <li class="no-border">
                   <Table :columns="apiInfoColumns" :data="apiInfo"
                          :show-header="false"/>
-                                    </Col>
-                </Row>
+                </li>
 
                 <!--参数信息-->
-                <Row>
-                  <Col>
+                <li>
                   <h2 id="h2_2">请求参数</h2>
-                                    </Col>
-                  <Col>
+                </li>
+                <li>
                   <Table :columns="paramsColumns" :data="rootParams.props" border/>
-                                    </Col>
-                </Row>
+                </li>
 
                 <template v-for="sub of subParams">
-                  <Row :key="sub.name">
-                    <Col>
-                    <h3>类型
-                      <Icon type="md-arrow-dropright" size="20"/>
-                      {{ sub.title }}
-                    </h3>
-                                        </Col>
-                    <Col>
-                    <Table :columns="objectColumns" :data="sub.props" border/>
-                                        </Col>
-                  </Row>
+                  <li :key="sub.name">
+                    <ul>
+                      <li>
+                        <h3>类型
+                          <Icon type="md-arrow-dropright" size="20"/>
+                          {{ sub.title }}
+                        </h3>
+                      </li>
+                      <li>
+                        <Table :columns="objectColumns" :data="sub.props" border/>
+                      </li>
+                    </ul>
+                  </li>
                 </template>
 
                 <!--响应信息-->
-                <Row :style="{marginTop:'60px'}">
-                  <Col>
+                <li>
                   <h2 id="h2_3">响应信息</h2>
-                                    </Col>
-                  <Col>
+                </li>
+                <li>
                   <Table :columns="responsesColumns" :data="rootResponses.props"
                          border/>
-                                    </Col>
-                </Row>
+                </li>
 
                 <template v-for="sub of subResponses">
-
-                  <Row :key="sub.name">
-                    <Col>
-                    <h3>类型
-                      <Icon type="md-arrow-dropright" size="20"/>
-                      {{ sub.title }}
-                    </h3>
-                                        </Col>
-                    <Col>
-                    <Table :columns="objectColumns" :data="sub.props" border/>
-                                        </Col>
-                  </Row>
+                  <li :key="sub.name">
+                    <ul>
+                      <li>
+                        <h3>类型
+                          <Icon type="md-arrow-dropright" size="20"/>
+                          {{ sub.title }}
+                        </h3>
+                      </li>
+                      <li>
+                        <Table :columns="objectColumns" :data="sub.props" border/>
+                      </li>
+                    </ul>
+                  </li>
                 </template>
+              </ul>
+              <div>
+                <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
+                  <AnchorLink href="#h2_1" title="接口说明"/>
+                  <AnchorLink href="#h2_2" title="请求参数"/>
+                  <AnchorLink href="#h2_3" title="响应信息"/>
+                </Anchor>
               </div>
-            </div>
-            <div>
-              <Anchor show-ink>
-                <AnchorLink href="#h2_1" title="接口说明"/>
-                <AnchorLink href="#h2_2" title="请求参数"/>
-                <AnchorLink href="#h2_3" title="响应信息"/>
-              </Anchor>
             </div>
           </TabPane>
           <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
@@ -203,27 +199,36 @@
     }
 </script>
 <style lang="less">
-    html {
-        overflow-y: hidden;
-    }
+  html {
+    overflow-y: hidden;
+  }
 
-    /*noinspection CssUnusedSymbol*/
-    .row-padding-bottom .ivu-row {
-        padding-bottom: 50px;
+  #doc-content {
+    li {
+      margin: 5px 0;
+      h2,h3{
+        margin-top: 30px;
+      }
     }
+  }
 
-    /*noinspection CssUnusedSymbol*/
-    .no-border {
-        .ivu-table-wrapper {
-            border: 0 solid #dcdee2;
-            td {
-                border: 0 solid #e8eaec;
-            }
-        }
-        .ivu-table:after {
-            width: 0;
+  /*noinspection CssUnusedSymbol*/
+  .row-padding-bottom .ivu-row {
+    padding-bottom: 50px;
+  }
 
-        }
+  /*noinspection CssUnusedSymbol*/
+  .no-border {
+    .ivu-table-wrapper {
+      border: 0 solid #dcdee2;
+      td {
+        border: 0 solid #e8eaec;
+      }
     }
+    .ivu-table:after {
+      width: 0;
+
+    }
+  }
 
 </style>
