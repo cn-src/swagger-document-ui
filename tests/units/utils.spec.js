@@ -1,5 +1,5 @@
 import swagger from './swagger.json'
-import {fixSwaggerJson, findAllSchema, toBean} from '@/util/utils'
+import {fixSwaggerJson, findAllSchema, toBean} from '@/utils/utils'
 
 test('fixSwaggerJson', () => {
     console.log(JSON.stringify(fixSwaggerJson(swagger)));
