@@ -3,7 +3,7 @@
         <Header :style="{padding: 0,position: 'fixed', width: '100%'}">
             <Menu mode="horizontal" theme="dark">
                 <MenuItem :style="{width: '200px'}" name="0">
-                    <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable>
+                    <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
                 </MenuItem>
                 <MenuItem name="1">
                     <Icon type="md-menu"
