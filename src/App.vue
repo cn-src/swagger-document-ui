@@ -179,10 +179,14 @@
                     {title: '', key: 'k1', width: 110, align: 'right', render: methodColumnRender},
                     {title: '', key: 'k2'}];
 
-                this.$data.apiInfo = [
+                const apiInfo = [
                     {k1: httpEntity.method, k2: httpEntity.path},
                     {k1: '请求体类型', k2: httpEntity.consumes},
                     {k1: '响应体类型', k2: httpEntity.produces}];
+                if(httpEntity.method==='GET'){
+                    apiInfo.splice(1,1)
+                }
+                this.$data.apiInfo = apiInfo;
 
                 this.$data.rootParams = httpEntity.params;
                 const subParams = [];
