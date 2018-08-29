@@ -17,7 +17,7 @@
         </MenuItem>
       </Menu>
     </Header>
-    <Layout :style="{position:'relative',top:'64px',background: '#FFF'}">
+    <Layout :style="{marginTop:'64px',background: '#FFF'}">
       <!-- TODO class + !important提权 -->
       <!--自定义宽度在收缩时存在问题，因优先级问题只能用 style 内联更改 -->
       <Sider ref="side1" :style="{width: isCollapsed?0:'250px', minWidth: isCollapsed?0:'250px', maxWidth: isCollapsed?0:'250px', flex: isCollapsed?'0 0 0':'0 0 250px',
