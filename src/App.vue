@@ -18,8 +18,11 @@
             </i-menu>
         </i-header>
         <i-layout :style="{marginTop:'64px',background: '#FFF'}">
+            <!-- TODO class + !important提权 -->
+            <!--自定义宽度在收缩时存在问题，因优先级问题只能用 style 内联更改 -->
             <i-sider ref="side1" hide-trigger
-                     :style="{width:'250px',minWidth:'250px',maxWidth:'250px',height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
+                     :style="{width: isCollapsed?0:'250px', minWidth: isCollapsed?0:'250px', maxWidth: isCollapsed?0:'250px', flex: isCollapsed?'0 0 0':'0 0 250px',
+                             height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
                      collapsible
                      :collapsed-width="0"
                      v-model="isCollapsed">
