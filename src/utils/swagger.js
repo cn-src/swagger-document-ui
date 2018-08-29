@@ -17,14 +17,14 @@
  *
  */
 export function fixSwaggerJson(swaggerJson) {
-    let apiData = {
+    let data = {
         info: swaggerJson.info,
         definitions: fixDefinitions(swaggerJson.definitions),
         collection: {}
     };
 
     for (let tag of swaggerJson.tags) {
-        apiData.collection[tag.name] = []
+        data.collection[tag.name] = []
     }
 
     let paths = swaggerJson.paths;
@@ -39,8 +39,8 @@ export function fixSwaggerJson(swaggerJson) {
 
             for (let tag of methodInfo.tags) {
 
-                for (let tagName in apiData.collection) {
-                    if (!apiData.collection.hasOwnProperty(tagName)) continue;
+                for (let tagName in data.collection) {
+                    if (!data.collection.hasOwnProperty(tagName)) continue;
 
                     if (tag === tagName) {
                         let httpEntity = {};
@@ -52,13 +52,13 @@ export function fixSwaggerJson(swaggerJson) {
                         httpEntity.consumes = methodInfo.consumes;
                         httpEntity.params = fixParams(methodInfo.parameters);
                         httpEntity.responses = fixResponses(methodInfo.responses);
-                        apiData.collection[tagName].push(httpEntity)
+                        data.collection[tagName].push(httpEntity)
                     }
                 }
             }
         }
     }
-    return apiData
+    return data
 }
 
 function fixDefinitions(definitions) {

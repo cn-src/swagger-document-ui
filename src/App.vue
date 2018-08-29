@@ -128,7 +128,7 @@
 <script>
     import store from '@/store'
     import MethodTag from '@/components/MethodTag'
-    import {findHttpEntity, findAllSchema, methodColumnRender} from '@/utils/utils'
+    import {findHttpEntity, findAllSchema, methodColumnRender} from '@/utils/swagger'
 
     export default {
         name: 'App',

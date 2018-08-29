@@ -4,7 +4,7 @@ import App from './App.vue'
 import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-import {fixSwaggerJson} from '@/utils/utils'
+import {fixSwaggerJson} from '@/utils/swagger'
 import swagger from '../tests/units/swagger.json'
 
 Vue.use(iView);
