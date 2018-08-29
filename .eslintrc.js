@@ -10,8 +10,6 @@ module.exports = {
     rules: {
         'no-console': 'off',
         'no-debugger': 'off',
-        'vue/attribute-hyphenation': 'warning',
-        'vue/html-indent': 'warning',
         'vue/max-attributes-per-line': 'off',
         'vue/no-parsing-error': 'off'
     },
