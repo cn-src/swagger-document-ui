@@ -65,19 +65,19 @@ function fixSwaggerJson(swaggerJson) {
 
 function fixDefinitions(definitions) {
     let fixDefinitions = {};
-    for (let defName in definitions) {
-        if (!definitions.hasOwnProperty(defName)) continue;
+    for (let schemaName in definitions) {
+        if (!definitions.hasOwnProperty(schemaName)) continue;
         let bean = emptyBean();
 
-        if (definitions[defName].title) {
-            bean.title = definitions[defName].title;
+        if (definitions[schemaName].title) {
+            bean.title = definitions[schemaName].title;
         }
-        if (definitions[defName].type) {
-            bean.type = definitions[defName].type;
+        if (definitions[schemaName].type) {
+            bean.type = definitions[schemaName].type;
         }
-        for (let propName in definitions[defName].properties) {
-            if (definitions[defName].properties.hasOwnProperty(propName)) {
-                let prop = definitions[defName].properties[propName];
+        for (let propName in definitions[schemaName].properties) {
+            if (definitions[schemaName].properties.hasOwnProperty(propName)) {
+                let prop = definitions[schemaName].properties[propName];
                 let fixProp = {};
                 fixProp.name = propName;
                 fixProp.description = prop.description;
@@ -86,7 +86,7 @@ function fixDefinitions(definitions) {
                 bean.props.push(toBean(fixProp, prop))
             }
         }
-        fixDefinitions[defName] = bean
+        fixDefinitions[schemaName] = bean
     }
     return fixDefinitions
 }
