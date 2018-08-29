@@ -16,8 +16,10 @@
  * }
  *
  */
-export function fixSwaggerJson(swaggerJson) {
-    let data = {
+let data;
+
+function fixSwaggerJson(swaggerJson) {
+    data = {
         info: swaggerJson.info,
         definitions: fixDefinitions(swaggerJson.definitions),
         collection: {}
@@ -92,7 +94,7 @@ function fixDefinitions(definitions) {
 /**
  * 根据参数，尾递归找到所有的Schema信息.
  */
-export function findAllBean(bean, definitions, childBean) {
+function findAllBean(bean, definitions, childBean) {
     if (!bean || !definitions || !bean.props) {
         return emptyBean()
     }
@@ -151,7 +153,7 @@ function fixResponses(responses) {
     return fixObj
 }
 
-export function toBean(tar, src) {
+function toBean(tar, src) {
     return fixIfSchema(tar, src)
 }
 
@@ -195,7 +197,7 @@ function fixIfSchema(tar, src) {
     return tar
 }
 
-export function findHttpEntity(apiData, id) {
+function findHttpEntity(apiData, id) {
     for (const tagName in apiData.collection) {
         if (!apiData.collection.hasOwnProperty(tagName)) continue;
 
@@ -214,21 +216,21 @@ const colorsMap = {
     'DELETE': 'error'
 };
 
-export function methodColumnRender(h, params) {
-    if (params.index === 0) {
-
-        const colorFromMap = colorsMap[params.row.k1];
-        let color = colorFromMap ? colorFromMap : 'default';
-
-        return h('Tag', {
-            props: {
-                color: color
-            }
-        }, params.row.k1,);
-    } else {
-        return h('span', params.row.k1)
-    }
-}
+// export function methodColumnRender(h, params) {
+//     if (params.index === 0) {
+//
+//         const colorFromMap = colorsMap[params.row.k1];
+//         let color = colorFromMap ? colorFromMap : 'default';
+//
+//         return h('Tag', {
+//             props: {
+//                 color: color
+//             }
+//         }, params.row.k1,);
+//     } else {
+//         return h('span', params.row.k1)
+//     }
+// }
 
 /**
  * 提取 schema ref 中的名称.
@@ -246,4 +248,11 @@ function emptyBean() {
     empty.type = '';
     empty.props = [];
     return empty
+}
+
+export default {
+    data: data,
+    fixSwaggerJson: fixSwaggerJson,
+    findAllBean: findAllBean,
+    findHttpEntity: findHttpEntity,
 }

@@ -128,7 +128,7 @@
 <script>
     import store from '@/store'
     import MethodTag from '@/components/MethodTag'
-    import {findHttpEntity, findAllBean, methodColumnRender} from '@/utils/swagger'
+    import swagger from '@/utils/swagger'
 
     export default {
         name: 'App',
@@ -175,7 +175,7 @@
             menuItemAction(menuItemName) {
                 if (!menuItemName.startsWith('httpEntity')) return;
 
-                let httpEntity = findHttpEntity(store.state.apiData, menuItemName);
+                let httpEntity = swagger.findHttpEntity(store.state.apiData, menuItemName);
                 this.$data.httpEntity = httpEntity;
 
                 this.$data.apiInfoColumns = [
