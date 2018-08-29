@@ -1,5 +1,6 @@
 module.exports = {
     filenameHashing: false,
+
     pages: {
         'swagger-document-ui': {
             // page 的入口
@@ -14,17 +15,5 @@ module.exports = {
         }
     },
 
-    chainWebpack: config => {
-        config.module
-            .rule('vue')
-            .test(/\.vue$/)
-            .use('iview-loader')
-            .loader('iview-loader')
-            .tap(() => {
-                return {
-                    prefix: true
-                }
-            })
-            .end()
-    }
+    lintOnSave: undefined
 };
