@@ -128,7 +128,7 @@
 <script>
     import store from '@/store'
     import MethodTag from '@/components/MethodTag'
-    import {findHttpEntity, findAllSchema, methodColumnRender} from '@/utils/swagger'
+    import {findHttpEntity, findAllBean, methodColumnRender} from '@/utils/swagger'
 
     export default {
         name: 'App',
@@ -193,12 +193,12 @@
 
                 this.$data.rootParams = httpEntity.params;
                 const subParams = [];
-                findAllSchema(httpEntity.params, store.state.apiData.definitions, subParams);
+                findAllBean(httpEntity.params, store.state.apiData.definitions, subParams);
                 this.$data.subParams = subParams;
 
                 this.$data.rootResponses = httpEntity.responses;
                 const subResponses = [];
-                findAllSchema(httpEntity.responses, store.state.apiData.definitions, subResponses);
+                findAllBean(httpEntity.responses, store.state.apiData.definitions, subResponses);
                 this.$data.subResponses = subResponses
 
             }

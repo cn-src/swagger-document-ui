@@ -92,7 +92,7 @@ function fixDefinitions(definitions) {
 /**
  * 根据参数，尾递归找到所有的Schema信息.
  */
-export function findAllSchema(bean, definitions, childBean) {
+export function findAllBean(bean, definitions, childBean) {
     if (!bean || !definitions || !bean.props) {
         return emptyBean()
     }
@@ -104,7 +104,7 @@ export function findAllSchema(bean, definitions, childBean) {
             }).length === 0) {
                 childBean.push(subObj)
             }
-            findAllSchema(subObj, definitions, childBean)
+            findAllBean(subObj, definitions, childBean)
         }
     }
 }
