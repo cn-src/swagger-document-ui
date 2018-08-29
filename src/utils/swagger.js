@@ -67,13 +67,13 @@ function fixDefinitions(definitions) {
     let fixDefinitions = {};
     for (let defName in definitions) {
         if (!definitions.hasOwnProperty(defName)) continue;
-        let fixObj = emptyBean();
+        let bean = emptyBean();
 
         if (definitions[defName].title) {
-            fixObj.title = definitions[defName].title;
+            bean.title = definitions[defName].title;
         }
         if (definitions[defName].type) {
-            fixObj.type = definitions[defName].type;
+            bean.type = definitions[defName].type;
         }
         for (let propName in definitions[defName].properties) {
             if (definitions[defName].properties.hasOwnProperty(propName)) {
@@ -83,10 +83,10 @@ function fixDefinitions(definitions) {
                 fixProp.description = prop.description;
                 fixProp.type = prop.type;
                 fixProp.format = prop.format;
-                fixObj.props.push(toBean(fixProp, prop))
+                bean.props.push(toBean(fixProp, prop))
             }
         }
-        fixDefinitions[defName] = fixObj
+        fixDefinitions[defName] = bean
     }
     return fixDefinitions
 }
