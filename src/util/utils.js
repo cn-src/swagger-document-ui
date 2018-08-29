@@ -65,7 +65,7 @@ function fixDefinitions(definitions) {
     let fixDefinitions = {};
     for (let defName in definitions) {
         if (!definitions.hasOwnProperty(defName)) continue;
-        let fixObj = emptyFixObj();
+        let fixObj = emptyBean();
 
         if (definitions[defName].title) {
             fixObj.title = definitions[defName].title;
@@ -81,7 +81,7 @@ function fixDefinitions(definitions) {
                 fixProp.description = prop.description;
                 fixProp.type = prop.type;
                 fixProp.format = prop.format;
-                fixObj.props.push(toFixObj(fixProp, prop))
+                fixObj.props.push(toBean(fixProp, prop))
             }
         }
         fixDefinitions[defName] = fixObj
@@ -92,19 +92,19 @@ function fixDefinitions(definitions) {
 /**
  * 根据参数，尾递归找到所有的Schema信息.
  */
-export function findAllSchema(fixObj, definitions, subFixObjs) {
-    if (!fixObj || !definitions || !fixObj.props) {
-        return emptyFixObj()
+export function findAllSchema(bean, definitions, childBean) {
+    if (!bean || !definitions || !bean.props) {
+        return emptyBean()
     }
-    for (let prop of fixObj.props) {
+    for (let prop of bean.props) {
         if (prop.hasRef && definitions.hasOwnProperty(prop.schemaName)) {
             const subObj = definitions[prop.schemaName];
-            if (subFixObjs.filter(fb => {
+            if (childBean.filter(fb => {
                 return fb.schemaName === prop.schemaName
             }).length === 0) {
-                subFixObjs.push(subObj)
+                childBean.push(subObj)
             }
-            findAllSchema(subObj, definitions, subFixObjs)
+            findAllSchema(subObj, definitions, childBean)
         }
     }
 }
@@ -118,9 +118,9 @@ export function findAllSchema(fixObj, definitions, subFixObjs) {
  */
 function fixParams(parameters) {
     if (!parameters) {
-        return emptyFixObj()
+        return emptyBean()
     }
-    let fixObj = emptyFixObj();
+    let fixObj = emptyBean();
 
     fixObj.props = parameters.map(p => {
         let fixProp = {};
@@ -130,28 +130,28 @@ function fixParams(parameters) {
         fixProp.required = p.required;
         fixProp.type = p.type;
         fixProp.format = p.format;
-        return toFixObj(fixProp, p)
+        return toBean(fixProp, p)
     });
 
     return fixObj
 }
 
 function fixResponses(responses) {
-    let fixObj = emptyFixObj();
+    let fixObj = emptyBean();
     for (let resKey in responses) {
         if (!responses.hasOwnProperty(resKey)) continue;
         let fixProp = {};
 
         fixProp.status = resKey;
         fixProp.description = responses[resKey].description;
-        fixProp = toFixObj(fixProp, responses[resKey]);
+        fixProp = toBean(fixProp, responses[resKey]);
         fixObj.props.push(fixProp)
     }
 
     return fixObj
 }
 
-export function toFixObj(tar, src) {
+export function toBean(tar, src) {
     return fixIfSchema(tar, src)
 }
 
@@ -240,7 +240,7 @@ function getSchemaName(schemaRef) {
     return schemaRef.substring('#/definitions/'.length)
 }
 
-function emptyFixObj() {
+function emptyBean() {
     let empty = {};
     empty.title = '';
     empty.type = '';
