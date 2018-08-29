@@ -1,5 +1,5 @@
 <template>
-    <span :style="{color:actionColor(method)}" class="http-method-tag">{{ method }}</span>
+  <span :style="{color:actionColor(method)}" class="http-method-tag">{{ method }}</span>
 </template>
 
 <script>

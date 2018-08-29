@@ -1,130 +1,130 @@
 <template>
-    <Layout stype="overflow-y:hide">
-        <Header :style="{padding: 0,position: 'fixed', width: '100%'}">
-            <Menu mode="horizontal" theme="dark">
-                <MenuItem :style="{width: '200px'}" name="0">
-                    <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
+  <Layout stype="overflow-y:hide">
+    <Header :style="{padding: 0,position: 'fixed', width: '100%'}">
+      <Menu mode="horizontal" theme="dark">
+        <MenuItem :style="{width: '200px'}" name="0">
+        <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
                 </MenuItem>
-                <MenuItem name="1">
-                    <Icon type="md-menu"
-                          size="24" @click.native="collapsedSider"/>
+        <MenuItem name="1">
+        <Icon type="md-menu"
+              size="24" @click.native="collapsedSider"/>
                 </MenuItem>
-                <MenuItem name="2">
-                        <span style="font-size: 20px;">
-                            {{ apiData.info && apiData.info.title }}
-                        </span>
-                    <Icon type="md-repeat" size="20"/>
+        <MenuItem name="2">
+        <span style="font-size: 20px;">
+          {{ apiData.info && apiData.info.title }}
+        </span>
+        <Icon type="md-repeat" size="20"/>
                 </MenuItem>
-            </Menu>
-        </Header>
-        <Layout :style="{marginTop:'64px',background: '#FFF'}">
-            <!-- TODO class + !important提权 -->
-            <!--自定义宽度在收缩时存在问题，因优先级问题只能用 style 内联更改 -->
-            <Sider ref="side1" :style="{width: isCollapsed?0:'250px', minWidth: isCollapsed?0:'250px', maxWidth: isCollapsed?0:'250px', flex: isCollapsed?'0 0 0':'0 0 250px',
-                             height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
-                   :collapsed-width="0"
-                   v-model="isCollapsed"
-                   hide-trigger
-                   collapsible>
-                <Menu theme="dark" width="auto" @on-select="menuItemAction">
-                    <MenuItem :name="'home'">
-                        <Icon type="md-home"/>
-                        首页
+      </Menu>
+    </Header>
+    <Layout :style="{marginTop:'64px',background: '#FFF'}">
+      <!-- TODO class + !important提权 -->
+      <!--自定义宽度在收缩时存在问题，因优先级问题只能用 style 内联更改 -->
+      <Sider ref="side1" :style="{width: isCollapsed?0:'250px', minWidth: isCollapsed?0:'250px', maxWidth: isCollapsed?0:'250px', flex: isCollapsed?'0 0 0':'0 0 250px',
+                                  height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
+             :collapsed-width="0"
+             v-model="isCollapsed"
+             hide-trigger
+             collapsible>
+        <Menu theme="dark" width="auto" @on-select="menuItemAction">
+          <MenuItem :name="'home'">
+          <Icon type="md-home"/>
+          首页
                     </MenuItem>
 
-                    <Submenu v-for="(httpEntities,tagName, i) in apiData.collection" :name="'m'+i" :key="i">
-                        <template slot="title">
-                            <Icon type="ios-pricetags"/>
-                            {{ tagName }}
-                        </template>
-                        <template v-for="httpEntity in httpEntities">
-                            <MenuItem :name="httpEntity.id" :key="httpEntity.id">
-                                <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
-                                {{ httpEntity.name }}
+          <Submenu v-for="(httpEntities,tagName, i) in apiData.collection" :name="'m'+i" :key="i">
+            <template slot="title">
+              <Icon type="ios-pricetags"/>
+              {{ tagName }}
+            </template>
+            <template v-for="httpEntity in httpEntities">
+              <MenuItem :name="httpEntity.id" :key="httpEntity.id">
+              <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
+              {{ httpEntity.name }}
                             </MenuItem>
-                        </template>
-                    </Submenu>
-                </Menu>
-            </Sider>
-            <Content :style="{padding: '24px', background: '#fff'}">
-                <Tabs>
-                    <TabPane :style="{height: '85vh',overflowY: 'auto'}" label="API 文档" icon="md-document">
-                        <div>
-                            <div>
-                                <Row class="no-border">
-                                    <Col>
-                                        <h2 id="h2_1">接口说明</h2>
+            </template>
+          </Submenu>
+        </Menu>
+      </Sider>
+      <Content :style="{padding: '24px', background: '#fff'}">
+        <Tabs>
+          <TabPane :style="{height: '85vh',overflowY: 'auto'}" label="API 文档" icon="md-document">
+            <div>
+              <div>
+                <Row class="no-border">
+                  <Col>
+                  <h2 id="h2_1">接口说明</h2>
                                     </Col>
-                                    <Col>
-                                        <Table :columns="apiInfoColumns" :data="apiInfo"
-                                               :show-header="false"/>
+                  <Col>
+                  <Table :columns="apiInfoColumns" :data="apiInfo"
+                         :show-header="false"/>
                                     </Col>
-                                </Row>
+                </Row>
 
-                                <!--参数信息-->
-                                <Row>
-                                    <Col>
-                                        <h2 id="h2_2">请求参数</h2>
+                <!--参数信息-->
+                <Row>
+                  <Col>
+                  <h2 id="h2_2">请求参数</h2>
                                     </Col>
-                                    <Col>
-                                        <Table :columns="paramsColumns" :data="rootParams.props" border/>
+                  <Col>
+                  <Table :columns="paramsColumns" :data="rootParams.props" border/>
                                     </Col>
-                                </Row>
+                </Row>
 
-                                <template v-for="sub of subParams">
-                                    <Row :key="sub.name">
-                                        <Col>
-                                            <h3>类型
-                                                <Icon type="md-arrow-dropright" size="20"/>
-                                                {{ sub.title }}
-                                            </h3>
+                <template v-for="sub of subParams">
+                  <Row :key="sub.name">
+                    <Col>
+                    <h3>类型
+                      <Icon type="md-arrow-dropright" size="20"/>
+                      {{ sub.title }}
+                    </h3>
                                         </Col>
-                                        <Col>
-                                            <Table :columns="objectColumns" :data="sub.props" border/>
+                    <Col>
+                    <Table :columns="objectColumns" :data="sub.props" border/>
                                         </Col>
-                                    </Row>
-                                </template>
+                  </Row>
+                </template>
 
-                                <!--响应信息-->
-                                <Row :style="{marginTop:'60px'}">
-                                    <Col>
-                                        <h2 id="h2_3">响应信息</h2>
+                <!--响应信息-->
+                <Row :style="{marginTop:'60px'}">
+                  <Col>
+                  <h2 id="h2_3">响应信息</h2>
                                     </Col>
-                                    <Col>
-                                        <Table :columns="responsesColumns" :data="rootResponses.props"
-                                               border/>
+                  <Col>
+                  <Table :columns="responsesColumns" :data="rootResponses.props"
+                         border/>
                                     </Col>
-                                </Row>
+                </Row>
 
-                                <template v-for="sub of subResponses">
+                <template v-for="sub of subResponses">
 
-                                    <Row :key="sub.name">
-                                        <Col>
-                                            <h3>类型
-                                                <Icon type="md-arrow-dropright" size="20"/>
-                                                {{ sub.title }}
-                                            </h3>
+                  <Row :key="sub.name">
+                    <Col>
+                    <h3>类型
+                      <Icon type="md-arrow-dropright" size="20"/>
+                      {{ sub.title }}
+                    </h3>
                                         </Col>
-                                        <Col>
-                                            <Table :columns="objectColumns" :data="sub.props" border/>
+                    <Col>
+                    <Table :columns="objectColumns" :data="sub.props" border/>
                                         </Col>
-                                    </Row>
-                                </template>
-                            </div>
-                        </div>
-                        <div>
-                            <Anchor show-ink>
-                                <AnchorLink href="#h2_1" title="接口说明"/>
-                                <AnchorLink href="#h2_2" title="请求参数"/>
-                                <AnchorLink href="#h2_3" title="响应信息"/>
-                            </Anchor>
-                        </div>
-                    </TabPane>
-                    <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
-                </Tabs>
-            </Content>
-        </Layout>
+                  </Row>
+                </template>
+              </div>
+            </div>
+            <div>
+              <Anchor show-ink>
+                <AnchorLink href="#h2_1" title="接口说明"/>
+                <AnchorLink href="#h2_2" title="请求参数"/>
+                <AnchorLink href="#h2_3" title="响应信息"/>
+              </Anchor>
+            </div>
+          </TabPane>
+          <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
+        </Tabs>
+      </Content>
     </Layout>
+  </Layout>
 </template>
 <script>
     import store from '@/store'
