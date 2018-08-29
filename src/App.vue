@@ -49,7 +49,7 @@
       <Content :style="{padding: '24px 0 0 24px', background: '#fff'}">
         <Tabs>
           <TabPane label="API 文档" icon="md-document">
-            <div id="doc-content" :style="{height: '85vh',overflowY: 'auto'}">
+            <div id="doc-content" :style="{height: '100vh',overflowY: 'auto'}">
               <div :style="{width:'75vw'}">
                 <ul>
                   <li><h2 id="h2_1">接口说明</h2>
@@ -107,6 +107,9 @@
                       </ul>
                     </li>
                   </template>
+                  <li style="margin: 50px 0">
+                    &nbsp;
+                  </li>
                 </ul>
               </div>
               <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
@@ -183,8 +186,8 @@
                     {k1: httpEntity.method, k2: httpEntity.path},
                     {k1: '请求体类型', k2: httpEntity.consumes},
                     {k1: '响应体类型', k2: httpEntity.produces}];
-                if(httpEntity.method==='GET'){
-                    apiInfo.splice(1,1)
+                if (httpEntity.method === 'GET') {
+                    apiInfo.splice(1, 1)
                 }
                 this.$data.apiInfo = apiInfo;
 
@@ -210,7 +213,7 @@
   #doc-content {
     li {
       margin: 5px 0;
-      h2,h3{
+      h2, h3 {
         margin-top: 30px;
       }
     }
@@ -229,7 +232,7 @@
         border: 0 solid #e8eaec;
       }
     }
-    .ivu-table:before,.ivu-table:after {
+    .ivu-table:before, .ivu-table:after {
       width: 0;
 
     }
