@@ -49,7 +49,7 @@
       <Content :style="{padding: '24px 0 0 24px', background: '#fff'}">
         <Tabs>
           <TabPane label="API 文档" icon="md-document">
-            <div id="doc-content" :style="{height: '100vh',overflowY: 'auto'}">
+            <div id="doc-content" :style="{height: '90vh',overflowY: 'auto'}">
               <div :style="{width:'75vw'}">
                 <ul>
                   <li><h2 id="h2_1">接口说明</h2>
@@ -107,7 +107,7 @@
                       </ul>
                     </li>
                   </template>
-                  <li style="margin: 50px 0">
+                  <li style="margin: 10px 0">
                     &nbsp;
                   </li>
                 </ul>
