@@ -1,5 +1,5 @@
 <template>
-  <span class="http-method-tag" :style="{color:actionColor(method)}">{{ method }}</span>
+  <span :style="{color:actionColor(method)}" class="http-method-tag">{{ method }}</span>
 </template>
 
 <script>
@@ -11,18 +11,18 @@
   };
   export default {
     name: "MethodTag",
+    props: {
+      method: {
+        type: String,
+        default: ''
+      }
+    },
     methods: {
       actionColor(method) {
         const colorFromMap = colorsMap[method];
         return colorFromMap ? colorFromMap : '#EEEEEE';
       }
     },
-    props: {
-      method: {
-        type: String,
-        default: ''
-      }
-    }
   }
 </script>
 
