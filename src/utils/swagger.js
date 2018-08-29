@@ -24,10 +24,7 @@ function fixSwaggerJson(swaggerJson) {
         definitions: fixDefinitions(swaggerJson.definitions),
         collection: {}
     };
-
-    for (let tag of swaggerJson.tags) {
-        data.collection[tag.name] = []
-    }
+    swaggerJson.tags.forEach(tag => {data.collection[tag.name] = []});
 
     let paths = swaggerJson.paths;
     let index = 0;
