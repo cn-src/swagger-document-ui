@@ -225,7 +225,7 @@
         border: 0 solid #e8eaec;
       }
     }
-    .ivu-table:after {
+    .ivu-table:before,.ivu-table:after {
       width: 0;
 
     }
