@@ -77,12 +77,12 @@ function fixDefinitions(definitions) {
         for (let propName in definitions[schemaName].properties) {
             if (definitions[schemaName].properties.hasOwnProperty(propName)) {
                 let prop = definitions[schemaName].properties[propName];
-                let fixProp = {};
-                fixProp.name = propName;
-                fixProp.description = prop.description;
-                fixProp.type = prop.type;
-                fixProp.format = prop.format;
-                bean.props.push(toBean(fixProp, prop))
+                let propBean = {};
+                propBean.name = propName;
+                propBean.description = prop.description;
+                propBean.type = prop.type;
+                propBean.format = prop.format;
+                bean.props.push(toBean(propBean, prop))
             }
         }
         fixDefinitions[schemaName] = bean
@@ -99,13 +99,13 @@ function findAllBean(bean, definitions, childBean) {
     }
     for (let prop of bean.props) {
         if (prop.hasRef && definitions.hasOwnProperty(prop.schemaName)) {
-            const subObj = definitions[prop.schemaName];
+            const child = definitions[prop.schemaName];
             if (childBean.filter(fb => {
                 return fb.schemaName === prop.schemaName
             }).length === 0) {
-                childBean.push(subObj)
+                childBean.push(child)
             }
-            findAllBean(subObj, definitions, childBean)
+            findAllBean(child, definitions, childBean)
         }
     }
 }
@@ -138,18 +138,18 @@ function fixParamsToBean(parameters) {
 }
 
 function fixResponsesToBean(responses) {
-    let fixObj = emptyBean();
+    let bean = emptyBean();
     for (let resKey in responses) {
         if (!responses.hasOwnProperty(resKey)) continue;
-        let fixProp = {};
+        let propBean = {};
 
-        fixProp.status = resKey;
-        fixProp.description = responses[resKey].description;
-        fixProp = toBean(fixProp, responses[resKey]);
-        fixObj.props.push(fixProp)
+        propBean.status = resKey;
+        propBean.description = responses[resKey].description;
+        propBean = toBean(propBean, responses[resKey]);
+        bean.props.push(propBean)
     }
 
-    return fixObj
+    return bean
 }
 
 function toBean(tar, src) {
