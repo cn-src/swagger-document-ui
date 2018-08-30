@@ -21,10 +21,12 @@ let data = {};
 function fixSwaggerJson(swaggerJson) {
     data = {
         info: swaggerJson.info,
-        definitions: fixDefinitions(swaggerJson.definitions),
+        beanMap: fixDefinitions(swaggerJson.definitions),
         collection: {}
     };
-    swaggerJson.tags.forEach(tag => {data.collection[tag.name] = []});
+    swaggerJson.tags.forEach(tag => {
+        data.collection[tag.name] = []
+    });
 
     let paths = swaggerJson.paths;
     let index = 0;
@@ -49,8 +51,8 @@ function fixSwaggerJson(swaggerJson) {
                         httpEntity.method = method.toUpperCase();
                         httpEntity.produces = methodInfo.produces;
                         httpEntity.consumes = methodInfo.consumes;
-                        httpEntity.params = fixParams(methodInfo.parameters);
-                        httpEntity.responses = fixResponses(methodInfo.responses);
+                        httpEntity.paramBean = fixParamsToBean(methodInfo.parameters);
+                        httpEntity.responseBean = fixResponsesToBean(methodInfo.responses);
                         data.collection[tagName].push(httpEntity)
                     }
                 }
@@ -115,27 +117,27 @@ function findAllBean(bean, definitions, childBean) {
  * @param parameters
  * @returns {*}
  */
-function fixParams(parameters) {
+function fixParamsToBean(parameters) {
     if (!parameters) {
         return emptyBean()
     }
-    let fixObj = emptyBean();
+    let bean = emptyBean();
 
-    fixObj.props = parameters.map(p => {
-        let fixProp = {};
-        fixProp.name = p.name;
-        fixProp.description = p.description;
-        fixProp.in = p.in;
-        fixProp.required = p.required;
-        fixProp.type = p.type;
-        fixProp.format = p.format;
-        return toBean(fixProp, p)
+    bean.props = parameters.map(p => {
+        const propBean = {};
+        propBean.name = p.name;
+        propBean.description = p.description;
+        propBean.in = p.in;
+        propBean.required = p.required;
+        propBean.type = p.type;
+        propBean.format = p.format;
+        return toBean(propBean, p)
     });
 
-    return fixObj
+    return bean
 }
 
-function fixResponses(responses) {
+function fixResponsesToBean(responses) {
     let fixObj = emptyBean();
     for (let resKey in responses) {
         if (!responses.hasOwnProperty(resKey)) continue;
