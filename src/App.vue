@@ -65,8 +65,8 @@
             return {
                 tagsKeyWord: '',
                 isCollapsed: false,
-                httpEntity: {},
-                beanMap: {}
+                httpEntity: undefined,
+                beanMap: undefined
             }
         },
         computed: {

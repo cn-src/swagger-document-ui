@@ -19,7 +19,7 @@
               <Table :columns="paramBeanColumns" :data="httpEntity.paramBean.props" border/>
             </li>
 
-            <template v-for="child of allChildResponseBeans">
+            <template v-for="child of allChildParamBeans">
               <li :key="child.name">
                 <ul>
                   <li>
