@@ -134,18 +134,27 @@
         props: {
             httpEntity: {
                 type: Object,
-                default() {
-                    return {
-                        paramBean: {props: []},
-                        responseBean: {props: []}
+                required: true,
+
+                id: {type: String, required: true,},
+                name: {type: String, required: true,},
+                path: {type: String, required: true,},
+                method: {type: String, required: true,},
+                consumes: {type: Array},
+                produces: {type: Array},
+                paramBean: {
+                    type: Object, required: true, props: {
+                        type: Array, required: true
                     }
-                }
+                },
+                responseBean: {
+                    type: Object, required: true, props: {
+                        type: Array, required: true
+                    }
+                },
             },
             beanMap: {
-                type: Object,
-                default() {
-                    return {}
-                }
+                type: Object, required: true
             }
         }
     }
