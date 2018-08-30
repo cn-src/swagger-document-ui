@@ -206,29 +206,6 @@ function findHttpEntity(apiData, id) {
     }
 }
 
-const colorsMap = {
-    'GET': 'success',
-    'POST': 'warning',
-    'PUT': 'primary',
-    'DELETE': 'error'
-};
-
-// export function methodColumnRender(h, params) {
-//     if (params.index === 0) {
-//
-//         const colorFromMap = colorsMap[params.row.k1];
-//         let color = colorFromMap ? colorFromMap : 'default';
-//
-//         return h('Tag', {
-//             props: {
-//                 color: color
-//             }
-//         }, params.row.k1,);
-//     } else {
-//         return h('span', params.row.k1)
-//     }
-// }
-
 /**
  * 提取 schema ref 中的名称.
  *
