@@ -193,12 +193,12 @@
 
                 this.$data.rootParams = httpEntity.params;
                 const subParams = [];
-                findAllBean(httpEntity.params, store.state.apiData.definitions, subParams);
+                swagger.findAllBean(httpEntity.params, store.state.apiData.definitions, subParams);
                 this.$data.subParams = subParams;
 
                 this.$data.rootResponses = httpEntity.responses;
                 const subResponses = [];
-                findAllBean(httpEntity.responses, store.state.apiData.definitions, subResponses);
+                swagger.findAllBean(httpEntity.responses, store.state.apiData.definitions, subResponses);
                 this.$data.subResponses = subResponses
 
             }
