@@ -7,7 +7,7 @@
             <li><h2 id="h2_1">接口说明</h2>
             </li>
             <li class="no-border">
-              <Table :columns="apiInfoColumns" :data="apiInfo()"
+              <Table :columns="apiInfoColumns" :data="apiInfo"
                      :show-header="false"/>
             </li>
 
@@ -19,7 +19,7 @@
               <Table :columns="paramBeanColumns" :data="httpEntity.paramBean.props" border/>
             </li>
 
-            <template v-for="child of allChildParamBeans()">
+            <template v-for="child of allChildResponseBeans">
               <li :key="child.name">
                 <ul>
                   <li>
@@ -106,6 +106,7 @@
         },
         computed: {
             apiInfo() {
+
                 const apiInfo = [
                     {k1: this.httpEntity.method, k2: this.httpEntity.path},
                     {k1: '请求体类型', k2: this.httpEntity.consumes},
@@ -117,12 +118,14 @@
                 return apiInfo
             },
             allChildParamBeans() {
+
                 const allChildParamBeans = [];
-                swagger.findAllBean(this.httpEntity.paramsBean, this.beanMap, allChildParamBeans);
+                swagger.findAllBean(this.httpEntity.paramBean, this.beanMap, allChildParamBeans);
                 return allChildParamBeans
 
             },
             allChildResponseBeans() {
+
                 const allChildResponseBeans = [];
                 swagger.findAllBean(this.httpEntity.responseBean, this.beanMap, allChildResponseBeans);
                 return allChildResponseBeans
@@ -131,11 +134,18 @@
         props: {
             httpEntity: {
                 type: Object,
-                default: null
+                default() {
+                    return {
+                        paramBean: {props: []},
+                        responseBean: {props: []}
+                    }
+                }
             },
             beanMap: {
                 type: Object,
-                default: null
+                default() {
+                    return {}
+                }
             }
         }
     }
