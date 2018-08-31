@@ -182,7 +182,7 @@
         }
     }
 </script>
-<style lang="less" scoped>
+<style lang="less">
   #doc-content {
     li {
       margin: 5px 0;
@@ -190,11 +190,6 @@
         margin-top: 30px;
       }
     }
-  }
-
-  /*noinspection CssUnusedSymbol*/
-  .row-padding-bottom .ivu-row {
-    padding-bottom: 50px;
   }
 
   /*noinspection CssUnusedSymbol*/
