@@ -44,9 +44,8 @@
           </Submenu>
         </Menu>
       </Sider>
-      <Content :style="{padding: '24px 0 0 24px', background: '#fff'}">
+      <Content :style="{background: '#fff'}">
         <router-view/>
-        <!--<entity-view :http-entity="httpEntity" :bean-map="beanMap"/>-->
       </Content>
     </Layout>
   </Layout>

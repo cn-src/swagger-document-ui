@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 24px;">
     <Divider>{{ apiTitle }}</Divider>
     <Table :columns="apiInfoColumns" :data="apiInfo" border
            :show-header="false"/>

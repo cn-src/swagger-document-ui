@@ -1,78 +1,80 @@
 <template>
-  <Tabs>
-    <TabPane label="API 文档" icon="md-document">
-      <div id="doc-content" :style="{height: '90vh',overflowY: 'auto'}">
-        <div :style="{width:'75vw'}">
-          <ul>
-            <li><h2 id="h2_1">接口说明</h2>
-            </li>
-            <li class="no-border">
-              <Table :columns="apiInfoColumns" :data="apiInfo"
-                     :show-header="false"/>
-            </li>
-
-            <!--参数信息-->
-            <li>
-              <h2 id="h2_2">请求参数</h2>
-            </li>
-            <li>
-              <Table :columns="paramBeanColumns" :data="httpEntity.paramBean.props" border/>
-            </li>
-
-            <template v-for="child of allChildParamBeans">
-              <li :key="child.name">
-                <ul>
-                  <li>
-                    <h3>类型
-                      <Icon type="md-arrow-dropright" size="20"/>
-                      {{ child.title }}
-                    </h3>
-                  </li>
-                  <li>
-                    <Table :columns="beanColumns" :data="child.props" border/>
-                  </li>
-                </ul>
+  <div style="padding: 24px 0 0 24px;">
+    <Tabs>
+      <TabPane label="API 文档" icon="md-document">
+        <div id="doc-content" :style="{height: '90vh',overflowY: 'auto'}">
+          <div :style="{width:'75vw'}">
+            <ul>
+              <li><h2 id="h2_1">接口说明</h2>
               </li>
-            </template>
-
-            <!--响应信息-->
-            <li>
-              <h2 id="h2_3">响应信息</h2>
-            </li>
-            <li>
-              <Table :columns="responseBeanColumns" :data="httpEntity.responseBean.props"
-                     border/>
-            </li>
-
-            <template v-for="child of allChildResponseBeans">
-              <li :key="child.name">
-                <ul>
-                  <li>
-                    <h3>类型
-                      <Icon type="md-arrow-dropright" size="20"/>
-                      {{ child.title }}
-                    </h3>
-                  </li>
-                  <li>
-                    <Table :columns="beanColumns" :data="child.props" border/>
-                  </li>
-                </ul>
+              <li class="no-border">
+                <Table :columns="apiInfoColumns" :data="apiInfo"
+                       :show-header="false"/>
               </li>
-            </template>
-            <li style="margin: 10px 0">
-              &nbsp;
-            </li>
-          </ul>
+
+              <!--参数信息-->
+              <li>
+                <h2 id="h2_2">请求参数</h2>
+              </li>
+              <li>
+                <Table :columns="paramBeanColumns" :data="httpEntity.paramBean.props" border/>
+              </li>
+
+              <template v-for="child of allChildParamBeans">
+                <li :key="child.name">
+                  <ul>
+                    <li>
+                      <h3>类型
+                        <Icon type="md-arrow-dropright" size="20"/>
+                        {{ child.title }}
+                      </h3>
+                    </li>
+                    <li>
+                      <Table :columns="beanColumns" :data="child.props" border/>
+                    </li>
+                  </ul>
+                </li>
+              </template>
+
+              <!--响应信息-->
+              <li>
+                <h2 id="h2_3">响应信息</h2>
+              </li>
+              <li>
+                <Table :columns="responseBeanColumns" :data="httpEntity.responseBean.props"
+                       border/>
+              </li>
+
+              <template v-for="child of allChildResponseBeans">
+                <li :key="child.name">
+                  <ul>
+                    <li>
+                      <h3>类型
+                        <Icon type="md-arrow-dropright" size="20"/>
+                        {{ child.title }}
+                      </h3>
+                    </li>
+                    <li>
+                      <Table :columns="beanColumns" :data="child.props" border/>
+                    </li>
+                  </ul>
+                </li>
+              </template>
+              <li style="margin: 10px 0">
+                &nbsp;
+              </li>
+            </ul>
+          </div>
+          <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
+            <AnchorLink href="#h2_1" title="接口说明"/>
+            <AnchorLink href="#h2_2" title="请求参数"/>
+            <AnchorLink href="#h2_3" title="响应信息"/>
+          </Anchor>
         </div>
-        <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
-          <AnchorLink href="#h2_1" title="接口说明"/>
-          <AnchorLink href="#h2_2" title="请求参数"/>
-          <AnchorLink href="#h2_3" title="响应信息"/>
-        </Anchor>
-      </div>
-    </TabPane>
-    <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
-  </Tabs>
+      </TabPane>
+      <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
+    </Tabs>
+  </div>
 </template>
 <script>
     import swagger from "@/utils/swagger";
