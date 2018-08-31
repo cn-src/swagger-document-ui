@@ -21,7 +21,7 @@
               </li>
 
               <template v-for="(child, index) of allChildParamBeans">
-                <li :key="child.name">
+                <li :key="index">
                   <ul>
                     <li>
                       <h3 :id="'h3_param_' + index">类型
@@ -46,7 +46,7 @@
               </li>
 
               <template v-for="(child,index) of allChildResponseBeans">
-                <li :key="child.name">
+                <li :key="index">
                   <ul>
                     <li>
                       <h3 :id="'h3_response_' + index">类型
