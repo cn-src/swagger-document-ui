@@ -1,9 +1,17 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "满意度可视化系统 API 文档",
-    "contact": {},
-    "license": {}
+    "title": "测试系统 API 文档",
+    "version": "1.0.0",
+    "termsOfService": "termsOfService",
+    "description": "description",
+    "contact": {
+      "email": "demo@demo.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
   },
   "host": "test.idata3d.com:8889",
   "basePath": "/",
@@ -656,7 +664,6 @@
       },
       "title": "ProjectData"
     },
-
     "UserForm": {
       "type": "object",
       "properties": {
@@ -674,7 +681,6 @@
       },
       "title": "UserForm"
     },
-
     "用户基本信息": {
       "type": "object",
       "properties": {
