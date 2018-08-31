@@ -20,11 +20,11 @@
                 <Table :columns="paramBeanColumns" :data="httpEntity.paramBean.props" border/>
               </li>
 
-              <template v-for="child of allChildParamBeans">
+              <template v-for="(child, index) of allChildParamBeans">
                 <li :key="child.name">
                   <ul>
                     <li>
-                      <h3>类型
+                      <h3 :id="'h3_param_' + index">类型
                         <Icon type="md-arrow-dropright" size="20"/>
                         {{ child.title }}
                       </h3>
@@ -45,11 +45,11 @@
                        border/>
               </li>
 
-              <template v-for="child of allChildResponseBeans">
+              <template v-for="(child,index) of allChildResponseBeans">
                 <li :key="child.name">
                   <ul>
                     <li>
-                      <h3>类型
+                      <h3 :id="'h3_response_' + index">类型
                         <Icon type="md-arrow-dropright" size="20"/>
                         {{ child.title }}
                       </h3>
@@ -67,8 +67,16 @@
           </div>
           <Anchor show-ink container="#doc-content" style="top:100px;right:100px;position: fixed;">
             <AnchorLink href="#h2_1" title="接口说明"/>
-            <AnchorLink href="#h2_2" title="请求参数"/>
-            <AnchorLink href="#h2_3" title="响应信息"/>
+            <AnchorLink href="#h2_2" title="请求参数">
+              <AnchorLink :href="'#h3_param_' + index" :title="child.title"
+                          :key="index"
+                          v-for="(child, index) of allChildParamBeans"/>
+            </AnchorLink>
+            <AnchorLink href="#h2_3" title="响应信息">
+              <AnchorLink :href="'#h3_response_' + index" :title="child.title"
+                          :key="index"
+                          v-for="(child, index) of allChildResponseBeans"/>
+            </AnchorLink>
           </Anchor>
         </div>
       </TabPane>
