@@ -2,7 +2,7 @@
   <div style="padding: 24px 0 0 24px;">
     <Tabs>
       <TabPane label="API 文档" icon="md-document">
-        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto'}">
+        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px'}">
           <div :style="{width:'75vw'}">
             <ul>
               <li><h2 id="h2_1">接口说明</h2>
