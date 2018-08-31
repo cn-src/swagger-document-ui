@@ -19,6 +19,7 @@
     </Header>
     <Layout :style="{marginTop:'64px',background: '#FFF'}">
       <Sider ref="side1" :style="{height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
+             breakpoint="md"
              :width="250"
              :collapsed-width="0"
              v-model="isCollapsed"
