@@ -8,8 +8,10 @@
               <li><h2 id="h2_1">接口说明</h2>
               </li>
               <li class="no-border">
-                <Table :columns="apiInfoColumns" :data="apiInfo"
-                       :show-header="false"/>
+                <Table :columns="apiInfoColumns"
+                       :data="apiInfo"
+                       :show-header="false"
+                       size="small"/>
               </li>
 
               <!--参数信息-->
@@ -17,7 +19,9 @@
                 <h2 id="h2_2">请求参数</h2>
               </li>
               <li>
-                <Table :columns="paramBeanColumns" :data="httpEntity.paramBean.props" border/>
+                <Table :columns="paramBeanColumns"
+                       :data="httpEntity.paramBean.props"
+                       border size="small"/>
               </li>
 
               <template v-for="(child, index) of allChildParamBeans">
@@ -30,7 +34,9 @@
                       </h3>
                     </li>
                     <li>
-                      <Table :columns="beanColumns" :data="child.props" border/>
+                      <Table :columns="beanColumns"
+                             :data="child.props"
+                             border size="small"/>
                     </li>
                   </ul>
                 </li>
@@ -41,8 +47,9 @@
                 <h2 id="h2_3">响应信息</h2>
               </li>
               <li>
-                <Table :columns="responseBeanColumns" :data="httpEntity.responseBean.props"
-                       border/>
+                <Table :columns="responseBeanColumns"
+                       :data="httpEntity.responseBean.props"
+                       border size="small"/>
               </li>
 
               <template v-for="(child,index) of allChildResponseBeans">
@@ -55,7 +62,9 @@
                       </h3>
                     </li>
                     <li>
-                      <Table :columns="beanColumns" :data="child.props" border/>
+                      <Table :columns="beanColumns"
+                             :data="child.props"
+                             border size="small"/>
                     </li>
                   </ul>
                 </li>
