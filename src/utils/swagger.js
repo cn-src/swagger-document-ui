@@ -24,6 +24,10 @@ function fixSwaggerJson(swaggerJson) {
         beanMap: fixDefinitions(swaggerJson.definitions),
         collection: {}
     };
+    data.info.host = swaggerJson.host;
+    data.info.basePath = swaggerJson.basePath;
+    data.info.schemes = swaggerJson.schemes;
+
     swaggerJson.tags.forEach(tag => {
         data.collection[tag.name] = []
     });

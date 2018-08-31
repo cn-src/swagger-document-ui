@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 24px;">
     <Divider>{{ apiTitle }}</Divider>
-    <Table :columns="apiInfoColumns" :data="apiInfo" border
+    <Table :columns="apiInfoColumns" :data="apiInfoItems" border
            :show-header="false"/>
   </div>
 </template>
@@ -26,7 +26,7 @@
                 }
                 return store.state.apiData.info.title;
             },
-            apiInfo() {
+            apiInfoItems() {
                 if (!store.state.apiData || !store.state.apiData.info) {
                     return []
                 }
@@ -38,7 +38,8 @@
                     {k1: '服务条款:', k2: info.termsOfService},
                     {k1: '维护人:', k2: info.contact},
                     {k1: '维护人邮箱:', k2: info.contact.email},
-                    {k1: '接口地址:', k2: info.title}
+                    {k1: 'host:', k2:info.host},
+                    {k1: 'basePath:', k2:info.basePath}
                 ]
             }
         }
