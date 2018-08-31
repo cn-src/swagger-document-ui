@@ -3,17 +3,17 @@
     <Header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
       <Menu mode="horizontal" theme="dark">
         <MenuItem :style="{width: '200px'}" name="0">
-          <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
+        <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
         </MenuItem>
         <MenuItem name="1">
-          <Icon type="md-menu"
-                size="24" @click.native="collapsedSider"/>
+        <Icon type="md-menu"
+              size="24" @click.native="collapsedSider"/>
         </MenuItem>
         <MenuItem name="2">
         <span style="font-size: 20px;">
           {{ apiData.info && apiData.info.title }}
         </span>
-          <Icon type="md-repeat" size="20"/>
+        <Icon type="md-repeat" size="20"/>
         </MenuItem>
       </Menu>
     </Header>
@@ -25,9 +25,9 @@
              hide-trigger
              collapsible>
         <Menu theme="dark" width="auto" @on-select="menuItemAction">
-          <MenuItem :name="'home'">
-            <Icon type="md-home"/>
-            首页
+          <MenuItem :name="'Home'">
+          <Icon type="md-home"/>
+          首页
           </MenuItem>
 
           <Submenu v-for="(httpEntities,tagName, i) in apiData.collection" :name="'m'+i" :key="i">
@@ -37,15 +37,16 @@
             </template>
             <template v-for="httpEntity in httpEntities">
               <MenuItem :name="httpEntity.id" :key="httpEntity.id">
-                <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
-                {{ httpEntity.name }}
+              <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
+              {{ httpEntity.name }}
               </MenuItem>
             </template>
           </Submenu>
         </Menu>
       </Sider>
       <Content :style="{padding: '24px 0 0 24px', background: '#fff'}">
-        <EntityView :http-entity="httpEntity" :bean-map="beanMap"/>
+        <router-view/>
+        <!--<entity-view :http-entity="httpEntity" :bean-map="beanMap"/>-->
       </Content>
     </Layout>
   </Layout>
@@ -84,10 +85,16 @@
                 this.$refs.side1.toggleCollapse();
             },
             menuItemAction(menuItemName) {
-                if (!menuItemName.startsWith('httpEntity')) return;
+                if (menuItemName === 'Home') {
+                    this.$router.push('/');
+                    return
+                }
 
                 this.$data.httpEntity = swagger.findHttpEntity(store.state.apiData, menuItemName);
                 this.$data.beanMap = store.state.apiData.beanMap;
+                if (menuItemName.startsWith('httpEntity')) {
+                    this.$router.push(`/entity/${menuItemName}`);
+                }
             }
         },
     }
