@@ -18,7 +18,7 @@
       </Menu>
     </Header>
     <Layout :style="{marginTop:'64px',background: '#FFF'}">
-      <Sider ref="side1" :style="{height: '100vh',overflow: 'auto',whiteSpace:'nowrap'}"
+      <Sider ref="side1" :style="{height: '100vh',overflow: 'auto'}"
              breakpoint="md"
              :width="250"
              :collapsed-width="0"
