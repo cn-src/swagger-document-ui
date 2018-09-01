@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "iview": "^3.0.1",
+    "jsoneditor": "^5.24.3",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
