@@ -2,18 +2,13 @@
   <Layout stype="overflow-y:hide">
     <Header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
       <Menu mode="horizontal" theme="dark">
-        <MenuItem :style="{width: '200px'}" name="0">
-        <Input v-show="!isCollapsed" v-model="tagsKeyWord" placeholder="过滤..." clearable></Input>
-        </MenuItem>
         <MenuItem name="1">
         <Icon type="md-menu"
               size="24" @click.native="collapsedSider"/>
         </MenuItem>
         <MenuItem name="2">
-        <span style="font-size: 20px;">
-          {{ apiData.info && apiData.info.title }}
-        </span>
-        <Icon type="md-repeat" size="20"/>
+        {{ apiData.info && apiData.info.title }}
+        <Icon type="md-repeat"/>
         </MenuItem>
       </Menu>
     </Header>
