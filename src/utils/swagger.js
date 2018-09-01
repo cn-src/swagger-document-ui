@@ -50,6 +50,7 @@ function fixSwaggerJson(swaggerJson) {
                     if (tag === tagName) {
                         let httpEntity = {};
                         httpEntity.id = 'httpEntity' + index++;
+                        httpEntity.tag = tag;
                         httpEntity.name = methodInfo.summary;
                         httpEntity.path = path;
                         httpEntity.method = method.toUpperCase();
