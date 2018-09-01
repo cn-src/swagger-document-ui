@@ -12,8 +12,8 @@
         </MenuItem>
       </Menu>
     </Header>
-    <Layout :style="{marginTop:'64px',background: '#FFF'}">
-      <Sider ref="side1" :style="{height: '100vh',overflow: 'auto'}"
+    <Layout :style="{height: '100vh', paddingTop:'64px', boxSizing: 'border-box',background: '#FFF'}">
+      <Sider ref="side1" :style="{overflow: 'auto'}"
              breakpoint="md"
              :width="250"
              :collapsed-width="0"
