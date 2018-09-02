@@ -3,7 +3,7 @@
   "info": {
     "title": "测试系统 API 文档",
     "version": "1.0.0",
-    "termsOfService": "termsOfService",
+    "termsOfService": "http://demo.io/terms/",
     "description": "description",
     "contact": {
       "email": "demo@demo.io"
