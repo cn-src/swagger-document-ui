@@ -14,6 +14,8 @@ module.exports = {
             title: 'API 文档'
         }
     },
-
+    devServer: {
+        proxy: 'http://swagger-bootstrap-ui.xiaominfo.com'
+    },
     lintOnSave: undefined
 };
