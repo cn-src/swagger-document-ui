@@ -25,7 +25,7 @@
               </li>
 
               <template v-for="(child, index) of allChildParamBeans">
-                <li :key="child.schemaName">
+                <li :key="'Param:' + child.schemaName">
                   <ul>
                     <li>
                       <h3 :id="'h3_param_' + index">类型
@@ -53,7 +53,7 @@
               </li>
 
               <template v-for="(child,index) of allChildResponseBeans">
-                <li :key="child.schemaName">
+                <li :key="'Response:' + child.schemaName">
                   <ul>
                     <li>
                       <h3 :id="'h3_response_' + index">类型
