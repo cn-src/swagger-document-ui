@@ -116,7 +116,7 @@ function recursiveAllBean(bean, definitions, childBean) {
             }).length === 0) {
                 childBean.push(child)
             }
-            findAllBean(child, definitions, childBean)
+            recursiveAllBean(child, definitions, childBean)
         }
     }
 }
