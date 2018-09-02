@@ -10,8 +10,9 @@ function initApi(path) {
             if (response.data && response.data[0] && response.data[0].url) {
                 axios.get(response.data[0].url)
                     .then(function (swaggerResponse) {
-                        console.debug(`[SDU] GET ${response.data[0].url} : ${swaggerResponse.data}`);
-                        store.commit('currentSwaggerJson', swagger.fixSwaggerJson(swaggerResponse.data))
+                        const swaggerJson = swagger.fixSwaggerJson(JSON.parse(swaggerResponse.data));
+                        console.debug(`[SDU] GET ${response.data[0].url} : ${swaggerJson}`);
+                        store.commit('currentSwaggerJson', swaggerJson)
                     })
             }
         });
