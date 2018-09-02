@@ -73,6 +73,7 @@ function fixDefinitions(definitions) {
     for (let schemaName in definitions) {
         if (!definitions.hasOwnProperty(schemaName)) continue;
         let bean = emptyBean();
+        bean.schemaName = schemaName;
 
         if (definitions[schemaName].title) {
             bean.title = definitions[schemaName].title;
