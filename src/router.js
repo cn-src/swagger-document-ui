@@ -19,8 +19,8 @@ export default new Router({
             path: '/entity/:id',
             name: 'EntityView',
             props: (route) => {
-                const httpEntity = swagger.findHttpEntity(store.state.apiData, route.params.id);
-                const beanMap = store.state.apiData.beanMap;
+                const httpEntity = swagger.findHttpEntity(store.state.currentSwaggerJson, route.params.id);
+                const beanMap = store.state.currentSwaggerJson.beanMap;
                 return {httpEntity, beanMap}
             },
             // route level code-splitting
