@@ -205,6 +205,12 @@ function fixIfSchema(tar, src) {
         return tar
     }
 
+    if (src.type === 'array' && src.items.type) {
+        tar.type = 'array';
+        tar.format = '[ ' + src.items.type + ']';
+        tar.hasRef = false;
+        return tar
+    }
     // enum
     if (src.enum) {
         tar.type = src.type;
