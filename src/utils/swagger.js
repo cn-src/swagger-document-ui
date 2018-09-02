@@ -117,8 +117,8 @@ function recursiveAllBean(bean, definitions, childBean) {
                 return fb.schemaName === prop.schemaName
             }).length === 0) {
                 childBean.push(child)
+                recursiveAllBean(child, definitions, childBean)
             }
-            recursiveAllBean(child, definitions, childBean)
         }
     }
 }
