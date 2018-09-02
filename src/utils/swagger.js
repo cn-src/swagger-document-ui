@@ -194,6 +194,15 @@ function fixIfSchema(tar, src) {
         tar.hasRef = true;
         return tar
     }
+
+    // enum
+    if (src.enum) {
+        tar.type = src.type;
+        tar.format = src.enum;
+        tar.hasRef = true;
+        return tar
+    }
+
     // schema type
     if (src.schema && src.schema.type) {
         tar.type = src.schema.type;
