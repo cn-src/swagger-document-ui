@@ -7,7 +7,7 @@
               size="24" @click.native="collapsedSider"/>
         </MenuItem>
         <MenuItem name="2">
-        {{ apiData.info && apiData.info.title }}
+        {{ currentSwaggerJson.info && currentSwaggerJson.info.title }}
         <Icon type="md-repeat"/>
         </MenuItem>
       </Menu>
@@ -26,7 +26,7 @@
           首页
           </MenuItem>
 
-          <Submenu v-for="(httpEntities,tagName, i) in apiData.collection" :name="'m'+i" :key="i">
+          <Submenu v-for="(httpEntities,tagName, i) in currentSwaggerJson.collection" :name="'m'+i" :key="i">
             <template slot="title">
               <Icon type="ios-pricetags"/>
               {{ tagName }}
@@ -71,8 +71,8 @@
             }
         },
         computed: {
-            apiData() {
-                return store.state.apiData
+            currentSwaggerJson() {
+                return store.state.currentSwaggerJson
             }
         },
         methods: {
@@ -85,8 +85,8 @@
                     return
                 }
 
-                this.$data.httpEntity = swagger.findHttpEntity(store.state.apiData, menuItemName);
-                this.$data.beanMap = store.state.apiData.beanMap;
+                this.$data.httpEntity = swagger.findHttpEntity(store.state.currentSwaggerJson, menuItemName);
+                this.$data.beanMap = store.state.currentSwaggerJson.beanMap;
                 if (menuItemName.startsWith('httpEntity')) {
                     this.$router.push(`/entity/${menuItemName}`);
                 }
