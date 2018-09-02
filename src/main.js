@@ -4,9 +4,7 @@ import router from './router'
 import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-import swagger from '@/utils/swagger'
 import api from '@/utils/api'
-import swaggerJson from '../tests/unit/utils/swagger.json'
 
 Vue.use(iView);
 
