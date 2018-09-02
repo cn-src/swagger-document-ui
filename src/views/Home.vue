@@ -37,7 +37,7 @@
                     {k1: '版本:', k2: info.version},
                     {k1: '许可证:', k2: info.license},
                     {k1: '服务条款:', k2: info.termsOfService},
-                    {k1: '联系开发人员:', k2: info.contact.email},
+                    {k1: '开发人员:', k2: info.contact.email},
                     {k1: 'host:', k2: info.host},
                     {k1: 'basePath:', k2: info.basePath}
                 ]
@@ -62,7 +62,7 @@
                     href: params.row.k2
                 }
             }, params.row.k2);
-        } else if (params.row.k1 === '联系开发人员:') {
+        } else if (params.row.k1 === '开发人员:') {
             return h('a', {
                 attrs: {
                     target: '_blank',
