@@ -49,7 +49,6 @@
 <script>
     import store from '@/store'
     import MethodTag from '@/components/MethodTag'
-    import swagger from '@/utils/swagger'
     import EntityView from "@/views/EntityView";
 
     export default {
@@ -84,9 +83,6 @@
                     this.$router.push('/');
                     return
                 }
-
-                this.$data.httpEntity = swagger.findHttpEntity(store.state.currentSwaggerJson, menuItemName);
-                this.$data.beanMap = store.state.currentSwaggerJson.beanMap;
                 if (menuItemName.startsWith('httpEntity')) {
                     this.$router.push(`/entity/${menuItemName}`);
                 }
