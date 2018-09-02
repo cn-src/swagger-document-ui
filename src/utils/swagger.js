@@ -178,7 +178,17 @@ function toBean(tar, src) {
  */
 function fixIfSchema(tar, src) {
     const schemaIsArray = src.schema && src.schema.type === 'array';
+
     // ref
+    if (src['$ref']) {
+        let schemaName = getSchemaName(src['$ref']);
+        tar.type = schemaIsArray ? 'array' : schemaName;
+        tar.format = schemaIsArray ? '[ ' + schemaName + ']' : schemaName;
+        tar.hasRef = true;
+        tar.schemaName = schemaName;
+        return tar
+    }
+
     if (src.schema && src.schema['$ref']) {
         let schemaName = getSchemaName(src.schema['$ref']);
         tar.type = schemaIsArray ? 'array' : schemaName;
