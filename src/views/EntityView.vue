@@ -136,17 +136,10 @@
                 return apiInfo
             },
             allChildParamBeans() {
-
-                const allChildParamBeans = [];
-                swagger.findAllBean(this.httpEntity.paramBean, this.beanMap, allChildParamBeans);
-                return allChildParamBeans
-
+                return swagger.findAllBean(this.httpEntity.paramBean, this.beanMap);
             },
             allChildResponseBeans() {
-
-                const allChildResponseBeans = [];
-                swagger.findAllBean(this.httpEntity.responseBean, this.beanMap, allChildResponseBeans);
-                return allChildResponseBeans
+                return swagger.findAllBean(this.httpEntity.responseBean, this.beanMap);
             }
         },
         props: {

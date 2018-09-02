@@ -95,10 +95,16 @@ function fixDefinitions(definitions) {
     return fixDefinitions
 }
 
+function findAllBean(bean, definitions) {
+    const childBean = [];
+    recursiveAllBean(bean, definitions, childBean);
+    return childBean
+}
+
 /**
  * 根据参数，尾递归找到所有的Schema信息.
  */
-function findAllBean(bean, definitions, childBean) {
+function recursiveAllBean(bean, definitions, childBean) {
     if (!bean || !definitions || !bean.props) {
         return emptyBean()
     }
