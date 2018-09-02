@@ -49,6 +49,7 @@
 <script>
     import MethodTag from '@/components/MethodTag'
     import EntityView from "@/views/EntityView";
+    import api from '@/utils/api'
 
     export default {
         name: 'App',
@@ -92,6 +93,9 @@
                 }
             }
         },
+        beforeCreate:function () {
+            api.initApi('/swagger-resources');
+        }
     }
 
 

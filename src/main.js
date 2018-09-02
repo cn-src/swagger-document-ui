@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-import api from '@/utils/api'
 
 Vue.use(iView);
 
@@ -15,5 +14,3 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app');
-
-api.initApi('/swagger-resources');
