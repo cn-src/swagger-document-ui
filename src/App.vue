@@ -75,7 +75,7 @@
             },
             swaggerCollection() {
                 const currentSwaggerJson = this.$store.state.currentSwaggerJson;
-                return currentSwaggerJson && currentSwaggerJson.collection || []
+                return currentSwaggerJson && currentSwaggerJson.collection || {}
             }
         },
         methods: {
