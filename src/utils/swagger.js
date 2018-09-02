@@ -194,6 +194,12 @@ function fixIfSchema(tar, src) {
         tar.hasRef = true;
         return tar
     }
+    // schema type
+    if (src.schema && src.schema.type) {
+        tar.type = src.schema.type;
+        tar.hasRef = false;
+        return tar
+    }
 
     // items type
     if (src.schema && src.schema.items && src.schema.items.type) {
