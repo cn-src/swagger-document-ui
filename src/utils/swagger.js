@@ -18,8 +18,10 @@
  */
 
 function fixSwaggerJson(swaggerJson) {
+    const info = {license: {}};
+    Object.assign(info, swaggerJson.info);
     let data = {
-        info: swaggerJson.info,
+        info: info,
         beanMap: fixDefinitions(swaggerJson.definitions),
         collection: {}
     };
