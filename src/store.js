@@ -5,11 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        swaggerResources: []
+        swaggerResources: [],
+        currentSwaggerJson: {}
     },
     mutations: {
         swaggerResources(state, data) {
             state.swaggerResources = data
+        },
+        currentSwaggerJson(state, data) {
+            state.currentSwaggerJson = data
         }
     },
     actions: {}

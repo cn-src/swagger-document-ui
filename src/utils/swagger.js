@@ -16,10 +16,9 @@
  * }
  *
  */
-let data = {};
 
 function fixSwaggerJson(swaggerJson) {
-    data = {
+    let data = {
         info: swaggerJson.info,
         beanMap: fixDefinitions(swaggerJson.definitions),
         collection: {}
@@ -242,7 +241,6 @@ function emptyBean() {
 }
 
 export default {
-    data: data,
     fixSwaggerJson: fixSwaggerJson,
     findAllBean: findAllBean,
     findHttpEntity: findHttpEntity,

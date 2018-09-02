@@ -21,16 +21,16 @@
         },
         computed: {
             apiTitle() {
-                if (!store.state.apiData || !store.state.apiData.info) {
+                if (!store.state.currentSwaggerJson || !store.state.currentSwaggerJson.info) {
                     return ''
                 }
-                return store.state.apiData.info.title;
+                return store.state.currentSwaggerJson.info.title;
             },
             apiInfoItems() {
-                if (!store.state.apiData || !store.state.apiData.info) {
+                if (!store.state.currentSwaggerJson || !store.state.currentSwaggerJson.info) {
                     return []
                 }
-                const info = store.state.apiData.info;
+                const info = store.state.currentSwaggerJson.info;
 
                 return [
                     {k1: '描述:', k2: info.description},
