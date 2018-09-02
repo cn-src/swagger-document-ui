@@ -7,7 +7,7 @@
               size="24" @click.native="collapsedSider"/>
         </MenuItem>
         <MenuItem name="2">
-        {{ currentSwaggerJson.info && currentSwaggerJson.info.title }}
+        {{ infoTitle }}
         <Icon type="md-repeat"/>
         </MenuItem>
       </Menu>
@@ -26,7 +26,7 @@
           首页
           </MenuItem>
 
-          <Submenu v-for="(httpEntities,tagName, i) in currentSwaggerJson.collection" :name="'m'+i" :key="i">
+          <Submenu v-for="(httpEntities,tagName, i) in swaggerCollection" :name="'m'+i" :key="i">
             <template slot="title">
               <Icon type="ios-pricetags"/>
               {{ tagName }}
@@ -47,7 +47,6 @@
   </Layout>
 </template>
 <script>
-    import store from '@/store'
     import MethodTag from '@/components/MethodTag'
     import EntityView from "@/views/EntityView";
 
@@ -70,8 +69,13 @@
             }
         },
         computed: {
-            currentSwaggerJson() {
-                return store.state.currentSwaggerJson
+            infoTitle() {
+                const currentSwaggerJson = this.$store.state.currentSwaggerJson;
+                return currentSwaggerJson && currentSwaggerJson.info && currentSwaggerJson.info.title || ''
+            },
+            swaggerCollection() {
+                const currentSwaggerJson = this.$store.state.currentSwaggerJson;
+                return currentSwaggerJson && currentSwaggerJson.collection || []
             }
         },
         methods: {
