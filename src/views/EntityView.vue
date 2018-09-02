@@ -206,9 +206,9 @@
   /*noinspection CssUnusedSymbol*/
   .no-border {
     .ivu-table-wrapper {
-      border: 0 solid #dcdee2;
+      border: 0;
       td {
-        border: 0 solid #e8eaec;
+        border: 0;
       }
     }
     .ivu-table:before, .ivu-table:after {
