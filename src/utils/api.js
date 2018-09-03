@@ -15,8 +15,14 @@ function initApi(path) {
 function setCurrentSwaggerJson(path) {
     axios.get(path)
         .then(function (swaggerResponse) {
-            const swaggerJson = swagger.fixSwaggerJson(JSON.parse(swaggerResponse.data));
-            store.commit('currentSwaggerJson', swaggerJson)
+            const data = swaggerResponse.data;
+            let swaggerJson;
+            if (typeof data === "string") {
+                swaggerJson = JSON.parse(data)
+            } else {
+                swaggerJson = data
+            }
+            store.commit('currentSwaggerJson', swagger.fixSwaggerJson(swaggerJson))
         })
 
 }
