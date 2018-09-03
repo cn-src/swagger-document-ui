@@ -9,19 +9,20 @@
 </template>
 
 <script>
-    import setCurrentSwaggerJson from '@/utils/api'
+    import api from '@/utils/api'
 
     export default {
         name: "SwaggerResources",
         data() {
             return {
-                show: false,
-                switchValue: ''
+                show: false
             }
         },
         methods: {
             setCurrentSwaggerJsonAction(url) {
-                setCurrentSwaggerJson(url)
+                api.setCurrentSwaggerJson(url);
+                this.show = false;
+                this.$router.push('/');
             }
         },
         computed: {
