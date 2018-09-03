@@ -1,16 +1,17 @@
 <template>
   <Layout stype="overflow-y:hide">
     <Header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
-      <Menu mode="horizontal" theme="dark">
+      <Menu mode="horizontal" theme="dark" @on-select="headerAction">
         <MenuItem name="1">
         <Icon type="md-menu"
               size="24" @click.native="collapsedSider"/>
         </MenuItem>
-        <MenuItem name="2">
+        <MenuItem name="swaggerResources">
         {{ infoTitle }}
         <Icon type="md-repeat"/>
         </MenuItem>
       </Menu>
+      <SwaggerResources ref="swaggerResources"/>
     </Header>
     <Layout :style="{height: '100vh', paddingTop:'64px', background: '#FFF'}">
       <Sider ref="side1" :style="{overflow: 'auto'}"
@@ -49,11 +50,12 @@
 <script>
     import MethodTag from '@/components/MethodTag'
     import EntityView from "@/views/EntityView";
+    import SwaggerResources from "@/views/SwaggerResources";
     import api from '@/utils/api'
 
     export default {
         name: 'App',
-        components: {EntityView, MethodTag},
+        components: {EntityView, SwaggerResources, MethodTag},
         data() {
             return {
                 tagsKeyWord: '',
@@ -83,6 +85,11 @@
             collapsedSider() {
                 this.$refs.side1.toggleCollapse();
             },
+            headerAction(menuItemName) {
+                if (menuItemName === 'swaggerResources') {
+                    this.$refs.swaggerResources.show = true
+                }
+            },
             menuItemAction(menuItemName) {
                 if (menuItemName === 'Home') {
                     this.$router.push('/');
@@ -93,7 +100,7 @@
                 }
             }
         },
-        beforeCreate:function () {
+        beforeCreate: function () {
             api.initApi('/swagger-resources');
         }
     }
