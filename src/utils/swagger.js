@@ -187,13 +187,15 @@ function fixBean(tar, src) {
         beanRef = getBeanRef(src.items['$ref']);
     }
 
-    let type = "";
+    let type = '';
     if (src.type) {
         type = src.type
     } else if (src.schema && src.schema.type) {
         type = src.schema.type
     } else if (src.items && src.items.type) {
         type = src.items.type
+    } else if (type === '' && beanRef !== '') {
+        type = beanRef
     }
 
     let format = "";
@@ -203,9 +205,15 @@ function fixBean(tar, src) {
         format = src.schema.type
     } else if (src.items && src.items.format) {
         format = src.items.format
+    } else if (format === '' && beanRef !== '') {
+        format = beanRef
     }
 
-    return {type, format, beanRef, hasRef: typeof beanRef !== 'undefined' && beanRef !== ''}
+    tar.type = tar.type || type;
+    tar.format = tar.format || format;
+    tar.beanRef = beanRef;
+    tar.hasRef = beanRef !== '';
+    return tar
 }
 
 function findHttpEntity(apiData, id) {
