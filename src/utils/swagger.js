@@ -70,20 +70,20 @@ function fixSwaggerJson(swaggerJson) {
 
 function fixDefinitions(definitions) {
     let fixDefinitions = {};
-    for (let schemaName in definitions) {
-        if (!definitions.hasOwnProperty(schemaName)) continue;
+    for (let beanRef in definitions) {
+        if (!definitions.hasOwnProperty(beanRef)) continue;
         let bean = emptyBean();
-        bean.schemaName = schemaName;
+        bean.beanRef = beanRef;
 
-        if (definitions[schemaName].title) {
-            bean.title = definitions[schemaName].title;
+        if (definitions[beanRef].title) {
+            bean.title = definitions[beanRef].title;
         }
-        if (definitions[schemaName].type) {
-            bean.type = definitions[schemaName].type;
+        if (definitions[beanRef].type) {
+            bean.type = definitions[beanRef].type;
         }
-        for (let propName in definitions[schemaName].properties) {
-            if (definitions[schemaName].properties.hasOwnProperty(propName)) {
-                let prop = definitions[schemaName].properties[propName];
+        for (let propName in definitions[beanRef].properties) {
+            if (definitions[beanRef].properties.hasOwnProperty(propName)) {
+                let prop = definitions[beanRef].properties[propName];
                 let propBean = {};
                 propBean.name = propName;
                 propBean.description = prop.description;
@@ -92,7 +92,7 @@ function fixDefinitions(definitions) {
                 bean.props.push(toBean(propBean, prop))
             }
         }
-        fixDefinitions[schemaName] = bean
+        fixDefinitions[beanRef] = bean
     }
     return fixDefinitions
 }
@@ -111,12 +111,12 @@ function recursiveAllBean(bean, definitions, childBean) {
         return emptyBean()
     }
     for (let prop of bean.props) {
-        if (prop.hasRef && definitions.hasOwnProperty(prop.schemaName)) {
-            const child = definitions[prop.schemaName];
+        if (prop.hasRef && definitions.hasOwnProperty(prop.beanRef)) {
+            const child = definitions[prop.beanRef];
             if (childBean.filter(fb => {
-                return fb.schemaName === prop.schemaName
+                return fb.beanRef === prop.beanRef
             }).length === 0) {
-                childBean.push(child)
+                childBean.push(child);
                 recursiveAllBean(child, definitions, childBean)
             }
         }
@@ -166,7 +166,7 @@ function fixResponsesToBean(responses) {
 }
 
 function toBean(tar, src) {
-    return fixIfSchema(tar, src)
+    return fixBean(tar, src)
 }
 
 /**
@@ -176,68 +176,38 @@ function toBean(tar, src) {
  * @param src
  * @returns {*}
  */
-function fixIfSchema(tar, src) {
-    const schemaIsArray = src.schema && src.schema.type === 'array';
-
+function fixBean(tar, src) {
     // ref
+    let beanRef = '';
     if (src['$ref']) {
-        let schemaName = getSchemaName(src['$ref']);
-        tar.type = schemaIsArray ? 'array' : schemaName;
-        tar.format = schemaIsArray ? '[ ' + schemaName + ']' : schemaName;
-        tar.hasRef = true;
-        tar.schemaName = schemaName;
-        return tar
+        beanRef = getSchemaName(src['$ref']);
+    } else if (src.schema['$ref']) {
+        beanRef = getSchemaName(src.schema['$ref']);
+    } else if (src.schema['$ref']) {
+        beanRef = getSchemaName(src.schema['$ref']);
+    } else if (src.items['$ref']) {
+        beanRef = getSchemaName(src.items['$ref']);
     }
 
-    if (src.schema && src.schema['$ref']) {
-        let schemaName = getSchemaName(src.schema['$ref']);
-        tar.type = schemaIsArray ? 'array' : schemaName;
-        tar.format = schemaIsArray ? '[ ' + schemaName + ']' : schemaName;
-        tar.hasRef = true;
-        tar.schemaName = schemaName;
-        return tar
-    }
-    if (src.type === 'array' && src.items && src.items['$ref']) {
-        const schemaName = getSchemaName(src.items['$ref']);
-        tar.format = schemaName;
-        tar.schemaName = schemaName;
-        tar.hasRef = true;
-        return tar
+    let type = "";
+    if (src.type) {
+        type = src.type
+    } else if (src.schema.type) {
+        type = src.schema.type
+    } else if (src.items.type) {
+        type = src.items.type
     }
 
-    if (src.type === 'array' && src.items.type) {
-        tar.type = 'array';
-        tar.format = '[ ' + src.items.type + ']';
-        tar.hasRef = false;
-        return tar
-    }
-    // enum
-    if (src.enum) {
-        tar.type = src.type;
-        tar.format = src.enum;
-        tar.hasRef = true;
-        return tar
+    let format = "";
+    if (src.format) {
+        format = src.format
+    } else if (src.schema.format) {
+        format = src.schema.type
+    } else if (src.items.format) {
+        format = src.items.format
     }
 
-    // schema type
-    if (src.schema && src.schema.type) {
-        tar.type = src.schema.type;
-        tar.hasRef = false;
-        return tar
-    }
-
-    // items type
-    if (src.schema && src.schema.items && src.schema.items.type) {
-        tar.type = schemaIsArray ? 'array' : src.schema.items.type;
-        if (src.schema.items.format) {
-            let format = src.schema.items.type + '#' + src.schema.items.format;
-            tar.format = schemaIsArray ? '[ ' + format + ' ]' : format
-        } else {
-            tar.format = schemaIsArray ? '[ ' + src.schema.items.type + ' ]' : src.schema.items.type;
-        }
-    }
-    tar.hasRef = false;
-    return tar
+    return {type, format, beanRef, hasRef: typeof beanRef === 'undefined' || beanRef === ''}
 }
 
 function findHttpEntity(apiData, id) {
