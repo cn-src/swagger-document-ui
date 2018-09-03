@@ -195,7 +195,7 @@ function fixBean(tar, src) {
     } else if (src.items && src.items.type) {
         type = src.items.type
     } else if (type === '' && beanRef !== '') {
-        type = beanRef
+        type = 'object'
     }
 
     let format = "";
@@ -207,6 +207,8 @@ function fixBean(tar, src) {
         format = src.items.format
     } else if (format === '' && beanRef !== '') {
         format = beanRef
+    } else if (src.enum) {
+        format = src.enum
     }
 
     tar.type = tar.type || type;
