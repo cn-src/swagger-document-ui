@@ -180,13 +180,13 @@ function fixBean(tar, src) {
     // ref
     let beanRef = '';
     if (src['$ref']) {
-        beanRef = getSchemaName(src['$ref']);
+        beanRef = getBeanRef(src['$ref']);
     } else if (src.schema['$ref']) {
-        beanRef = getSchemaName(src.schema['$ref']);
+        beanRef = getBeanRef(src.schema['$ref']);
     } else if (src.schema['$ref']) {
-        beanRef = getSchemaName(src.schema['$ref']);
+        beanRef = getBeanRef(src.schema['$ref']);
     } else if (src.items['$ref']) {
-        beanRef = getSchemaName(src.items['$ref']);
+        beanRef = getBeanRef(src.items['$ref']);
     }
 
     let type = "";
@@ -228,7 +228,7 @@ function findHttpEntity(apiData, id) {
  * @param schemaRef Schema Ref
  * @returns {string} name
  */
-function getSchemaName(schemaRef) {
+function getBeanRef(schemaRef) {
     const REF = '#/definitions/';
     if (schemaRef.startsWith(REF)) {
         return schemaRef.substring(REF.length)
