@@ -179,35 +179,33 @@ function toBean(tar, src) {
 function fixBean(tar, src) {
     // ref
     let beanRef = '';
-    if (src['$ref']) {
+    if (src.hasOwnProperty('$ref')) {
         beanRef = getBeanRef(src['$ref']);
-    } else if (src.schema['$ref']) {
+    } else if (src.schema && src.schema.hasOwnProperty('$ref')) {
         beanRef = getBeanRef(src.schema['$ref']);
-    } else if (src.schema['$ref']) {
-        beanRef = getBeanRef(src.schema['$ref']);
-    } else if (src.items['$ref']) {
+    } else if (src.items && src.items.hasOwnProperty('$ref')) {
         beanRef = getBeanRef(src.items['$ref']);
     }
 
     let type = "";
     if (src.type) {
         type = src.type
-    } else if (src.schema.type) {
+    } else if (src.schema && src.schema.type) {
         type = src.schema.type
-    } else if (src.items.type) {
+    } else if (src.items && src.items.type) {
         type = src.items.type
     }
 
     let format = "";
     if (src.format) {
         format = src.format
-    } else if (src.schema.format) {
+    } else if (src.schema && src.schema.format) {
         format = src.schema.type
-    } else if (src.items.format) {
+    } else if (src.items && src.items.format) {
         format = src.items.format
     }
 
-    return {type, format, beanRef, hasRef: typeof beanRef === 'undefined' || beanRef === ''}
+    return {type, format, beanRef, hasRef: typeof beanRef !== 'undefined' && beanRef !== ''}
 }
 
 function findHttpEntity(apiData, id) {
