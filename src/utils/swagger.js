@@ -207,6 +207,12 @@ function fixBean(tar, src) {
         format = src.items.format
     } else if (format === '' && beanRef !== '') {
         format = beanRef
+    } else if (type === 'array' && src.items) {
+        if (src.items.type) {
+            format = src.items.type
+        } else if (src.items.hasOwnProperty('$ref')) {
+            format = beanRef
+        }
     } else if (src.enum) {
         format = src.enum
     }
