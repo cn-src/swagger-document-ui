@@ -108,18 +108,18 @@
                 paramBeanColumns: [
                     {title: '名称', key: 'name',render:nameRequiredColumnRender},
                     {title: '描述', key: 'description'},
-                    {title: '位置', key: 'in'},
-                    {title: '类型', key: 'type'},
+                    {title: '位置', key: 'in', width: 100},
+                    {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format'}],
                 beanColumns: [
                     {title: '名称', key: 'name'},
                     {title: '描述', key: 'description'},
-                    {title: '类型', key: 'type'},
+                    {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format'}],
                 responseBeanColumns: [
                     {title: '状态', key: 'status'},
                     {title: '描述', key: 'description'},
-                    {title: '类型', key: 'type'},
+                    {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format'}],
             }
         },
