@@ -190,7 +190,7 @@
                 props: {
                     color: color
                 }
-            }, params.row.k1,);
+            }, params.row.k1);
         } else {
             return h('span', params.row.k1)
         }
