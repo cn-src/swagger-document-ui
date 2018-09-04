@@ -106,10 +106,9 @@
                     {title: '', key: 'k2'}
                 ],
                 paramBeanColumns: [
-                    {title: '名称', key: 'name'},
+                    {title: '名称', key: 'name',render:nameRequiredColumnRender},
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in'},
-                    {title: '必须', key: 'required'},
                     {title: '类型', key: 'type'},
                     {title: '格式', key: 'format'}],
                 beanColumns: [
@@ -193,6 +192,16 @@
             }, params.row.k1);
         } else {
             return h('span', params.row.k1)
+        }
+    }
+
+    function nameRequiredColumnRender(h, params) {
+        if (params.row.required) {
+            return h('span', {}, [h('span', {}, params.row.name), h('span', {
+                style: 'color:red;'
+            }, ' *')])
+        } else {
+            return h('span', {}, params.row.name)
         }
     }
 </script>
