@@ -88,13 +88,15 @@
           </div>
         </div>
       </TabPane>
-      <TabPane label="在线调试" icon="md-bug">Waiting...</TabPane>
+      <TabPane label="在线调试" icon="md-bug">
+        <DebugView/>
+      </TabPane>
     </Tabs>
   </div>
 </template>
 <script>
-    import swagger from "@/utils/swagger";
-
+    import swagger from '@/utils/swagger'
+    import DebugView from '@/views/DebugView'
     export default {
         name: 'EntityView',
         data() {
@@ -167,7 +169,8 @@
             beanMap: {
                 type: Object, required: true
             }
-        }
+        },
+        components: {DebugView}
     }
 
     const colorsMap = {
