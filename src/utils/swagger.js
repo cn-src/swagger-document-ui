@@ -23,6 +23,7 @@ function fixSwaggerJson(swaggerJson) {
     let data = {
         info: info,
         beanMap: fixDefinitions(swaggerJson.definitions),
+        definitions: swaggerJson.definitions,
         collection: {}
     };
     data.info.host = swaggerJson.host;
