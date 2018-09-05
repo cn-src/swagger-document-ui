@@ -74,16 +74,17 @@ function fixDefinitions(definitions) {
         if (!definitions.hasOwnProperty(beanRef)) continue;
         let bean = emptyBean();
         bean.beanRef = beanRef;
+        const definition = definitions[beanRef];
 
-        if (definitions[beanRef].title) {
-            bean.title = definitions[beanRef].title;
+        if (definition.title) {
+            bean.title = definition.title;
         }
-        if (definitions[beanRef].type) {
-            bean.type = definitions[beanRef].type;
+        if (definition.type) {
+            bean.type = definition.type;
         }
-        for (let propName in definitions[beanRef].properties) {
-            if (definitions[beanRef].properties.hasOwnProperty(propName)) {
-                let prop = definitions[beanRef].properties[propName];
+        for (let propName in definition.properties) {
+            if (definition.properties.hasOwnProperty(propName)) {
+                let prop = definition.properties[propName];
                 let propBean = {};
                 propBean.name = propName;
                 propBean.description = prop.description;
