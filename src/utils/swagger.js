@@ -49,7 +49,7 @@ function fixSwaggerJson(swaggerJson) {
                         httpEntity.produces = methodInfo.produces;
                         httpEntity.consumes = methodInfo.consumes;
                         httpEntity.parameters = fixParameters(methodInfo.parameters, swaggerJson.definitions);
-                        httpEntity.responseBean = fixResponsesToBean(methodInfo.responses);
+                        httpEntity.responses = fixResponses(methodInfo.responses);
                         swaggerJson.collection[collectionKey].push(httpEntity)
                     }
                 }
@@ -163,19 +163,16 @@ function fixFormat(schema, definitions) {
     return schema.format;
 }
 
-function fixResponsesToBean(responses) {
-    let bean = emptyBean();
-    for (let resKey in responses) {
-        if (!responses.hasOwnProperty(resKey)) continue;
-        let propBean = {};
+function fixSchema(schema, definitions) {
+    fixType(schema, definitions);
+    fixFormat(schema, definitions);
+    return schema
+}
 
-        propBean.status = resKey;
-        propBean.description = responses[resKey].description;
-        // propBean = toBean(propBean, responses[resKey]);
-        bean.props.push(propBean)
-    }
-
-    return bean
+function fixResponses(responses, definitions) {
+    return _.mapValues(responses, (v) => {
+        return fixSchema(v, definitions)
+    })
 }
 
 
@@ -227,14 +224,6 @@ function getSchemaEntity(schema, definitions) {
     return {
         key: schemaKey,
         schema: definitions[schemaKey]
-    }
-}
-
-function emptyBean() {
-    return {
-        title: '',
-        type: '',
-        props: []
     }
 }
 
