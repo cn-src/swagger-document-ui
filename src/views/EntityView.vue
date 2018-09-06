@@ -91,7 +91,6 @@
 </template>
 <script>
     import swagger from '@/utils/swagger'
-    import DebugView from '@/views/DebugView'
 
     export default {
         name: 'EntityView',
