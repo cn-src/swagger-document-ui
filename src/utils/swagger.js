@@ -131,7 +131,7 @@ function fixType(schema, definitions) {
         return 'array ^ ' + schema.items.type
     }
     if (schema.type === 'array' && schema.items && schema.items['$ref']) {
-        return getSchemaType(schema.items['$ref'], definitions)
+        return 'array ^ ' + getSchemaType(schema.items['$ref'], definitions)
     }
 
     if (schema.schema && schema.schema.type) {
