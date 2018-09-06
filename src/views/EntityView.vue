@@ -2,7 +2,7 @@
   <div style="padding: 24px 0 0 24px;">
     <Tabs>
       <TabPane label="API 文档" icon="md-document">
-        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '200px'}">
+        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '130px'}">
           <div>
             <ul>
               <li><h2 id="h2_1">接口说明</h2>
@@ -71,19 +71,17 @@
               </template>
             </ul>
           </div>
-          <div style="top:100px; right: 20px; position: fixed; width: 180px">
+          <div style="top:100px; right: 20px; position: fixed; width: 120px">
             <Anchor show-ink container="#doc-content">
               <AnchorLink href="#h2_1" title="接口说明"/>
-              <AnchorLink href="#h2_2" title="请求参数">
-                <AnchorLink :href="'#h3_param_' + index" :title="child.title"
-                            :key="child.beanRef"
-                            v-for="(child, index) of allChildParamBeans"/>
-              </AnchorLink>
-              <AnchorLink href="#h2_3" title="响应信息">
-                <AnchorLink :href="'#h3_response_' + index" :title="child.title"
-                            :key="child.beanRef"
-                            v-for="(child, index) of allChildResponseBeans"/>
-              </AnchorLink>
+              <AnchorLink href="#h2_2" title="请求参数"/>
+              <AnchorLink :href="'#h3_param_' + index" :title="child.title"
+                          :key="child.beanRef"
+                          v-for="(child, index) of allChildParamBeans"/>
+              <AnchorLink href="#h2_3" title="响应信息"/>
+              <AnchorLink :href="'#h3_response_' + index" :title="child.title"
+                          :key="child.beanRef"
+                          v-for="(child, index) of allChildResponseBeans"/>
             </Anchor>
           </div>
         </div>
@@ -97,6 +95,7 @@
 <script>
     import swagger from '@/utils/swagger'
     import DebugView from '@/views/DebugView'
+
     export default {
         name: 'EntityView',
         data() {
@@ -106,7 +105,7 @@
                     {title: '', key: 'k2'}
                 ],
                 paramBeanColumns: [
-                    {title: '名称', key: 'name',render:nameRequiredColumnRender},
+                    {title: '名称', key: 'name', render: nameRequiredColumnRender},
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},
                     {title: '类型', key: 'type', width: 100},
