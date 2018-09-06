@@ -57,7 +57,7 @@ function fixSwaggerJson(swaggerJson) {
         }
     }
 
-    // delete swaggerJson.paths;
+    delete swaggerJson.paths;
     return swaggerJson
 }
 
@@ -78,7 +78,7 @@ function fixDefinitions(definitions) {
 
 function findSchemaEntities(schema, definitions) {
     const schemaEntities = [];
-    if (Object.prototype.toString.call(schema) !== '[object Array]') {
+    if (!_.isArray(schema)) {
         schema = [schema]
     }
     for (const s of schema) {
@@ -99,7 +99,7 @@ function recursiveChildSchemaEntities(schemaEntity, definitions, schemaEntities)
     for (const propKey in props) {
         if (!props.hasOwnProperty(propKey)) continue;
 
-        const schemaEntity = getSchemaEntity(props[propKey],definitions);
+        const schemaEntity = getSchemaEntity(props[propKey], definitions);
         if (schemaEntity && schemaEntity.schema && schemaEntities.filter(cs => {
             return cs.key === schemaEntity.key
         }).length === 0) {
