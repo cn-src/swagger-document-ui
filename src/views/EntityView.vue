@@ -163,8 +163,7 @@
             beanMap: {
                 type: Object, required: true
             }
-        },
-        components: {DebugView}
+        }
     }
 
     const colorsMap = {
