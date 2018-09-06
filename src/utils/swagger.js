@@ -145,17 +145,12 @@ function fixType(schema, definitions) {
 
 function fixFormat(schema, definitions) {
 
-    const ref = _.get(schema, 'schema.$ref');
+    const ref = _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
     if (ref) {
         const schemaTitle = getSchemaTitle(ref, definitions);
         return schemaTitle ? schemaTitle : getSchemaKey(ref);
     }
 
-    const itRef = _.get(schema, 'items.$ref');
-    if (itRef) {
-        const schemaTitle = getSchemaTitle(itRef, definitions);
-        return schemaTitle ? schemaTitle : getSchemaKey(itRef);
-    }
     return schema.format;
 }
 
