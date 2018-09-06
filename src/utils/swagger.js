@@ -58,7 +58,7 @@ function fixSwaggerJson(swaggerJson) {
                         httpEntity.method = method.toUpperCase();
                         httpEntity.produces = methodInfo.produces;
                         httpEntity.consumes = methodInfo.consumes;
-                        httpEntity.parameters = fixParamsToBean(methodInfo.parameters);
+                        httpEntity.parameters = fixParameters(methodInfo.parameters, swaggerJson.definitions);
                         httpEntity.responseBean = fixResponsesToBean(methodInfo.responses);
                         data.collection[tagName].push(httpEntity)
                     }
@@ -89,7 +89,7 @@ function fixDefinitions(definitions) {
                 let propBean = {};
                 propBean.name = propName;
                 propBean.description = prop.description;
-                propBean.type = prop.type;
+                propBean.fixType = fixType(prop, definitions);
                 propBean.format = prop.format;
                 bean.props.push(toBean(propBean, prop))
             }
@@ -128,28 +128,34 @@ function recursiveAllBean(bean, definitions, childBean) {
 
 /**
  * 标准化请求参数，便于渲染.
- *
- * @param parameters
- * @returns {*}
  */
-function fixParamsToBean(parameters) {
+function fixParameters(parameters, definitions) {
     if (!parameters) {
         return []
     }
-    // let bean = emptyBean();
-
     return parameters.map(p => {
-        // const propBean = {};
-        // propBean.name = p.name;
-        // propBean.description = p.description;
-        // propBean.in = p.in;
-        // propBean.required = p.required;
-        // propBean.type = p.type;
-        // propBean.format = p.format;
+        p.fixType = fixType(p, definitions);
         return p
     });
 
-    // return bean
+}
+
+function fixType(schema, definitions) {
+
+    if (schema.type === 'array' && schema.items && schema.items.type) {
+        return 'array ^ ' + schema.items.type
+    }
+    if (schema.type === 'array' && schema.items && schema.items['$ref']) {
+        return getSchemaType(schema.items['$ref'], definitions)
+    }
+
+    if (schema.schema && schema.schema.type) {
+        return schema.schema.type
+    }
+    if (schema.schema && schema.schema['$ref']) {
+        return getSchemaType(schema.schema['$ref'], definitions)
+    }
+    return schema.type
 }
 
 function fixResponsesToBean(responses) {
@@ -250,6 +256,13 @@ function getBeanRef(schemaRef) {
         return schemaRef.substring(REF.length)
     }
     return ''
+}
+
+function getSchemaType(schemaRef, definitions) {
+    const schemaKey = getBeanRef(schemaRef);
+    if (definitions.hasOwnProperty(schemaKey)) {
+        return definitions[schemaKey].type
+    }
 }
 
 function emptyBean() {
