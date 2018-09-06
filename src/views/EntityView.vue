@@ -86,9 +86,6 @@
           </div>
         </div>
       </TabPane>
-      <TabPane label="在线调试" icon="md-bug">
-        <DebugView/>
-      </TabPane>
     </Tabs>
   </div>
 </template>
