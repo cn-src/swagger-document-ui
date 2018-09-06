@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /**
  * 将原始的 swagger json 转换成易于渲染的格式.
  *
@@ -18,109 +20,91 @@
  */
 
 function fixSwaggerJson(swaggerJson) {
-    const info = {license: {}};
-    Object.assign(info, swaggerJson.info);
-    let data = {
-        info: info,
-        beanMap: fixDefinitions(swaggerJson.definitions),
-        definitions: swaggerJson.definitions,
-        collection: {}
-    };
-    data.info.host = swaggerJson.host;
-    data.info.basePath = swaggerJson.basePath;
-    data.info.schemes = swaggerJson.schemes;
-
+    swaggerJson.definitions = fixDefinitions(swaggerJson.definitions);
+    swaggerJson.collection = {};
     swaggerJson.tags.forEach(tag => {
-        data.collection[tag.name] = []
+        swaggerJson.collection[tag.name] = []
     });
-
-    let paths = swaggerJson.paths;
     let index = 0;
-    for (let path in paths) {
-        if (!paths.hasOwnProperty(path)) continue;
-        let pathInfo = paths[path];
+    for (const path in swaggerJson.paths) {
 
-        for (let method in pathInfo) {
-            if (!pathInfo.hasOwnProperty(method)) continue;
-            let methodInfo = pathInfo[method];
+        if (!swaggerJson.paths.hasOwnProperty(path)) continue;
+        let pathInfo = swaggerJson.paths[path];
 
-            for (let tag of methodInfo.tags) {
+        for (const methodType in pathInfo) {
+            if (!pathInfo.hasOwnProperty(methodType)) continue;
+            let methodInfo = pathInfo[methodType];
 
-                for (let tagName in data.collection) {
-                    if (!data.collection.hasOwnProperty(tagName)) continue;
+            for (const tag of methodInfo.tags) {
+                for (let collectionKey in swaggerJson.collection) {
+                    if (!swaggerJson.collection.hasOwnProperty(collectionKey)) continue;
 
-                    if (tag === tagName) {
+                    if (tag === collectionKey) {
                         let httpEntity = {};
                         httpEntity.id = 'httpEntity' + index++;
                         httpEntity.tag = tag;
                         httpEntity.name = methodInfo.summary;
                         httpEntity.path = path;
-                        httpEntity.method = method.toUpperCase();
+                        httpEntity.method = methodType.toUpperCase();
                         httpEntity.produces = methodInfo.produces;
                         httpEntity.consumes = methodInfo.consumes;
                         httpEntity.parameters = fixParameters(methodInfo.parameters, swaggerJson.definitions);
                         httpEntity.responseBean = fixResponsesToBean(methodInfo.responses);
-                        data.collection[tagName].push(httpEntity)
+                        swaggerJson.collection[collectionKey].push(httpEntity)
                     }
                 }
             }
         }
     }
-    return data
+
+    // delete swaggerJson.paths;
+    return swaggerJson
 }
 
 function fixDefinitions(definitions) {
-    let fixDefinitions = {};
-    for (let beanRef in definitions) {
-        if (!definitions.hasOwnProperty(beanRef)) continue;
-        let bean = emptyBean();
-        bean.beanRef = beanRef;
-        const definition = definitions[beanRef];
-
-        if (definition.title) {
-            bean.title = definition.title;
-        }
-        if (definition.type) {
-            bean.type = definition.type;
-        }
-        for (let propName in definition.properties) {
-            if (definition.properties.hasOwnProperty(propName)) {
-                let prop = definition.properties[propName];
-                let propBean = {};
-                propBean.name = propName;
-                propBean.description = prop.description;
-                propBean.fixType = fixType(prop, definitions);
-                propBean.format = fixFormat(prop, definitions);
-                bean.props.push(toBean(propBean, prop))
+    for (const schemaKey in definitions) {
+        if (!definitions.hasOwnProperty(schemaKey)) continue;
+        const definition = definitions[schemaKey];
+        for (let propKey in definition.properties) {
+            if (definition.properties.hasOwnProperty(propKey)) {
+                let prop = definition.properties[propKey];
+                prop.fixType = fixType(prop, definitions);
+                prop.fixFormat = fixFormat(prop, definitions);
             }
         }
-        fixDefinitions[beanRef] = bean
     }
-    return fixDefinitions
+    return definitions
 }
 
-function findAllBean(bean, definitions) {
-    const childBean = [];
-    recursiveAllBean(bean, definitions, childBean);
-    return childBean
+function findSchemaEntities(schema, definitions) {
+    const schemaEntities = [];
+    if (Object.prototype.toString.call(schema) !== '[object Array]') {
+        schema = [schema]
+    }
+    for (const s of schema) {
+        let schemaEntity = getSchemaEntity(s, definitions);
+        if (schemaEntity && schemaEntity.schema) {
+            schemaEntities.push(schemaEntity);
+            recursiveChildSchemaEntities(schemaEntity, definitions, schemaEntities)
+        }
+    }
+    return schemaEntities
 }
 
-/**
- * 根据参数，尾递归找到所有的Schema信息.
- */
-function recursiveAllBean(bean, definitions, childBean) {
-    if (!bean || !definitions || !bean.props) {
-        return emptyBean()
+function recursiveChildSchemaEntities(schemaEntity, definitions, schemaEntities) {
+    if (!definitions || !schemaEntity || !schemaEntity.schema || !schemaEntity.schema.properties) {
+        return
     }
-    for (let prop of bean.props) {
-        if (prop.hasRef && definitions.hasOwnProperty(prop.beanRef)) {
-            const child = definitions[prop.beanRef];
-            if (childBean.filter(fb => {
-                return fb.beanRef === prop.beanRef
-            }).length === 0) {
-                childBean.push(child);
-                recursiveAllBean(child, definitions, childBean)
-            }
+    const props = schemaEntity.schema.properties;
+    for (const propKey in props) {
+        if (!props.hasOwnProperty(propKey)) continue;
+
+        const schemaEntity = getSchemaEntity(props[propKey],definitions);
+        if (schemaEntity && schemaEntity.schema && schemaEntities.filter(cs => {
+            return cs.key === schemaEntity.key
+        }).length === 0) {
+            schemaEntities.push(schemaEntity);
+            recursiveChildSchemaEntities(schemaEntity, definitions, schemaEntities)
         }
     }
 }
@@ -187,71 +171,13 @@ function fixResponsesToBean(responses) {
 
         propBean.status = resKey;
         propBean.description = responses[resKey].description;
-        propBean = toBean(propBean, responses[resKey]);
+        // propBean = toBean(propBean, responses[resKey]);
         bean.props.push(propBean)
     }
 
     return bean
 }
 
-function toBean(tar, src) {
-    return fixBean(tar, src)
-}
-
-/**
- * 根据源对象 schema 信息来统一标准化对象格式.
- *
- * @param tar
- * @param src
- * @returns {*}
- */
-function fixBean(tar, src) {
-    // ref
-    let beanRef = '';
-    if (src.hasOwnProperty('$ref')) {
-        beanRef = getSchemaKey(src['$ref']);
-    } else if (src.schema && src.schema.hasOwnProperty('$ref')) {
-        beanRef = getSchemaKey(src.schema['$ref']);
-    } else if (src.items && src.items.hasOwnProperty('$ref')) {
-        beanRef = getSchemaKey(src.items['$ref']);
-    }
-
-    let type = '';
-    if (src.type) {
-        type = src.type
-    } else if (src.schema && src.schema.type) {
-        type = src.schema.type
-    } else if (src.items && src.items.type) {
-        type = src.items.type
-    } else if (type === '' && beanRef !== '') {
-        type = 'object'
-    }
-
-    let format = "";
-    if (src.format) {
-        format = src.format
-    } else if (src.schema && src.schema.format) {
-        format = src.schema.type
-    } else if (src.items && src.items.format) {
-        format = src.items.format
-    } else if (format === '' && beanRef !== '') {
-        format = beanRef
-    } else if (type === 'array' && src.items) {
-        if (src.items.type) {
-            format = src.items.type
-        } else if (src.items.hasOwnProperty('$ref')) {
-            format = beanRef
-        }
-    } else if (src.enum) {
-        format = src.enum
-    }
-
-    tar.type = tar.type || type;
-    tar.format = tar.format || format;
-    tar.beanRef = beanRef;
-    tar.hasRef = beanRef !== '';
-    return tar
-}
 
 function findHttpEntity(apiData, id) {
     for (const tagName in apiData.collection) {
@@ -293,6 +219,17 @@ function getSchemaTitle(schemaRef, definitions) {
     }
 }
 
+function getSchemaEntity(schema, definitions) {
+    const ref = schema['$ref'] || _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
+    if (!ref) return null;
+
+    const schemaKey = getSchemaKey(ref);
+    return {
+        key: schemaKey,
+        schema: definitions[schemaKey]
+    }
+}
+
 function emptyBean() {
     return {
         title: '',
@@ -303,6 +240,6 @@ function emptyBean() {
 
 export default {
     fixSwaggerJson: fixSwaggerJson,
-    findAllBean: findAllBean,
+    findSchemaEntities: findSchemaEntities,
     findHttpEntity: findHttpEntity,
 }
