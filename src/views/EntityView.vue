@@ -19,8 +19,8 @@
                 <h2 id="h2_2">请求参数</h2>
               </li>
               <li>
-                <Table :columns="paramBeanColumns"
-                       :data="httpEntity.paramBean.props"
+                <Table :columns="parametersColumns"
+                       :data="httpEntity.parameters"
                        border size="small"/>
               </li>
 
@@ -100,7 +100,7 @@
                     {title: '', key: 'k1', width: 110, align: 'right', render: methodColumnRender},
                     {title: '', key: 'k2'}
                 ],
-                paramBeanColumns: [
+                parametersColumns: [
                     {title: '名称', key: 'name', render: nameRequiredColumnRender},
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},

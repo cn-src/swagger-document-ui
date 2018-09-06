@@ -61,7 +61,7 @@
                 tagsKeyWord: '',
                 isCollapsed: false,
                 httpEntity: {
-                    paramBean: {
+                    parameters: {
                         props: []
                     },
                     responseBean: {

@@ -58,7 +58,7 @@ function fixSwaggerJson(swaggerJson) {
                         httpEntity.method = method.toUpperCase();
                         httpEntity.produces = methodInfo.produces;
                         httpEntity.consumes = methodInfo.consumes;
-                        httpEntity.paramBean = fixParamsToBean(methodInfo.parameters);
+                        httpEntity.parameters = fixParamsToBean(methodInfo.parameters);
                         httpEntity.responseBean = fixResponsesToBean(methodInfo.responses);
                         data.collection[tagName].push(httpEntity)
                     }
@@ -134,22 +134,22 @@ function recursiveAllBean(bean, definitions, childBean) {
  */
 function fixParamsToBean(parameters) {
     if (!parameters) {
-        return emptyBean()
+        return []
     }
-    let bean = emptyBean();
+    // let bean = emptyBean();
 
-    bean.props = parameters.map(p => {
-        const propBean = {};
-        propBean.name = p.name;
-        propBean.description = p.description;
-        propBean.in = p.in;
-        propBean.required = p.required;
-        propBean.type = p.type;
-        propBean.format = p.format;
-        return toBean(propBean, p)
+    return parameters.map(p => {
+        // const propBean = {};
+        // propBean.name = p.name;
+        // propBean.description = p.description;
+        // propBean.in = p.in;
+        // propBean.required = p.required;
+        // propBean.type = p.type;
+        // propBean.format = p.format;
+        return p
     });
 
-    return bean
+    // return bean
 }
 
 function fixResponsesToBean(responses) {
