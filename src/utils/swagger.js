@@ -148,19 +148,13 @@ function fixFormat(schema, definitions) {
     const ref = _.get(schema, 'schema.$ref');
     if (ref) {
         const schemaTitle = getSchemaTitle(ref, definitions);
-        if (!schemaTitle) {
-            return getSchemaKey(ref)
-        }
-        return schemaTitle;
+        return schemaTitle ? schemaTitle : getSchemaKey(ref);
     }
 
     const itRef = _.get(schema, 'items.$ref');
     if (itRef) {
         const schemaTitle = getSchemaTitle(itRef, definitions);
-        if (!schemaTitle) {
-            return getSchemaKey(itRef)
-        }
-        return schemaTitle;
+        return schemaTitle ? schemaTitle : getSchemaKey(itRef);
     }
     return schema.format;
 }
