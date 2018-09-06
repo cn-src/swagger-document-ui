@@ -178,16 +178,8 @@ function fixResponses(responses, definitions) {
 }
 
 
-function findHttpEntity(apiData, id) {
-    for (const tagName in apiData.collection) {
-        if (!apiData.collection.hasOwnProperty(tagName)) continue;
-
-        for (const httpEntity of apiData.collection[tagName]) {
-            if (httpEntity.id === id) {
-                return httpEntity
-            }
-        }
-    }
+function findHttpEntity(collection, id) {
+    return _.flatMap(collection).find((v) => {return v.id === id})
 }
 
 /**
