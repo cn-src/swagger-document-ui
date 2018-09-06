@@ -145,18 +145,20 @@ function fixType(schema, definitions) {
 
 function fixFormat(schema, definitions) {
 
-    if (schema.schema && schema.schema['$ref']) {
-        const schemaTitle = getSchemaTitle(schema.schema['$ref'], definitions);
+    const ref = _.get(schema, 'schema.$ref');
+    if (ref) {
+        const schemaTitle = getSchemaTitle(ref, definitions);
         if (!schemaTitle) {
-            return getSchemaKey(schema.schema['$ref'])
+            return getSchemaKey(ref)
         }
         return schemaTitle;
     }
 
-    if (schema.items && schema.items['$ref']) {
-        const schemaTitle = getSchemaTitle(schema.items['$ref'], definitions);
+    const itRef = _.get(schema, 'items.$ref');
+    if (itRef) {
+        const schemaTitle = getSchemaTitle(itRef, definitions);
         if (!schemaTitle) {
-            return getSchemaKey(schema.items['$ref'])
+            return getSchemaKey(itRef)
         }
         return schemaTitle;
     }
