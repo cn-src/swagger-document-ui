@@ -90,7 +90,7 @@ function fixDefinitions(definitions) {
                 propBean.name = propName;
                 propBean.description = prop.description;
                 propBean.fixType = fixType(prop, definitions);
-                propBean.format = prop.format;
+                propBean.format = fixFormat(prop, definitions);
                 bean.props.push(toBean(propBean, prop))
             }
         }
@@ -135,6 +135,7 @@ function fixParameters(parameters, definitions) {
     }
     return parameters.map(p => {
         p.fixType = fixType(p, definitions);
+        p.fixFormat = fixFormat(p, definitions);
         return p
     });
 
@@ -156,6 +157,26 @@ function fixType(schema, definitions) {
         return getSchemaType(schema.schema['$ref'], definitions)
     }
     return schema.type
+}
+
+function fixFormat(schema, definitions) {
+
+    if (schema.schema && schema.schema['$ref']) {
+        const schemaTitle = getSchemaTitle(schema.schema['$ref'], definitions);
+        if (!schemaTitle) {
+            return getSchemaKey(schema.schema['$ref'])
+        }
+        return schemaTitle;
+    }
+
+    if (schema.items && schema.items['$ref']) {
+        const schemaTitle = getSchemaTitle(schema.items['$ref'], definitions);
+        if (!schemaTitle) {
+            return getSchemaKey(schema.items['$ref'])
+        }
+        return schemaTitle;
+    }
+    return schema.format;
 }
 
 function fixResponsesToBean(responses) {
@@ -188,11 +209,11 @@ function fixBean(tar, src) {
     // ref
     let beanRef = '';
     if (src.hasOwnProperty('$ref')) {
-        beanRef = getBeanRef(src['$ref']);
+        beanRef = getSchemaKey(src['$ref']);
     } else if (src.schema && src.schema.hasOwnProperty('$ref')) {
-        beanRef = getBeanRef(src.schema['$ref']);
+        beanRef = getSchemaKey(src.schema['$ref']);
     } else if (src.items && src.items.hasOwnProperty('$ref')) {
-        beanRef = getBeanRef(src.items['$ref']);
+        beanRef = getSchemaKey(src.items['$ref']);
     }
 
     let type = '';
@@ -250,7 +271,7 @@ function findHttpEntity(apiData, id) {
  * @param schemaRef Schema Ref
  * @returns {string} name
  */
-function getBeanRef(schemaRef) {
+function getSchemaKey(schemaRef) {
     const REF = '#/definitions/';
     if (schemaRef.startsWith(REF)) {
         return schemaRef.substring(REF.length)
@@ -259,9 +280,16 @@ function getBeanRef(schemaRef) {
 }
 
 function getSchemaType(schemaRef, definitions) {
-    const schemaKey = getBeanRef(schemaRef);
+    const schemaKey = getSchemaKey(schemaRef);
     if (definitions.hasOwnProperty(schemaKey)) {
         return definitions[schemaKey].type
+    }
+}
+
+function getSchemaTitle(schemaRef, definitions) {
+    const schemaKey = getSchemaKey(schemaRef);
+    if (definitions.hasOwnProperty(schemaKey)) {
+        return definitions[schemaKey].title
     }
 }
 

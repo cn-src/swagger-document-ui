@@ -105,7 +105,7 @@
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},
                     {title: '类型', key: 'fixType', width: 150},
-                    {title: '格式', key: 'format'}],
+                    {title: '格式', key: 'fixFormat'}],
                 beanColumns: [
                     {title: '名称', key: 'name'},
                     {title: '描述', key: 'description'},
