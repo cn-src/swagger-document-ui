@@ -135,13 +135,13 @@ function fixType(schema, definitions) {
         return schema.schema.type
     }
 
-    const schemaRef = getSchemaRef(schema);
-    if (schema.type === 'array' && schemaRef) {
-        return 'array ^ ' + getSchemaType(schemaRef, definitions)
+    const schemaKey = getSchemaKey(getSchemaRef(schema));
+    if (schema.type === 'array' && schemaKey) {
+        return 'array ^ ' + getSchemaType(schemaKey, definitions)
     }
 
-    if (schemaRef) {
-        return getSchemaType(schemaRef, definitions)
+    if (schemaKey) {
+        return getSchemaType(schemaKey, definitions)
     }
 
     return schema.type
