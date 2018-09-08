@@ -185,7 +185,6 @@ function getSchemaKey(schemaRef) {
     if (schemaRef.startsWith(REF)) {
         return schemaRef.substring(REF.length)
     }
-    return null
 }
 
 function getSchemaType(schemaKey, definitions) {
