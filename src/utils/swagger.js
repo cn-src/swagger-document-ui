@@ -116,17 +116,12 @@ function fixParamsToBean(parameters, definitions) {
 
 function fixResponsesToBean(responses, definitions) {
     let bean = emptyBean();
-    for (let resKey in responses) {
-        if (!responses.hasOwnProperty(resKey)) continue;
-        let propBean = {};
-
-        propBean.status = resKey;
-        propBean.description = responses[resKey].description;
-        propBean = fixType(responses[resKey], definitions);
-        propBean = fixFormat(responses[resKey], definitions);
-        bean.props.push(propBean)
-    }
-
+    bean.props = _.map(responses, (schema, status) => {
+        return fixBean({
+            status: status,
+            description: schema.description
+        }, schema, definitions);
+    });
     return bean
 }
 
@@ -134,6 +129,13 @@ function findHttpEntity(collection, id) {
     return _.flatMap(collection).find((v) => {
         return v.id === id
     })
+}
+
+function fixBean(bean, schema, definitions) {
+    bean.type = fixType(schema, definitions);
+    bean.format = fixFormat(schema, definitions);
+    bean.hasRef = _.isString(getSchemaRef(schema));
+    return bean
 }
 
 function fixType(schema, definitions) {
