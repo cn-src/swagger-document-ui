@@ -164,8 +164,9 @@ function fixFormat(schema, definitions) {
 
     const ref = _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
     if (ref) {
-        const schemaTitle = getSchemaTitle(ref, definitions);
-        return schemaTitle ? schemaTitle : getSchemaKey(ref);
+        const schemaKey = getSchemaKey(ref);
+        const schemaTitle = getSchemaTitle(schemaKey, definitions);
+        return schemaTitle ? schemaTitle : schemaKey;
     }
 
     return schema.format;
@@ -186,8 +187,7 @@ function getSchemaType(schemaRef, definitions) {
     }
 }
 
-function getSchemaTitle(schemaRef, definitions) {
-    const schemaKey = getSchemaKey(schemaRef);
+function getSchemaTitle(schemaKey, definitions) {
     if (definitions.hasOwnProperty(schemaKey)) {
         return definitions[schemaKey].title
     }
