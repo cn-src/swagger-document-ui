@@ -30,8 +30,7 @@ function fixSwaggerJson(swaggerJson) {
             })
         })
     });
-    swaggerJson.collection = _.groupBy(httpEntities, 'tag');
-    delete swaggerJson.paths;
+    data.collection = _.groupBy(httpEntities, 'tag');
     return data
 }
 
