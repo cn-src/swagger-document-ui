@@ -64,27 +64,27 @@ function fixDefinitions(definitions) {
     return fixDefinitions
 }
 
-function findAllBean(bean, definitions) {
+function findAllBean(bean, beanMap) {
     const childBean = [];
-    recursiveAllBean(bean, definitions, childBean);
+    recursiveAllBean(bean, beanMap, childBean);
     return childBean
 }
 
 /**
  * 根据参数，尾递归找到所有的Schema信息.
  */
-function recursiveAllBean(bean, definitions, childBean) {
-    if (!bean || !definitions || !bean.props) {
+function recursiveAllBean(bean, beanMap, childBean) {
+    if (!bean || !beanMap || !bean.props) {
         return emptyBean()
     }
     for (let prop of bean.props) {
-        if (prop.hasRef && definitions.hasOwnProperty(prop.beanRef)) {
-            const child = definitions[prop.beanRef];
+        if (prop.hasRef && beanMap.hasOwnProperty(prop.beanRef)) {
+            const child = beanMap[prop.beanRef];
             if (childBean.filter(fb => {
                 return fb.beanRef === prop.beanRef
             }).length === 0) {
                 childBean.push(child);
-                recursiveAllBean(child, definitions, childBean)
+                recursiveAllBean(child, beanMap, childBean)
             }
         }
     }
