@@ -78,10 +78,10 @@ function recursiveAllBean(bean, beanMap, childBean) {
         return emptyBean()
     }
     for (let prop of bean.props) {
-        if (prop.hasRef && beanMap.hasOwnProperty(prop.beanRef)) {
-            const child = beanMap[prop.beanRef];
+        if (prop.hasRef && beanMap.hasOwnProperty(prop.schemaKey)) {
+            const child = beanMap[prop.schemaKey];
             if (childBean.filter(fb => {
-                return fb.beanRef === prop.beanRef
+                return fb.schemaKey === prop.schemaKey
             }).length === 0) {
                 childBean.push(child);
                 recursiveAllBean(child, beanMap, childBean)
@@ -134,7 +134,9 @@ function findHttpEntity(collection, id) {
 function fixBean(bean, schema, definitions) {
     bean.type = fixType(schema, definitions);
     bean.format = fixFormat(schema, definitions);
-    bean.hasRef = _.isString(getSchemaRef(schema));
+    const schemaRef = getSchemaRef(schema);
+    bean.hasRef = _.isString(schemaRef);
+    bean.schemaKey = getSchemaKey(schemaRef);
     return bean
 }
 
