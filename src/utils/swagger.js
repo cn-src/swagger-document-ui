@@ -147,24 +147,28 @@ function fixType(schema, definitions) {
     if (schema.type === 'array' && schema.items && schema.items.type) {
         return 'array ^ ' + schema.items.type
     }
-    if (schema.type === 'array' && schema.items && schema.items['$ref']) {
-        return 'array ^ ' + getSchemaType(schema.items['$ref'], definitions)
-    }
 
     if (schema.schema && schema.schema.type) {
         return schema.schema.type
     }
-    if (schema.schema && schema.schema['$ref']) {
-        return getSchemaType(schema.schema['$ref'], definitions)
+
+    const schemaRef = getSchemaRef(schema);
+    if (schema.type === 'array' && schemaRef) {
+        return 'array ^ ' + getSchemaType(schemaRef, definitions)
     }
+
+    if (schemaRef) {
+        return getSchemaType(schemaRef, definitions)
+    }
+
     return schema.type
 }
 
 function fixFormat(schema, definitions) {
 
-    const ref = _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
-    if (ref) {
-        const schemaKey = getSchemaKey(ref);
+    const schemaRef = getSchemaRef(schema);
+    if (schemaRef) {
+        const schemaKey = getSchemaKey(schemaRef);
         const schemaTitle = getSchemaTitle(schemaKey, definitions);
         return schemaTitle ? schemaTitle : schemaKey;
     }
@@ -172,16 +176,19 @@ function fixFormat(schema, definitions) {
     return schema.format;
 }
 
+function getSchemaRef(schema) {
+    return _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
+}
+
 function getSchemaKey(schemaRef) {
     const REF = '#/definitions/';
     if (schemaRef.startsWith(REF)) {
         return schemaRef.substring(REF.length)
     }
-    return ''
+    return null
 }
 
-function getSchemaType(schemaRef, definitions) {
-    const schemaKey = getSchemaKey(schemaRef);
+function getSchemaType(schemaKey, definitions) {
     if (definitions.hasOwnProperty(schemaKey)) {
         return definitions[schemaKey].type
     }
