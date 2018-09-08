@@ -24,8 +24,8 @@ function fixSwaggerJson(swaggerJson) {
                     method: methodType.toUpperCase(),
                     produces: methodInfo.produces,
                     consumes: methodInfo.consumes,
-                    paramBean: fixParamsToBean(methodInfo.parameters),
-                    responseBean: fixResponsesToBean(methodInfo.responses)
+                    paramBean: fixParamsToBean(methodInfo.parameters, swaggerJson.definitions),
+                    responseBean: fixResponsesToBean(methodInfo.responses, swaggerJson.definitions)
                 }
             })
         })
@@ -55,9 +55,9 @@ function fixDefinitions(definitions) {
                 let propBean = {};
                 propBean.name = propName;
                 propBean.description = prop.description;
-                propBean.type = prop.type;
-                propBean.format = prop.format;
-                bean.props.push(toBean(propBean, prop))
+                propBean.type = fixType(prop, definitions);
+                propBean.format = fixFormat(prop, definitions);
+                bean.props.push(propBean)
             }
         }
         fixDefinitions[beanRef] = bean
@@ -98,7 +98,7 @@ function recursiveAllBean(bean, definitions, childBean) {
  * @param parameters
  * @returns {*}
  */
-function fixParamsToBean(parameters) {
+function fixParamsToBean(parameters, definitions) {
     if (!parameters) {
         return emptyBean()
     }
@@ -110,15 +110,15 @@ function fixParamsToBean(parameters) {
         propBean.description = p.description;
         propBean.in = p.in;
         propBean.required = p.required;
-        propBean.type = p.type;
-        propBean.format = p.format;
-        return toBean(propBean, p)
+        propBean.type = fixType(p, definitions);
+        propBean.format = fixFormat(p, definitions);
+        return propBean
     });
 
     return bean
 }
 
-function fixResponsesToBean(responses) {
+function fixResponsesToBean(responses, definitions) {
     let bean = emptyBean();
     for (let resKey in responses) {
         if (!responses.hasOwnProperty(resKey)) continue;
@@ -126,70 +126,12 @@ function fixResponsesToBean(responses) {
 
         propBean.status = resKey;
         propBean.description = responses[resKey].description;
-        propBean = toBean(propBean, responses[resKey]);
+        propBean = fixType(responses[resKey], definitions);
+        propBean = fixFormat(responses[resKey], definitions);
         bean.props.push(propBean)
     }
 
     return bean
-}
-
-function toBean(tar, src) {
-    return fixBean(tar, src)
-}
-
-/**
- * 根据源对象 schema 信息来统一标准化对象格式.
- *
- * @param tar
- * @param src
- * @returns {*}
- */
-function fixBean(tar, src) {
-    // ref
-    let beanRef = '';
-    if (src.hasOwnProperty('$ref')) {
-        beanRef = getBeanRef(src['$ref']);
-    } else if (src.schema && src.schema.hasOwnProperty('$ref')) {
-        beanRef = getBeanRef(src.schema['$ref']);
-    } else if (src.items && src.items.hasOwnProperty('$ref')) {
-        beanRef = getBeanRef(src.items['$ref']);
-    }
-
-    let type = '';
-    if (src.type) {
-        type = src.type
-    } else if (src.schema && src.schema.type) {
-        type = src.schema.type
-    } else if (src.items && src.items.type) {
-        type = src.items.type
-    } else if (type === '' && beanRef !== '') {
-        type = 'object'
-    }
-
-    let format = "";
-    if (src.format) {
-        format = src.format
-    } else if (src.schema && src.schema.format) {
-        format = src.schema.type
-    } else if (src.items && src.items.format) {
-        format = src.items.format
-    } else if (format === '' && beanRef !== '') {
-        format = beanRef
-    } else if (type === 'array' && src.items) {
-        if (src.items.type) {
-            format = src.items.type
-        } else if (src.items.hasOwnProperty('$ref')) {
-            format = beanRef
-        }
-    } else if (src.enum) {
-        format = src.enum
-    }
-
-    tar.type = tar.type || type;
-    tar.format = tar.format || format;
-    tar.beanRef = beanRef;
-    tar.hasRef = beanRef !== '';
-    return tar
 }
 
 function findHttpEntity(apiData, id) {
@@ -204,18 +146,55 @@ function findHttpEntity(apiData, id) {
     }
 }
 
-/**
- * 提取 schema ref 中的名称.
- *
- * @param schemaRef Schema Ref
- * @returns {string} name
- */
-function getBeanRef(schemaRef) {
+function fixType(schema, definitions) {
+
+    if (schema.type === 'array' && schema.items && schema.items.type) {
+        return 'array ^ ' + schema.items.type
+    }
+    if (schema.type === 'array' && schema.items && schema.items['$ref']) {
+        return 'array ^ ' + getSchemaType(schema.items['$ref'], definitions)
+    }
+
+    if (schema.schema && schema.schema.type) {
+        return schema.schema.type
+    }
+    if (schema.schema && schema.schema['$ref']) {
+        return getSchemaType(schema.schema['$ref'], definitions)
+    }
+    return schema.type
+}
+
+function fixFormat(schema, definitions) {
+
+    const ref = _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
+    if (ref) {
+        const schemaTitle = getSchemaTitle(ref, definitions);
+        return schemaTitle ? schemaTitle : getSchemaKey(ref);
+    }
+
+    return schema.format;
+}
+
+function getSchemaKey(schemaRef) {
     const REF = '#/definitions/';
     if (schemaRef.startsWith(REF)) {
         return schemaRef.substring(REF.length)
     }
     return ''
+}
+
+function getSchemaType(schemaRef, definitions) {
+    const schemaKey = getSchemaKey(schemaRef);
+    if (definitions.hasOwnProperty(schemaKey)) {
+        return definitions[schemaKey].type
+    }
+}
+
+function getSchemaTitle(schemaRef, definitions) {
+    const schemaKey = getSchemaKey(schemaRef);
+    if (definitions.hasOwnProperty(schemaKey)) {
+        return definitions[schemaKey].title
+    }
 }
 
 function emptyBean() {
