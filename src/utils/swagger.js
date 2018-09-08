@@ -94,9 +94,6 @@ function recursiveAllBean(bean, definitions, childBean) {
 
 /**
  * 标准化请求参数，便于渲染.
- *
- * @param parameters
- * @returns {*}
  */
 function fixParamsToBean(parameters, definitions) {
     if (!parameters) {
