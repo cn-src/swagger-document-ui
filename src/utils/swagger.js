@@ -180,7 +180,7 @@ function getSchemaRef(schema) {
 
 function getSchemaKey(schemaRef) {
     const REF = '#/definitions/';
-    if (schemaRef.startsWith(REF)) {
+    if (schemaRef && schemaRef.startsWith(REF)) {
         return schemaRef.substring(REF.length)
     }
 }
