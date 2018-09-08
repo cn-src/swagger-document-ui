@@ -1,21 +1,4 @@
-/**
- * 将原始的 swagger json 转换成易于渲染的格式.
- *
- * 格式：
- * {
- *   "collection": {
- *     "用户管理": [
- *       {
- *         "index": 6,
- *         "name": "用户列表",
- *         "path": "/users",
- *         "method": "get"
- *       }
- *     ]
- *   }
- * }
- *
- */
+import _ from "lodash";
 
 function fixSwaggerJson(swaggerJson) {
     const info = {license: {}};
@@ -24,48 +7,31 @@ function fixSwaggerJson(swaggerJson) {
         info: info,
         beanMap: fixDefinitions(swaggerJson.definitions),
         definitions: swaggerJson.definitions,
-        collection: {}
     };
     data.info.host = swaggerJson.host;
     data.info.basePath = swaggerJson.basePath;
     data.info.schemes = swaggerJson.schemes;
 
-    swaggerJson.tags.forEach(tag => {
-        data.collection[tag.name] = []
-    });
-
-    let paths = swaggerJson.paths;
     let index = 0;
-    for (let path in paths) {
-        if (!paths.hasOwnProperty(path)) continue;
-        let pathInfo = paths[path];
-
-        for (let method in pathInfo) {
-            if (!pathInfo.hasOwnProperty(method)) continue;
-            let methodInfo = pathInfo[method];
-
-            for (let tag of methodInfo.tags) {
-
-                for (let tagName in data.collection) {
-                    if (!data.collection.hasOwnProperty(tagName)) continue;
-
-                    if (tag === tagName) {
-                        let httpEntity = {};
-                        httpEntity.id = 'httpEntity' + index++;
-                        httpEntity.tag = tag;
-                        httpEntity.name = methodInfo.summary;
-                        httpEntity.path = path;
-                        httpEntity.method = method.toUpperCase();
-                        httpEntity.produces = methodInfo.produces;
-                        httpEntity.consumes = methodInfo.consumes;
-                        httpEntity.paramBean = fixParamsToBean(methodInfo.parameters);
-                        httpEntity.responseBean = fixResponsesToBean(methodInfo.responses);
-                        data.collection[tagName].push(httpEntity)
-                    }
+    const httpEntities = _.flatMap(swaggerJson.paths, (pathInfo, path) => {
+        return _.flatMap(pathInfo, (methodInfo, methodType) => {
+            return _.map(methodInfo.tags, (tag) => {
+                return {
+                    id: 'httpEntity' + index++,
+                    tag: tag,
+                    name: methodInfo.summary,
+                    path: path,
+                    method: methodType.toUpperCase(),
+                    produces: methodInfo.produces,
+                    consumes: methodInfo.consumes,
+                    paramBean: fixParamsToBean(methodInfo.parameters),
+                    responseBean: fixResponsesToBean(methodInfo.responses)
                 }
-            }
-        }
-    }
+            })
+        })
+    });
+    swaggerJson.collection = _.groupBy(httpEntities, 'tag');
+    delete swaggerJson.paths;
     return data
 }
 
