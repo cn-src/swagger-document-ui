@@ -19,7 +19,7 @@ export default new Router({
             path: '/entity/:id',
             name: 'EntityView',
             props: (route) => {
-                const httpEntity = swagger.findHttpEntity(store.state.currentSwaggerJson, route.params.id);
+                const httpEntity = swagger.findHttpEntity(store.state.currentSwaggerJson.collection, route.params.id);
                 // 刷新路由存在undefined问题，执行2遍，第二遍会拿到值
                 if (!httpEntity) {
                     return {httpEntity: {paramBean: {props: []}, responseBean: {props: []}}, beanMap: {}}

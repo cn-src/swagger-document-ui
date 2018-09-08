@@ -130,16 +130,10 @@ function fixResponsesToBean(responses, definitions) {
     return bean
 }
 
-function findHttpEntity(apiData, id) {
-    for (const tagName in apiData.collection) {
-        if (!apiData.collection.hasOwnProperty(tagName)) continue;
-
-        for (const httpEntity of apiData.collection[tagName]) {
-            if (httpEntity.id === id) {
-                return httpEntity
-            }
-        }
-    }
+function findHttpEntity(collection, id) {
+    return _.flatMap(collection).find((v) => {
+        return v.id === id
+    })
 }
 
 function fixType(schema, definitions) {
