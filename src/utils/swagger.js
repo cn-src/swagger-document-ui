@@ -5,7 +5,7 @@ function fixSwaggerJson(swaggerJson) {
     Object.assign(info, swaggerJson.info);
     let data = {
         info: info,
-        beanMap: fixDefinitions(swaggerJson.definitions),
+        beanMap: fixBeanMap(swaggerJson.definitions),
         definitions: swaggerJson.definitions,
     };
     data.info.host = swaggerJson.host;
@@ -34,34 +34,21 @@ function fixSwaggerJson(swaggerJson) {
     return data
 }
 
-function fixDefinitions(definitions) {
-    let fixDefinitions = {};
-    for (let beanRef in definitions) {
-        if (!definitions.hasOwnProperty(beanRef)) continue;
+function fixBeanMap(definitions) {
+    const beanMap = {};
+    _.forOwn(definitions, (schemaKey, schema) => {
         let bean = emptyBean();
-        bean.beanRef = beanRef;
-        const definition = definitions[beanRef];
-
-        if (definition.title) {
-            bean.title = definition.title;
-        }
-        if (definition.type) {
-            bean.type = definition.type;
-        }
-        for (let propName in definition.properties) {
-            if (definition.properties.hasOwnProperty(propName)) {
-                let prop = definition.properties[propName];
-                let propBean = {};
-                propBean.name = propName;
-                propBean.description = prop.description;
-                propBean.type = fixType(prop, definitions);
-                propBean.format = fixFormat(prop, definitions);
-                bean.props.push(propBean)
-            }
-        }
-        fixDefinitions[beanRef] = bean
-    }
-    return fixDefinitions
+        bean.title = schema.title;
+        bean.type = schema.type;
+        bean.props = _.map(schema.properties, (prop, propName) => {
+            return fixBean({
+                name: propName,
+                description: prop.description
+            }, prop, definitions);
+        });
+        beanMap[schemaKey] = bean
+    });
+    return beanMap
 }
 
 function findAllBean(bean, beanMap) {
@@ -100,15 +87,13 @@ function fixParamsToBean(parameters, definitions) {
     }
     let bean = emptyBean();
 
-    bean.props = parameters.map(p => {
+    bean.props = parameters.map(schema => {
         const propBean = {};
-        propBean.name = p.name;
-        propBean.description = p.description;
-        propBean.in = p.in;
-        propBean.required = p.required;
-        propBean.type = fixType(p, definitions);
-        propBean.format = fixFormat(p, definitions);
-        return propBean
+        propBean.name = schema.name;
+        propBean.description = schema.description;
+        propBean.in = schema.in;
+        propBean.required = schema.required;
+        return fixBean(propBean, schema, definitions)
     });
 
     return bean
