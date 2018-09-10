@@ -123,7 +123,11 @@ function fixBean(bean, schema, definitions) {
     const schemaRef = getSchemaRef(schema);
     bean.hasRef = _.isString(schemaRef);
     bean.schemaKey = getSchemaKey(schemaRef);
-    return bean
+
+    if (schema.enum) {
+        bean.constraint = 'enum: ' + _.join(schema.enum, ', ')
+    }
+    return bean;
 }
 
 function fixType(schema, definitions) {
