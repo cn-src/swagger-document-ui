@@ -20,7 +20,7 @@
         },
         methods: {
             setCurrentSwaggerJsonAction(url) {
-                api.setCurrentSwaggerJson(url);
+                api.setCurrentSwaggerJson(url, this);
                 this.show = false;
                 this.$router.push('/');
             }
