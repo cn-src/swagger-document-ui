@@ -36,7 +36,7 @@ function fixSwaggerJson(swaggerJson) {
 
 function fixBeanMap(definitions) {
     const beanMap = {};
-    _.forOwn(definitions, (schemaKey, schema) => {
+    _.forOwn(definitions, (schema, schemaKey) => {
         let bean = emptyBean();
         bean.title = schema.title;
         bean.type = schema.type;
