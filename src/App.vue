@@ -16,7 +16,7 @@
     <Layout :style="{height: '100vh', paddingTop:'64px', background: '#FFF'}">
       <Sider ref="side1" :style="{overflow: 'auto'}"
              breakpoint="md"
-             :width="250"
+             :width="270"
              :collapsed-width="0"
              v-model="isCollapsed"
              hide-trigger
