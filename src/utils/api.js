@@ -1,13 +1,23 @@
 import axios from "axios";
 import store from "@/store";
 import swagger from "@/utils/swagger";
+import _ from 'lodash';
 
-function initApi(path) {
-    axios.get(path)
-        .then(function (response) {
-            store.commit('swaggerResources', response.data);
-            if (response.data && response.data[0] && response.data[0].url) {
-                setCurrentSwaggerJson(response.data[0].url);
+function initApi(paths) {
+    if (!_.isArray(paths)) {
+        paths = [paths]
+    }
+    const swaggerResources = [];
+    axios.all(paths.map(url => axios.get(url)))
+        .then(function (results) {
+            results.flatMap(function (it) {
+                return it.data
+            }).forEach(function (data) {
+                swaggerResources.push(data)
+            });
+            store.commit('swaggerResources', swaggerResources);
+            if (swaggerResources[0] && swaggerResources[0].url) {
+                setCurrentSwaggerJson(swaggerResources[0].url);
             }
         });
 }
