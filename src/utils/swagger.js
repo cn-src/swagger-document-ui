@@ -46,6 +46,7 @@ function fixBeanMap(definitions) {
                 description: prop.description
             }, prop, definitions);
         });
+        bean.schemaKey = schemaKey;
         beanMap[schemaKey] = bean
     });
     return beanMap
