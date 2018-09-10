@@ -1,3 +1,5 @@
+const swaggerResources = require("./tests/swagger-resources");
+
 module.exports = {
     filenameHashing: false,
 
@@ -15,7 +17,12 @@ module.exports = {
         }
     },
     devServer: {
-        proxy: 'http://swagger-bootstrap-ui.xiaominfo.com'
+        proxy: 'http://swagger-bootstrap-ui.xiaominfo.com',
+        before: function (app) {
+            app.get('/swagger-resources.json', function (req, res) {
+                res.json(swaggerResources);
+            });
+        }
     },
     lintOnSave: undefined
 };
