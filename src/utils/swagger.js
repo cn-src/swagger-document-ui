@@ -67,7 +67,7 @@ function recursiveAllBean(bean, beanMap, childBean) {
     for (let prop of bean.props) {
         if (prop.hasRef && beanMap.hasOwnProperty(prop.schemaKey)) {
             const child = beanMap[prop.schemaKey];
-            if (childBean.filter(fb => {
+            if (child && childBean.filter(fb => {
                 return fb.schemaKey === prop.schemaKey
             }).length === 0) {
                 childBean.push(child);
@@ -160,7 +160,7 @@ function fixFormat(schema, definitions) {
 }
 
 function getSchemaRef(schema) {
-    return _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
+    return _.get(schema, '$ref') || _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
 }
 
 function getSchemaKey(schemaRef) {
