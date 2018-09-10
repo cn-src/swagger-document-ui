@@ -25,7 +25,7 @@
               </li>
 
               <template v-for="(child, index) of allChildParamBeans">
-                <li :key="'Param:' + child.beanRef">
+                <li :key="'Param:' + child.schemaKey">
                   <ul>
                     <li>
                       <h3 :id="'h3_param_' + index">类型
@@ -53,7 +53,7 @@
               </li>
 
               <template v-for="(child,index) of allChildResponseBeans">
-                <li :key="'Response:' + child.beanRef">
+                <li :key="'Response:' + child.schemaKey">
                   <ul>
                     <li>
                       <h3 :id="'h3_response_' + index">类型
@@ -76,11 +76,11 @@
               <AnchorLink href="#h2_1" title="接口说明"/>
               <AnchorLink href="#h2_2" title="请求参数"/>
               <AnchorLink :href="'#h3_param_' + index" :title="child.title"
-                          :key="child.beanRef"
+                          :key="child.schemaKey"
                           v-for="(child, index) of allChildParamBeans"/>
               <AnchorLink href="#h2_3" title="响应信息"/>
               <AnchorLink :href="'#h3_response_' + index" :title="child.title"
-                          :key="child.beanRef"
+                          :key="child.schemaKey"
                           v-for="(child, index) of allChildResponseBeans"/>
             </Anchor>
           </div>
