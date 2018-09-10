@@ -105,17 +105,17 @@
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},
                     {title: '类型', key: 'type', width: 120},
-                    {title: '格式', key: 'format'}],
+                    {title: '格式', key: 'format', width: 120}],
                 beanColumns: [
                     {title: '名称', key: 'name', width: 250},
                     {title: '描述', key: 'description'},
                     {title: '类型', key: 'type', width: 120},
-                    {title: '格式', key: 'format'}],
+                    {title: '格式', key: 'format', width: 120}],
                 responseBeanColumns: [
                     {title: '状态', key: 'status', width: 62},
                     {title: '描述', key: 'description'},
                     {title: '类型', key: 'type', width: 120},
-                    {title: '格式', key: 'format'}],
+                    {title: '格式', key: 'format', width: 120}],
             }
         },
         computed: {
