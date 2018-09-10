@@ -51,7 +51,6 @@
     import MethodTag from '@/components/MethodTag'
     import EntityView from "@/views/EntityView";
     import SwaggerResources from "@/views/SwaggerResources";
-    import api from '@/utils/api'
 
     export default {
         name: 'App',
@@ -99,9 +98,6 @@
                     this.$router.push(`/entity/${menuItemName}`);
                 }
             }
-        },
-        beforeCreate: function () {
-            api.initApi('/swagger-resources');
         }
     }
 
