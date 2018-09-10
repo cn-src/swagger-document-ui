@@ -24,7 +24,7 @@ function initApi(paths, vueObject) {
         });
 }
 
-function setCurrentSwaggerJson(path, vueObject) {
+function setCurrentSwaggerJson(path, vueObject, onSuccess) {
     axios.get(path)
         .then(function (swaggerResponse) {
             const data = swaggerResponse.data;
@@ -43,6 +43,7 @@ function setCurrentSwaggerJson(path, vueObject) {
             } else {
                 swaggerJson = data
             }
+            onSuccess();
             store.commit('currentSwaggerJson', swagger.fixSwaggerJson(swaggerJson))
         })
 
