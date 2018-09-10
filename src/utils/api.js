@@ -12,7 +12,7 @@ function initApi(paths) {
         console.error(res)
     })))
         .then(function (results) {
-            results.flatMap(function (it) {
+            _.flatMap(results, function (it) {
                 return it ? it.data : []
             }).forEach(function (data) {
                 swaggerResources.push(data)
