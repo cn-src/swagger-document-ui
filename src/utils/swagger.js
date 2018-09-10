@@ -123,9 +123,18 @@ function fixBean(bean, schema, definitions) {
     const schemaRef = getSchemaRef(schema);
     bean.hasRef = _.isString(schemaRef);
     bean.schemaKey = getSchemaKey(schemaRef);
-
+    bean.constraint = '';
     if (schema.enum) {
-        bean.constraint = 'enum: ' + _.join(schema.enum, ', ')
+        bean.constraint += ' enum: ' + _.join(schema.enum, ', ')
+    }
+    if (schema.minLength) {
+        bean.constraint += ' minLength: ' + schema.minLength
+    }
+    if (schema.maxLength) {
+        bean.constraint += ' minLength: ' + schema.maxLength
+    }
+    if (schema.pattern) {
+        bean.constraint += ' pattern: ' + schema.pattern
     }
     return bean;
 }
