@@ -30,7 +30,11 @@ function setCurrentSwaggerJson(path) {
             const data = swaggerResponse.data;
             let swaggerJson;
             if (typeof data === "string") {
-                swaggerJson = JSON.parse(data)
+                try {
+                    swaggerJson = JSON.parse(data)
+                } catch (e) {
+                    console.warn('[swagger-document-ui]: Parse swagger json error: ' + e)
+                }
             } else {
                 swaggerJson = data
             }
