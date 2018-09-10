@@ -2,7 +2,7 @@
   <div style="padding: 24px 0 0 24px;">
     <Tabs>
       <TabPane label="API 文档" icon="md-document">
-        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '130px'}">
+        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
           <div>
             <ul>
               <li><h2 id="h2_1">接口说明</h2>
@@ -19,13 +19,13 @@
                 <h2 id="h2_2">请求参数</h2>
               </li>
               <li>
-                <Table :columns="parametersColumns"
-                       :data="httpEntity.parameters"
+                <Table :columns="paramBeanColumns"
+                       :data="httpEntity.paramBean.props"
                        border size="small"/>
               </li>
 
               <template v-for="(child, index) of allChildParamBeans">
-                <li :key="'Param:' + child.beanRef">
+                <li :key="'Param:' + child.schemaKey">
                   <ul>
                     <li>
                       <h3 :id="'h3_param_' + index">类型
@@ -53,7 +53,7 @@
               </li>
 
               <template v-for="(child,index) of allChildResponseBeans">
-                <li :key="'Response:' + child.beanRef">
+                <li :key="'Response:' + child.schemaKey">
                   <ul>
                     <li>
                       <h3 :id="'h3_response_' + index">类型
@@ -76,11 +76,11 @@
               <AnchorLink href="#h2_1" title="接口说明"/>
               <AnchorLink href="#h2_2" title="请求参数"/>
               <AnchorLink :href="'#h3_param_' + index" :title="child.title"
-                          :key="child.beanRef"
+                          :key="'h3_param_'+child.schemaKey"
                           v-for="(child, index) of allChildParamBeans"/>
               <AnchorLink href="#h2_3" title="响应信息"/>
               <AnchorLink :href="'#h3_response_' + index" :title="child.title"
-                          :key="child.beanRef"
+                          :key="'h3_response_'+child.schemaKey"
                           v-for="(child, index) of allChildResponseBeans"/>
             </Anchor>
           </div>
@@ -100,22 +100,25 @@
                     {title: '', key: 'k1', width: 110, align: 'right', render: methodColumnRender},
                     {title: '', key: 'k2'}
                 ],
-                parametersColumns: [
-                    {title: '名称', key: 'name', render: nameRequiredColumnRender},
+                paramBeanColumns: [
+                    {title: '名称', key: 'name', width: 250, render: nameRequiredColumnRender},
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},
-                    {title: '类型', key: 'fixType', width: 150},
-                    {title: '格式', key: 'fixFormat'}],
+                    {title: '类型', key: 'type', width: 120},
+                    {title: '格式', key: 'format', width: 150},
+                    {title: '约束', key: 'constraint'}],
                 beanColumns: [
-                    {title: '名称', key: 'name'},
+                    {title: '名称', key: 'name', width: 250},
                     {title: '描述', key: 'description'},
-                    {title: '类型', key: 'fixType', width: 150},
-                    {title: '格式', key: 'format'}],
+                    {title: '类型', key: 'type', width: 120},
+                    {title: '格式', key: 'format', width: 150},
+                    {title: '约束', key: 'constraint'}],
                 responseBeanColumns: [
                     {title: '状态', key: 'status', width: 62},
                     {title: '描述', key: 'description'},
-                    {title: '类型', key: 'type', width: 100},
-                    {title: '格式', key: 'format'}],
+                    {title: '类型', key: 'type', width: 120},
+                    {title: '格式', key: 'format', width: 150},
+                    {title: '约束', key: 'constraint'}],
             }
         },
         computed: {

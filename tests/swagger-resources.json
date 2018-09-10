@@ -1,0 +1,8 @@
+[
+  {
+    "name": "petstore swagger",
+    "url": "https://petstore.swagger.io/v2/swagger.json",
+    "swaggerVersion": "2.0",
+    "location": "https://petstore.swagger.io/v2/swagger.json"
+  }
+]
