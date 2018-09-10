@@ -15,4 +15,4 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app');
-api.initApi('/swagger-resources');
+api.initApi(['/swagger-resources', '/swagger-resources.json']);

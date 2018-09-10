@@ -8,10 +8,12 @@ function initApi(paths) {
         paths = [paths]
     }
     const swaggerResources = [];
-    axios.all(paths.map(url => axios.get(url)))
+    axios.all(paths.map(url => axios.get(url).catch((res) => {
+        console.error(res)
+    })))
         .then(function (results) {
             results.flatMap(function (it) {
-                return it.data
+                return it ? it.data : []
             }).forEach(function (data) {
                 swaggerResources.push(data)
             });
