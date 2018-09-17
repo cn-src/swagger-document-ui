@@ -142,15 +142,15 @@ function fixBean(bean, schema, definitions) {
 function fixType(schema, definitions) {
 
     if (schema.type === 'array' && schema.items && schema.items.type) {
-        return 'array ^ ' + schema.items.type
+        return schema.items.type + '[]'
     }
 
     const schemaKey = getSchemaKey(getSchemaRef(schema));
     if (schema.type === 'array' && schemaKey) {
-        return 'array ^ ' + getSchemaType(schemaKey, definitions)
+        return getSchemaType(schemaKey, definitions) + '[]'
     }
     if (_.get(schema, 'schema.type') === 'array' && schemaKey) {
-        return 'array ^ ' + getSchemaType(schemaKey, definitions)
+        return getSchemaType(schemaKey, definitions) + '[]'
     }
 
     if (schemaKey) {
