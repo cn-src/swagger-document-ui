@@ -101,6 +101,9 @@
                         return it.id === menuItemName
                     });
                     if (!found) {
+                        if (this.$store.state.httpEntitiesWithTabs.length >= 5) {
+                            this.$store.state.httpEntitiesWithTabs.splice(0, 1)
+                        }
                         const httpEntity = swagger.findHttpEntity(this.$store.state.currentSwaggerJson.collection, menuItemName);
                         this.$store.state.httpEntitiesWithTabs.push(httpEntity);
                     }
