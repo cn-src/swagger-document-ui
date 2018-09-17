@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 24px 0 0 24px;">
-    <Tabs v-model="activatedTab">
+    <Tabs v-model="activatedTab" type="card" closable>
       <TabPane :label="httpEntity.name" icon="md-document" v-for="httpEntity in httpEntitiesWithTabs" :key="httpEntity.id"
                :name="httpEntity.id">
         <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
