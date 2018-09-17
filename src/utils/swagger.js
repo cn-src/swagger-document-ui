@@ -145,12 +145,11 @@ function fixType(schema, definitions) {
         return 'array ^ ' + schema.items.type
     }
 
-    if (schema.schema && schema.schema.type) {
-        return schema.schema.type
-    }
-
     const schemaKey = getSchemaKey(getSchemaRef(schema));
     if (schema.type === 'array' && schemaKey) {
+        return 'array ^ ' + getSchemaType(schemaKey, definitions)
+    }
+    if (_.get(schema, 'schema.type') === 'array' && schemaKey) {
         return 'array ^ ' + getSchemaType(schemaKey, definitions)
     }
 
@@ -158,6 +157,9 @@ function fixType(schema, definitions) {
         return getSchemaType(schemaKey, definitions)
     }
 
+    if (_.get(schema, 'schema.type')) {
+        return schema.schema.type
+    }
     return schema.type
 }
 
