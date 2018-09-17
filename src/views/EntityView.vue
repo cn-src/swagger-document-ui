@@ -121,7 +121,6 @@
                     {title: '格式', key: 'format', width: 150},
                     {title: '约束', key: 'constraint'}],
                 httpEntitiesTabs: [],
-                activatedTab: this.activatedHttpEntityId
             }
         },
         methods: {
@@ -146,6 +145,14 @@
         computed: {
             httpEntitiesWithTabs() {
                 return this.$store.state.httpEntitiesWithTabs
+            },
+            activatedTab: {
+                get: function () {
+                    return this.activatedHttpEntityId
+                },
+                set: function () {
+
+                }
             }
         },
         props: {
