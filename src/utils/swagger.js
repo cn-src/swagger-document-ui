@@ -174,7 +174,7 @@ function fixFormat(schema, definitions) {
 }
 
 function getSchemaRef(schema) {
-    return _.get(schema, '$ref') || _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref');
+    return _.get(schema, '$ref') || _.get(schema, 'schema.$ref') || _.get(schema, 'items.$ref') || _.get(schema, 'schema.items.$ref');
 }
 
 function getSchemaKey(schemaRef) {
