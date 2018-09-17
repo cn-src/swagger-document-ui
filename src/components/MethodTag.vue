@@ -27,12 +27,12 @@
 </script>
 
 <style scoped>
-    .http-method-tag {
-        font-size: 10px;
-        font-weight: bold;
-        width: 40px;
-        display: inline-block;
-        text-align: right;
-        padding-right: 5px;
-    }
+  .http-method-tag {
+    font-size: 10px;
+    font-weight: bold;
+    width: 55px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 5px;
+  }
 </style>
