@@ -37,7 +37,7 @@ function setCurrentSwaggerJson(path, vueObject, onSuccess) {
                     vueObject.$Notice.error({
                         title: 'API 初始化错误',
                         desc: `path: ${path}\n${e.toLocaleString()}`,
-                        duration: 0
+                        duration: 10
                     });
                 }
             } else {
