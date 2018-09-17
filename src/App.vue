@@ -3,12 +3,12 @@
     <Header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
       <Menu mode="horizontal" theme="dark" @on-select="headerAction">
         <MenuItem name="1">
-          <Icon type="md-menu"
-                size="24" @click.native="collapsedSider"/>
+        <Icon type="md-menu"
+              size="24" @click.native="collapsedSider"/>
         </MenuItem>
         <MenuItem name="swaggerResources">
-          {{ infoTitle }}
-          <Icon type="md-repeat"/>
+        {{ infoTitle }}
+        <Icon type="md-repeat"/>
         </MenuItem>
       </Menu>
       <SwaggerResources ref="swaggerResources"/>
@@ -23,8 +23,8 @@
              collapsible>
         <Menu theme="dark" width="auto" @on-select="menuItemAction">
           <MenuItem :name="'Home'">
-            <Icon type="md-home"/>
-            首页
+          <Icon type="md-home"/>
+          首页
           </MenuItem>
 
           <Submenu v-for="(httpEntities,tagName, i) in swaggerCollection" :name="'m'+i" :key="i">
@@ -34,8 +34,8 @@
             </template>
             <template v-for="httpEntity in httpEntities">
               <MenuItem :name="httpEntity.id" :key="httpEntity.id">
-                <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
-                {{ httpEntity.name }}
+              <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
+              {{ httpEntity.name }}
               </MenuItem>
             </template>
           </Submenu>
