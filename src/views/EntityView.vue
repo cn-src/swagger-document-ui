@@ -1,7 +1,8 @@
 <template>
   <div style="padding: 24px 0 0 24px;">
-    <Tabs>
-      <TabPane label="API 文档" icon="md-document">
+    <Tabs v-model="activatedTab">
+      <TabPane :label="httpEntity.name" icon="md-document" v-for="httpEntity in httpEntitiesWithTabs" :key="httpEntity.id"
+               :name="httpEntity.id">
         <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
           <div>
             <ul>
@@ -9,7 +10,7 @@
               </li>
               <li class="no-border">
                 <Table :columns="apiInfoColumns"
-                       :data="apiInfo"
+                       :data="apiInfo(httpEntity)"
                        :show-header="false"
                        size="small"/>
               </li>
@@ -24,7 +25,7 @@
                        border size="small"/>
               </li>
 
-              <template v-for="(child, index) of allChildParamBeans">
+              <template v-for="(child, index) of allChildParamBeans(httpEntity)">
                 <li :key="'Param:' + child.schemaKey">
                   <ul>
                     <li>
@@ -52,7 +53,7 @@
                        border size="small"/>
               </li>
 
-              <template v-for="(child,index) of allChildResponseBeans">
+              <template v-for="(child,index) of allChildResponseBeans(httpEntity)">
                 <li :key="'Response:' + child.schemaKey">
                   <ul>
                     <li>
@@ -77,11 +78,11 @@
               <AnchorLink href="#h2_2" title="请求参数"/>
               <AnchorLink :href="'#h3_param_' + index" :title="child.title"
                           :key="'h3_param_'+child.schemaKey"
-                          v-for="(child, index) of allChildParamBeans"/>
+                          v-for="(child, index) of allChildParamBeans(httpEntity)"/>
               <AnchorLink href="#h2_3" title="响应信息"/>
               <AnchorLink :href="'#h3_response_' + index" :title="child.title"
                           :key="'h3_response_'+child.schemaKey"
-                          v-for="(child, index) of allChildResponseBeans"/>
+                          v-for="(child, index) of allChildResponseBeans(httpEntity)"/>
             </Anchor>
           </div>
         </div>
@@ -119,52 +120,37 @@
                     {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format', width: 150},
                     {title: '约束', key: 'constraint'}],
+                httpEntitiesTabs: [],
+                activatedTab: this.activatedHttpEntityId
             }
         },
-        computed: {
-            apiInfo() {
-
+        methods: {
+            apiInfo(httpEntity) {
                 const apiInfo = [
-                    {k1: this.httpEntity.method, k2: this.httpEntity.path},
-                    {k1: '请求体类型', k2: this.httpEntity.consumes},
-                    {k1: '响应体类型', k2: this.httpEntity.produces}];
+                    {k1: httpEntity.method, k2: httpEntity.path},
+                    {k1: '请求体类型', k2: httpEntity.consumes},
+                    {k1: '响应体类型', k2: httpEntity.produces}];
 
-                if (this.httpEntity.method === 'GET') {
+                if (httpEntity.method === 'GET') {
                     apiInfo.splice(1, 1)
                 }
                 return apiInfo
             },
-            allChildParamBeans() {
-                return swagger.findAllBean(this.httpEntity.paramBean, this.beanMap);
+            allChildParamBeans(httpEntity) {
+                return swagger.findAllBean(httpEntity.paramBean, this.beanMap);
             },
-            allChildResponseBeans() {
-                return swagger.findAllBean(this.httpEntity.responseBean, this.beanMap);
+            allChildResponseBeans(httpEntity) {
+                return swagger.findAllBean(httpEntity.responseBean, this.beanMap);
+            }
+        },
+        computed: {
+            httpEntitiesWithTabs() {
+                return this.$store.state.httpEntitiesWithTabs
             }
         },
         props: {
-            httpEntity: {
-                type: Object,
-                required: true,
-
-                id: {type: String, required: true,},
-                name: {type: String, required: true,},
-                path: {type: String, required: true,},
-                method: {type: String, required: true,},
-                consumes: {type: Array},
-                produces: {type: Array},
-                paramBean: {
-                    type: Object, required: true, props: {
-                        type: Array, required: true
-                    }
-                },
-                responseBean: {
-                    type: Object, required: true, props: {
-                        type: Array, required: true
-                    }
-                },
-            },
-            beanMap: {
-                type: Object, required: true
+            activatedHttpEntityId: {
+                type: String, required: true
             }
         }
     }

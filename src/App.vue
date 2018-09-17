@@ -52,6 +52,7 @@
     import EntityView from "@/views/EntityView";
     import SwaggerResources from "@/views/SwaggerResources";
     import api from '@/utils/api'
+    import swagger from "@/utils/swagger";
 
     export default {
         name: 'App',
@@ -96,6 +97,13 @@
                     return
                 }
                 if (menuItemName.startsWith('httpEntity')) {
+                    const found = this.$store.state.httpEntitiesWithTabs.find((it) => {
+                        return it.id === menuItemName
+                    });
+                    if (!found) {
+                        const httpEntity = swagger.findHttpEntity(this.$store.state.currentSwaggerJson.collection, menuItemName);
+                        this.$store.state.httpEntitiesWithTabs.push(httpEntity);
+                    }
                     this.$router.push(`/entity/${menuItemName}`);
                 }
             }
