@@ -6,8 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         swaggerResources: [],
-        currentSwaggerJson: {},
-        httpEntitiesWithTabs: []
+        currentSwaggerJson: {}
     },
     mutations: {
         swaggerResources(state, data) {
@@ -15,9 +14,6 @@ export default new Vuex.Store({
         },
         currentSwaggerJson(state, data) {
             state.currentSwaggerJson = data
-        },
-        httpEntitiesWithTabs(state, data) {
-            state.httpEntitiesWithTabs = data
         }
     },
     actions: {}
