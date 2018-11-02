@@ -16,11 +16,6 @@
         <upstream.url>{{repo.url}}/archive/v${version.unrevise}.zip</upstream.url>
         <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/
         </destDir>
-        <requirejs>
-            {
-            "paths": { "swagger-document-ui": "swagger-document-ui" }
-            }
-        </requirejs>
     </properties>
 
     <developers>
@@ -49,46 +44,6 @@
     <build>
         <sourceDirectory>${project.build.directory}/${project.artifactId}-${project.version}</sourceDirectory>
         <plugins>
-            <plugin>
-                <groupId>com.jamesward</groupId>
-                <artifactId>unsnapshot-maven-plugin</artifactId>
-                <version>0.2</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unsnapshot</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>3.2.0</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.8</version>
