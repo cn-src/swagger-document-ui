@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.javaer.swagger</groupId>
+    <groupId>cn.javaer.springfox</groupId>
     <artifactId>{{artifactId}}</artifactId>
     <packaging>jar</packaging>
     <version>{{version}}</version>
@@ -41,7 +41,7 @@
     </scm>
 
     <build>
-        <sourceDirectory>${project.build.directory}/${project.artifactId}-${project.version}</sourceDirectory>
+        <sourceDirectory>${project.build.directory}/cpSrc</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
