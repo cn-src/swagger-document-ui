@@ -43,7 +43,7 @@ function setCurrentSwaggerJson(path, vueObject, onSuccess) {
             } else {
                 swaggerJson = data
             }
-            onSuccess();
+            onSuccess && onSuccess();
             store.commit('currentSwaggerJson', swagger.fixSwaggerJson(swaggerJson))
         })
 
