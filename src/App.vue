@@ -7,7 +7,7 @@
               size="24" @click.native="collapsedSider"/>
         </MenuItem>
         <MenuItem name="swaggerResources">
-        {{ infoTitle }}
+        {{ infoTitle }}&nbsp;
         <Icon type="md-repeat"/>
         </MenuItem>
       </Menu>
