@@ -16,10 +16,9 @@
         <upstream.url>{{repo.url}}/archive/v${version.unrevise}.zip</upstream.url>
         <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}
         </destDir>
-        <!--TODO-->
         <requirejs>
             {
-            "paths": { "swagger-ui": "swagger-ui" }
+            "paths": { "swagger-document-ui": "swagger-document-ui" }
             }
         </requirejs>
     </properties>
