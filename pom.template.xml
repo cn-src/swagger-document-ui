@@ -14,8 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <upstream.url>{{repo.url}}/archive/v${version.unrevise}.zip</upstream.url>
-        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/
-        </destDir>
+        <destDir>${project.build.outputDirectory}/META-INF/resources/</destDir>
     </properties>
 
     <developers>
@@ -55,15 +54,13 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo message="download archive"/>
-                                <get src="${upstream.url}" dest="${project.build.directory}/${project.artifactId}.zip"/>
-                                <echo message="unzip archive"/>
-                                <unzip src="${project.build.directory}/${project.artifactId}.zip"
-                                       dest="${project.build.directory}"/>
-                                <echo message="moving resources"/>
+                                <echo message="copy src resources"/>
+                                <copydir src="${basedir}/src" dest="${project.build.directory}/cpSrc/src"/>
+                                <copyfile src="${basedir}/package.json" dest="${project.build.directory}/cpSrc/package.json"/>
+                                <copyfile src="${basedir}/LICENSE" dest="${project.build.directory}/cpSrc/LICENSE"/>
+                                <echo message="copy dist resources"/>
                                 <copy todir="${destDir}">
-                                    <fileset
-                                            dir="${project.build.directory}/${project.artifactId}-${version.unrevise}/dist"/>
+                                    <fileset dir="${basedir}/dist"/>
                                 </copy>
                             </target>
                         </configuration>
