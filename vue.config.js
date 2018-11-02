@@ -16,7 +16,7 @@ module.exports = {
             title: 'API 文档'
         }
     },
-    assetsDir: 'swagger-document-ui',
+    assetsDir: 'webjars/swagger-document-ui',
     devServer: {
         proxy: 'http://swagger-bootstrap-ui.xiaominfo.com',
         before: function (app) {
