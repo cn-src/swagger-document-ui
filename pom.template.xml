@@ -9,7 +9,7 @@
     <version>{{version}}</version>
     <name>Swagger Document UI</name>
     <description>WebJar for Swagger Document UI</description>
-    <url>http://webjars.org</url>
+    <url>https://github.com/cn-src/swagger-document-ui</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
