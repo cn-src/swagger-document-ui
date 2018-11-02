@@ -9,7 +9,14 @@ function initApi(paths, vueObject) {
     }
     const swaggerResources = [];
     axios.all(paths.map(url => axios.get(url).catch((res) => {
-        console.error(res)
+        if (res.response.status === 302) {
+            vueObject.$Notice.warning({
+                title: 'API 获取被重定向',
+                desc: '请检查是否未授权或登录',
+                duration: 10
+            });
+        }
+        console.warn(res);
     })))
         .then(function (results) {
             _.flatMap(results, function (it) {
