@@ -14,7 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <upstream.url>{{repo.url}}/archive/v${version.unrevise}.zip</upstream.url>
-        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}
+        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/
         </destDir>
         <requirejs>
             {
