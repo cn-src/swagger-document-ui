@@ -3,16 +3,18 @@
 </template>
 
 <script>
-  import ClipboardJS from 'clipboard'
+    import ClipboardJS from 'clipboard'
+
     export default {
         name: "CopiedTag",
         methods: {
             copiedToClipboard: function () {
                 new ClipboardJS('.copied-tag', {
-                    text: function(trigger) {
+                    text: function (trigger) {
                         return trigger.innerHTML;
                     }
                 });
+                this.$Message.success('复制成功');
             }
         }
     }
