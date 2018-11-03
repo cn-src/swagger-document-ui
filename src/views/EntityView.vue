@@ -176,7 +176,6 @@
 
     function methodColumnRender(h, params) {
         if (params.index === 0) {
-
             const colorFromMap = colorsMap[params.row.k1];
             let color = colorFromMap ? colorFromMap : 'default';
 
