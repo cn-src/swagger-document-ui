@@ -90,6 +90,7 @@
 <script>
     import swagger from '@/utils/swagger'
     import CopiedTag from '@/components/CopiedTag'
+    import _ from 'lodash'
 
     export default {
         name: 'EntityView',
@@ -192,14 +193,23 @@
     }
 
     function copiedTagRender(h, params) {
-        return h(CopiedTag, {}, params.row.name || params.row.k2);
+        let subNode = params.row.name || params.row.k2;
+        if (_.isArray(subNode)) {
+            subNode = subNode.map(it => {
+                return h(CopiedTag, {
+                    style: 'margin-right:10px'
+                }, it)
+            });
+            return h('span', {}, subNode)
+        }
+        return h(CopiedTag, {}, subNode);
     }
 
     function paramNameRender(h, params) {
         if (params.row.required) {
             return h('span', {}, [h(CopiedTag, {}, params.row.name), h('span', {
                 style: 'color:red;'
-            }, ' *')])
+            }, '*')])
         } else {
             return h(CopiedTag, {}, params.row.name)
         }
