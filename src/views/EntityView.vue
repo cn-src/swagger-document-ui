@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 24px 0 0 24px;">
-    <Divider :style="{paddingRight: '140px'}"><h2>{{ httpEntity.name }}</h2></Divider>
+    <Divider :style="{paddingRight: '155px'}"><h2>{{ httpEntity.name }}</h2></Divider>
     <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
       <div>
         <ul>
