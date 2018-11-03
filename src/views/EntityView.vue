@@ -102,14 +102,14 @@
                     {title: '', key: 'k2', render: copiedTagRender}
                 ],
                 paramBeanColumns: [
-                    {title: '名称', key: 'name', width: 250, render: paramNameRender},
+                    {title: '名称', key: 'name', width: 150, render: paramNameRender},
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},
                     {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format', width: 150},
                     {title: '约束', key: 'constraint'}],
                 beanColumns: [
-                    {title: '名称', key: 'name', width: 250, render: copiedTagRender},
+                    {title: '名称', key: 'name', width: 150, render: copiedTagRender},
                     {title: '描述', key: 'description'},
                     {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format', width: 150},
