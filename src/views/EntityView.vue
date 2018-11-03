@@ -1,92 +1,90 @@
 <template>
   <div style="padding: 24px 0 0 24px;">
-    <Tabs>
-      <TabPane label="API 文档" icon="md-document">
-        <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
-          <div>
-            <ul>
-              <li><h2 id="h2_1">接口说明</h2>
-              </li>
-              <li class="no-border">
-                <Table :columns="apiInfoColumns"
-                       :data="apiInfo"
-                       :show-header="false"
-                       size="small"/>
-              </li>
+    <Divider :style="{paddingRight: '140px'}"><h2>{{ httpEntity.name }}</h2></Divider>
+    <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
+      <div>
+        <ul>
+          <li><h2 id="h2_1">接口说明</h2>
+          </li>
+          <li class="no-border">
+            <Table :columns="apiInfoColumns"
+                   :data="apiInfo"
+                   :show-header="false"
+                   size="small"/>
+          </li>
 
-              <!--参数信息-->
-              <li>
-                <h2 id="h2_2">请求参数</h2>
-              </li>
-              <li>
-                <Table :columns="paramBeanColumns"
-                       :data="httpEntity.paramBean.props"
-                       border size="small"/>
-              </li>
+          <!--参数信息-->
+          <li>
+            <h2 id="h2_2">请求参数</h2>
+          </li>
+          <li>
+            <Table :columns="paramBeanColumns"
+                   :data="httpEntity.paramBean.props"
+                   border size="small"/>
+          </li>
 
-              <template v-for="(child, index) of allChildParamBeans">
-                <li :key="'Param:' + child.schemaKey">
-                  <ul>
-                    <li>
-                      <h3 :id="'h3_param_' + index">类型
-                        <Icon type="md-arrow-dropright" size="20"/>
-                        {{ child.title }}
-                      </h3>
-                    </li>
-                    <li>
-                      <Table :columns="beanColumns"
-                             :data="child.props"
-                             border size="small"/>
-                    </li>
-                  </ul>
+          <template v-for="(child, index) of allChildParamBeans">
+            <li :key="'Param:' + child.schemaKey">
+              <ul>
+                <li>
+                  <h3 :id="'h3_param_' + index">类型
+                    <Icon type="md-arrow-dropright" size="20"/>
+                    {{ child.title }}
+                  </h3>
                 </li>
-              </template>
-
-              <!--响应信息-->
-              <li>
-                <h2 id="h2_3">响应信息</h2>
-              </li>
-              <li>
-                <Table :columns="responseBeanColumns"
-                       :data="httpEntity.responseBean.props"
-                       border size="small"/>
-              </li>
-
-              <template v-for="(child,index) of allChildResponseBeans">
-                <li :key="'Response:' + child.schemaKey">
-                  <ul>
-                    <li>
-                      <h3 :id="'h3_response_' + index">类型
-                        <Icon type="md-arrow-dropright" size="20"/>
-                        {{ child.title }}
-                      </h3>
-                    </li>
-                    <li>
-                      <Table :columns="beanColumns"
-                             :data="child.props"
-                             border size="small"/>
-                    </li>
-                  </ul>
+                <li>
+                  <Table :columns="beanColumns"
+                         :data="child.props"
+                         border size="small"/>
                 </li>
-              </template>
-            </ul>
-          </div>
-          <div style="top:100px; right: 20px; position: fixed; width: 120px">
-            <Anchor show-ink container="#doc-content">
-              <AnchorLink href="#h2_1" title="接口说明"/>
-              <AnchorLink href="#h2_2" title="请求参数"/>
-              <AnchorLink :href="'#h3_param_' + index" :title="child.title"
-                          :key="'h3_param_'+child.schemaKey"
-                          v-for="(child, index) of allChildParamBeans"/>
-              <AnchorLink href="#h2_3" title="响应信息"/>
-              <AnchorLink :href="'#h3_response_' + index" :title="child.title"
-                          :key="'h3_response_'+child.schemaKey"
-                          v-for="(child, index) of allChildResponseBeans"/>
-            </Anchor>
-          </div>
-        </div>
-      </TabPane>
-    </Tabs>
+              </ul>
+            </li>
+          </template>
+
+          <!--响应信息-->
+          <li>
+            <h2 id="h2_3">响应信息</h2>
+          </li>
+          <li>
+            <Table :columns="responseBeanColumns"
+                   :data="httpEntity.responseBean.props"
+                   border size="small"/>
+          </li>
+
+          <template v-for="(child,index) of allChildResponseBeans">
+            <li :key="'Response:' + child.schemaKey">
+              <ul>
+                <li>
+                  <h3 :id="'h3_response_' + index">类型
+                    <Icon type="md-arrow-dropright" size="20"/>
+                    {{ child.title }}
+                  </h3>
+                </li>
+                <li>
+                  <Table :columns="beanColumns"
+                         :data="child.props"
+                         border size="small"/>
+                </li>
+              </ul>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+    </div>
+    <div style="top:100px; right: 20px; position: fixed; width: 120px">
+      <Anchor show-ink container="#doc-content">
+        <AnchorLink href="#h2_1" title="接口说明"/>
+        <AnchorLink href="#h2_2" title="请求参数"/>
+        <AnchorLink :href="'#h3_param_' + index" :title="child.title"
+                    :key="'h3_param_'+child.schemaKey"
+                    v-for="(child, index) of allChildParamBeans"/>
+        <AnchorLink href="#h2_3" title="响应信息"/>
+        <AnchorLink :href="'#h3_response_' + index" :title="child.title"
+                    :key="'h3_response_'+child.schemaKey"
+                    v-for="(child, index) of allChildResponseBeans"/>
+      </Anchor>
+    </div>
   </div>
 </template>
 <script>
