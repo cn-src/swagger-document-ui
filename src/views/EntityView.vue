@@ -89,14 +89,16 @@
 </template>
 <script>
     import swagger from '@/utils/swagger'
+    import CopiedTag from '@/components/CopiedTag'
 
     export default {
         name: 'EntityView',
+        components: {CopiedTag},
         data() {
             return {
                 apiInfoColumns: [
                     {title: '', key: 'k1', width: 110, align: 'right', render: methodColumnRender},
-                    {title: '', key: 'k2'}
+                    {title: '', key: 'k2', render: copiedTagRender}
                 ],
                 paramBeanColumns: [
                     {title: '名称', key: 'name', width: 250, render: nameRequiredColumnRender},
@@ -121,7 +123,6 @@
         },
         computed: {
             apiInfo() {
-
                 const apiInfo = [
                     {k1: this.httpEntity.method, k2: this.httpEntity.path},
                     {k1: '请求体类型', k2: this.httpEntity.consumes},
@@ -187,6 +188,10 @@
         } else {
             return h('span', params.row.k1)
         }
+    }
+
+    function copiedTagRender(h, params) {
+        return h(CopiedTag, {}, params.row.k2);
     }
 
     function nameRequiredColumnRender(h, params) {
