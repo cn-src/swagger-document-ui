@@ -38,7 +38,7 @@ function fixBeanMap(definitions) {
     const beanMap = {};
     _.forOwn(definitions, (schema, schemaKey) => {
         let bean = emptyBean();
-        bean.title = schema.title;
+        bean.title = schema.title || schemaKey;
         bean.type = schema.type;
         bean.props = _.map(schema.properties, (prop, propName) => {
             return fixBean({
