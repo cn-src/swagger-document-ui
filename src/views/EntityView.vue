@@ -102,24 +102,24 @@
                     {title: '', key: 'k2', render: copiedTagRender}
                 ],
                 paramBeanColumns: [
-                    {title: '名称', key: 'name', width: 150, render: paramNameRender},
+                    {title: '名称', key: 'name', maxWidth: 150, render: paramNameRender},
                     {title: '描述', key: 'description'},
-                    {title: '位置', key: 'in', width: 100},
-                    {title: '类型', key: 'type', width: 100},
-                    {title: '格式', key: 'format', width: 150},
-                    {title: '约束', key: 'constraint'}],
+                    {title: '位置', key: 'in', maxWidth: 100},
+                    {title: '类型', key: 'type', maxWidth: 100},
+                    {title: '格式', key: 'format', maxWidth: 150},
+                    {title: '约束', key: 'constraint', maxWidth: 250}],
                 beanColumns: [
-                    {title: '名称', key: 'name', width: 150, render: copiedTagRender},
+                    {title: '名称', key: 'name', maxWidth: 150, render: copiedTagRender},
                     {title: '描述', key: 'description'},
-                    {title: '类型', key: 'type', width: 100},
-                    {title: '格式', key: 'format', width: 150},
-                    {title: '约束', key: 'constraint'}],
+                    {title: '类型', key: 'type', maxWidth: 100},
+                    {title: '格式', key: 'format', maxWidth: 150},
+                    {title: '约束', key: 'constraint', maxWidth: 250}],
                 responseBeanColumns: [
-                    {title: '状态', key: 'status', width: 62},
+                    {title: '状态', key: 'status', maxWidth: 62},
                     {title: '描述', key: 'description'},
-                    {title: '类型', key: 'type', width: 100},
-                    {title: '格式', key: 'format', width: 150},
-                    {title: '约束', key: 'constraint'}],
+                    {title: '类型', key: 'type', maxWidth: 100},
+                    {title: '格式', key: 'format', maxWidth: 150},
+                    {title: '约束', key: 'constraint', maxWidth: 250}],
             }
         },
         computed: {
