@@ -101,14 +101,14 @@
                     {title: '', key: 'k2', render: copiedTagRender}
                 ],
                 paramBeanColumns: [
-                    {title: '名称', key: 'name', width: 250, render: nameRequiredColumnRender},
+                    {title: '名称', key: 'name', width: 250, render: paramNameRender},
                     {title: '描述', key: 'description'},
                     {title: '位置', key: 'in', width: 100},
                     {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format', width: 150},
                     {title: '约束', key: 'constraint'}],
                 beanColumns: [
-                    {title: '名称', key: 'name', width: 250},
+                    {title: '名称', key: 'name', width: 250, render: copiedTagRender},
                     {title: '描述', key: 'description'},
                     {title: '类型', key: 'type', width: 100},
                     {title: '格式', key: 'format', width: 150},
@@ -191,16 +191,16 @@
     }
 
     function copiedTagRender(h, params) {
-        return h(CopiedTag, {}, params.row.k2);
+        return h(CopiedTag, {}, params.row.name || params.row.k2);
     }
 
-    function nameRequiredColumnRender(h, params) {
+    function paramNameRender(h, params) {
         if (params.row.required) {
-            return h('span', {}, [h('span', {}, params.row.name), h('span', {
+            return h('span', {}, [h(CopiedTag, {}, params.row.name), h('span', {
                 style: 'color:red;'
             }, ' *')])
         } else {
-            return h('span', {}, params.row.name)
+            return h(CopiedTag, {}, params.row.name)
         }
     }
 </script>
