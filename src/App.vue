@@ -111,4 +111,7 @@
   html {
     overflow-y: hidden;
   }
+  .ivu-menu-item{
+    padding-left: 20px!important;
+  }
 </style>
