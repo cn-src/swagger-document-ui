@@ -1,7 +1,9 @@
 <template>
   <div style="padding: 24px 0 0 24px;">
-    <Divider :style="{paddingRight: '155px'}"><h2>{{ httpEntity.name }}</h2></Divider>
-    <div id="doc-content" :style="{height: '75vh',overflowY: 'auto',paddingBottom: '100px', paddingRight: '140px'}">
+    <div class="divider-auto">
+      <Divider><h2>{{ httpEntity.name }}</h2></Divider>
+    </div>
+    <div id="doc-content">
       <div>
         <ul>
           <li><h2 id="h2_1">接口说明</h2>
@@ -72,7 +74,7 @@
       </div>
 
     </div>
-    <div style="top:100px; right: 20px; position: fixed; width: 120px">
+    <div class="anchor-auto">
       <Anchor show-ink container="#doc-content">
         <AnchorLink href="#h2_1" title="接口说明"/>
         <AnchorLink href="#h2_2" title="请求参数"/>
@@ -217,11 +219,36 @@
 </script>
 <style lang="less">
   #doc-content {
+    height: 75vh;
+    overflow-y: auto;
+    padding-bottom: 100px;
+    @media (min-width: 801px) {
+      padding-right: 140px;
+    }
     li {
       margin: 5px 0;
       h2, h3 {
         margin-top: 30px;
       }
+    }
+  }
+
+  .anchor-auto {
+    top: 100px;
+    right: 20px;
+    position: fixed;
+    width: 120px;
+    @media (max-width: 800px) {
+      display: none;
+    }
+  }
+
+  .divider-auto {
+    @media (max-width: 800px) {
+      padding-right: 15px;
+    }
+    @media (min-width: 801px) {
+      padding-right: 155px;
     }
   }
 
