@@ -24,6 +24,7 @@ function fixSwaggerJson(swaggerJson) {
                     method: methodType.toUpperCase(),
                     produces: methodInfo.produces,
                     consumes: methodInfo.consumes,
+                    description: methodInfo.description,
                     paramBean: fixParamsToBean(methodInfo.parameters, swaggerJson.definitions),
                     responseBean: fixResponsesToBean(methodInfo.responses, swaggerJson.definitions)
                 }

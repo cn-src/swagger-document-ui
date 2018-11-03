@@ -126,7 +126,8 @@
                 const apiInfo = [
                     {k1: this.httpEntity.method, k2: this.httpEntity.path},
                     {k1: '请求体类型', k2: this.httpEntity.consumes},
-                    {k1: '响应体类型', k2: this.httpEntity.produces}];
+                    {k1: '响应体类型', k2: this.httpEntity.produces},
+                    {k1: '描述', k2: this.httpEntity.description}];
 
                 if (this.httpEntity.method === 'GET') {
                     apiInfo.splice(1, 1)
