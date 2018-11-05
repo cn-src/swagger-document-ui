@@ -13,7 +13,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <upstream.url>{{repo.url}}/archive/v${version.unrevise}.zip</upstream.url>
         <destDir>${project.build.outputDirectory}/META-INF/resources/</destDir>
     </properties>
 
