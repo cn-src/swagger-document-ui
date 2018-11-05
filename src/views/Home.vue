@@ -3,11 +3,15 @@
     <Divider>{{ apiTitle }}</Divider>
     <Table :columns="apiInfoColumns" :data="apiInfoItems" border
            :show-header="false"/>
+    <div style="margin: 0 auto;text-align: center;position:relative;top: 20px;color: #a9a9a9;">
+      {{ classicQuote }}
+    </div>
   </div>
 </template>
 
 <script>
     import store from '@/store'
+    import classicQuote from '@/utils/classic-quote'
 
     export default {
         name: "Home",
@@ -16,7 +20,8 @@
                 apiInfoColumns: [
                     {title: '', key: 'k1', width: 110, align: 'right'},
                     {title: '', key: 'k2', render: methodColumnRender}
-                ]
+                ],
+                classicQuote: ''
             }
         },
         computed: {
@@ -42,6 +47,9 @@
                     {k1: 'basePath:', k2: info.basePath}
                 ]
             }
+        },
+        created() {
+            this.$data.classicQuote = classicQuote()
         }
     }
 
@@ -66,7 +74,7 @@
             return h('a', {
                 attrs: {
                     target: '_blank',
-                    href: 'mailto:'+params.row.k2
+                    href: 'mailto:' + params.row.k2
                 }
             }, params.row.k2);
         }
