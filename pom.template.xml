@@ -56,6 +56,7 @@
                             <target>
                                 <echo message="copy src resources"/>
                                 <copydir src="${basedir}/src" dest="${project.build.directory}/cpSrc/src"/>
+                                <copydir src="${basedir}/public" dest="${project.build.directory}/cpSrc/public"/>
                                 <copyfile src="${basedir}/package.json" dest="${project.build.directory}/cpSrc/package.json"/>
                                 <copyfile src="${basedir}/LICENSE" dest="${project.build.directory}/cpSrc/LICENSE"/>
                                 <echo message="copy dist resources"/>
