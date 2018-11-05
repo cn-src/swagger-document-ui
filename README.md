@@ -12,7 +12,12 @@ Swagger 规范接口的文档型 API UI 界面
 
 [码云: https://gitee.com/cn-src/swagger-document-ui](https://gitee.com/cn-src/swagger-document-ui)
 
-# Maven
+# 使用
+1. 配置 springfox 相关依赖
+2. 配置 swagger-document-ui 替换其它 UI
+3. 地址样例 http://localhost:8080/swagger-ui.html
+
+Maven
 ```xml
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
