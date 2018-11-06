@@ -22,7 +22,7 @@ Maven
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
