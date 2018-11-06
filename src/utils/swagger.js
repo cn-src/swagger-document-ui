@@ -195,6 +195,11 @@ function getSchemaType(schemaKey, definitions) {
     if (definitions.hasOwnProperty(schemaKey)) {
         return definitions[schemaKey].type
     }
+    // 泛型参数
+    if (_.endsWith(schemaKey, '«object»')) {
+        const len = schemaKey.substring(0, schemaKey.length - '«object»'.length);
+        return definitions[len]['type']
+    }
 }
 
 function getSchemaTitle(schemaKey, definitions) {
