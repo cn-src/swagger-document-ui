@@ -1,4 +1,5 @@
 const swaggerResources = require("./tests/swagger-resources");
+const swaggerJson = require("./tests/unit/utils/swagger.json");
 
 module.exports = {
     filenameHashing: false,
@@ -22,6 +23,9 @@ module.exports = {
         before: function (app) {
             app.get('/swagger-resources.json', function (req, res) {
                 res.json(swaggerResources);
+            });
+            app.get('/swagger.json', function (req, res) {
+                res.json(swaggerJson);
             });
         }
     },
