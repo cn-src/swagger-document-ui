@@ -4,20 +4,12 @@ import swagger from "@/utils/swagger";
 import _ from 'lodash';
 
 function initApi(paths, vueObject) {
+    configAxios(vueObject);
     if (!_.isArray(paths)) {
         paths = [paths]
     }
     const swaggerResources = [];
-    axios.all(paths.map(url => axios.get(url).catch((res) => {
-        if (res.response.status === 302) {
-            vueObject.$Notice.warning({
-                title: 'API 获取被重定向',
-                desc: '请检查是否未授权或登录',
-                duration: 10
-            });
-        }
-        console.warn(res);
-    })))
+    axios.all(paths.map(url => axios.get(url)))
         .then(function (results) {
             _.flatMap(results, function (it) {
                 return it ? it.data : []
@@ -54,6 +46,23 @@ function setCurrentSwaggerJson(path, vueObject, onSuccess) {
             store.commit('currentSwaggerJson', swagger.fixSwaggerJson(swaggerJson))
         })
 
+}
+
+function configAxios(vueObject) {
+    axios.defaults.timeout = 10000;
+    axios.interceptors.response.use(
+        response => {
+            return response;
+        },
+        error => {
+            console.warn(error);
+            vueObject.$Notice.error({
+                title: 'Error',
+                desc: error,
+                duration: 10
+            });
+            return Promise.reject(error.response.data)
+        });
 }
 
 export default {initApi, setCurrentSwaggerJson}
