@@ -35,7 +35,12 @@
             <template v-for="httpEntity in httpEntities">
               <MenuItem :name="httpEntity.id" :key="httpEntity.id">
               <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
-              {{ httpEntity.name }}
+              <template v-if="httpEntity.deprecated">
+                <span :key="httpEntity.id" style="color: #787a7b"><del>{{ httpEntity.name }}</del></span>
+              </template>
+              <template v-else>
+                {{ httpEntity.name }}
+              </template>
               </MenuItem>
             </template>
           </Submenu>
@@ -111,7 +116,8 @@
   html {
     overflow-y: hidden;
   }
-  .ivu-menu-item{
-    padding-left: 20px!important;
+
+  .ivu-menu-item {
+    padding-left: 20px !important;
   }
 </style>

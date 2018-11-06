@@ -22,6 +22,7 @@ function fixSwaggerJson(swaggerJson) {
                     name: methodInfo.summary,
                     path: path,
                     method: methodType.toUpperCase(),
+                    deprecated: methodInfo.deprecated,
                     produces: methodInfo.produces,
                     consumes: methodInfo.consumes,
                     description: methodInfo.description,
