@@ -197,8 +197,8 @@ function getSchemaType(schemaKey, definitions) {
     }
     // 泛型参数
     if (_.endsWith(schemaKey, '«object»')) {
-        const len = schemaKey.substring(0, schemaKey.length - '«object»'.length);
-        return definitions[len]['type']
+        const sk = schemaKey.substring(0, schemaKey.length - '«object»'.length);
+        return _.get(definitions, [sk, 'type'])
     }
 }
 
