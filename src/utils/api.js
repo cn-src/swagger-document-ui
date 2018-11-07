@@ -66,12 +66,20 @@ function configAxios(vueObject) {
             return response;
         },
         error => {
-            console.warn('[swagger-document-ui]: Ajax error: ' + error);
-            vueObject.$Notice.error({
-                title: 'Error',
-                desc: error,
-                duration: 10
-            });
+            const url = _.get(error, 'request.responseURL');
+            if (url
+                && (_.get(error, 'response.status') === 404)
+                && (_.endsWith(url, '/swagger-resources.json') || _.endsWith(url, '/swagger-resources'))) {
+                console.info(`[swagger-document-ui]: '${url}' 404`);
+            } else {
+                console.warn('[swagger-document-ui]: Ajax error: ' + error);
+                vueObject.$Notice.error({
+                    title: 'Error',
+                    desc: error,
+                    duration: 10
+                });
+            }
+
             return Promise.reject(error.response.data)
         });
 }
