@@ -18,6 +18,7 @@ Swagger 规范接口的文档型 API UI 界面
 * 配置 swagger-document-ui 替换其它 UI
 * 地址样例 http://localhost:8080/swagger-ui.html
 * [springfox 官方文档](http://springfox.github.io/springfox/docs/current/)
+* 此项目没有类似官方的在线测试/调试功能，建议使用 postman，支持 swagger 规范的接口导入，功能更强大
 
 1. **移除**官方 UI 依赖
 ```xml
