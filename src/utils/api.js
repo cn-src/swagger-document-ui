@@ -9,7 +9,9 @@ function initApi(paths, vueObject) {
         paths = [paths]
     }
     const swaggerResources = [];
-    axios.all(paths.map(url => axios.get(url)))
+    axios.all(paths.map(url => axios.get(url).catch(res => {
+        console.info(`[swagger-document-ui]: Can not get url '${url}', res: ` + res);
+    })))
         .then(function (results) {
             _.flatMap(results, function (it) {
                 return it ? it.data : []
