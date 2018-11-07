@@ -12,12 +12,34 @@ Swagger 规范接口的文档型 API UI 界面
 
 [码云: https://gitee.com/cn-src/swagger-document-ui](https://gitee.com/cn-src/swagger-document-ui)
 
-# 使用
-1. 配置 springfox 相关依赖
+# 使用方式
+## 主要步骤
+1. 此项目需要配合 springfox 框架使用，因此使用之前需要对 springfox 有所了解
 2. 配置 swagger-document-ui 替换其它 UI
 3. 地址样例 http://localhost:8080/swagger-ui.html
+4. [springfox 官方文档](http://springfox.github.io/springfox/docs/current/)
 
-Maven
+## Spring Boot 集成
+与 Spring Boot 集成使用是最简单的方式，推荐使用 [程序猿DD/spring-boot-starter-swagger](https://gitee.com/didispace/spring-boot-starter-swagger)
+提供的集成方式，然后你需要：
+
+1. 排除自带 UI 依赖
+```xml
+<dependency>
+    <groupId>com.spring4all</groupId>
+    <artifactId>swagger-spring-boot-starter</artifactId>
+    <version>${swagger-spring-boot-starter.version}</version>
+    <!--排除自带 UI 依赖-->
+    <exclusions>
+        <exclusion>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <groupId>io.springfox</groupId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+2. 添加 swagger-document-ui 依赖
 ```xml
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
