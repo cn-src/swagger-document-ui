@@ -18,8 +18,9 @@ function initApi(paths, vueObject) {
             });
 
             store.commit('swaggerResources', swaggerResources);
-            if (swaggerResources[0] && swaggerResources[0].url) {
-                setCurrentSwaggerJson(swaggerResources[0].url, vueObject);
+            if (swaggerResources[0]) {
+                const url = swaggerResources[0].url || swaggerResources[0].location;
+                setCurrentSwaggerJson(url, vueObject);
             } else {
                 console.warn('[swagger-document-ui]: Can not find url, swaggerResources: ' + swaggerResources);
                 vueObject.$Notice.warning({
