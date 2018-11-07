@@ -19,7 +19,7 @@ Swagger 规范接口的文档型 API UI 界面
 * 地址样例 http://localhost:8080/swagger-ui.html
 * [springfox 官方文档](http://springfox.github.io/springfox/docs/current/)
 
-1. <span style="color:red;">移除</span>官方 UI 依赖
+1. <font color=red>移除</font>官方 UI 依赖
 ```xml
 <dependency>
     <groupId>io.springfox</groupId>
