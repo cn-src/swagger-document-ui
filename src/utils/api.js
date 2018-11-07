@@ -16,9 +16,17 @@ function initApi(paths, vueObject) {
             }).forEach(function (data) {
                 swaggerResources.push(data)
             });
+
             store.commit('swaggerResources', swaggerResources);
             if (swaggerResources[0] && swaggerResources[0].url) {
                 setCurrentSwaggerJson(swaggerResources[0].url, vueObject);
+            } else {
+                console.warn('[swagger-document-ui]: Can not find url, swaggerResources: ' + swaggerResources);
+                vueObject.$Notice.warning({
+                    title: 'API 初始化错误',
+                    desc: '未找到 API 地址',
+                    duration: 10
+                });
             }
         });
 }
