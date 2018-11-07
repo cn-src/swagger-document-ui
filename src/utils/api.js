@@ -66,7 +66,7 @@ function configAxios(vueObject) {
             return response;
         },
         error => {
-            console.warn(error);
+            console.warn('[swagger-document-ui]: Ajax error: ' + error);
             vueObject.$Notice.error({
                 title: 'Error',
                 desc: error,
