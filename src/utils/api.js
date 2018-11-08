@@ -80,7 +80,7 @@ function configAxios(vueObject) {
                 });
             }
 
-            return Promise.reject(error.response.data)
+            return Promise.reject(_.get(error, 'response.data'))
         });
 }
 
