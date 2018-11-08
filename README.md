@@ -68,7 +68,7 @@ Swagger 规范接口的文档型 API UI 界面
 ```
 
 ## 其它使用方式
-此项目最终是生成纯静态资源，理论上来说只有你将 dist 目录里的静态文件部署到 web 服务器的根目录下即可使用，但前提是：你的项目中使用了 swagger 规范的 API 信息接口。
+此项目最终是生成纯静态资源，理论上来说只要你将 dist 目录里的静态文件部署到 web 服务器的根目录下即可使用，但前提是：你的项目中使用了 swagger 规范的 API 信息接口。
 
 1. 其会请求 `/swagger-resources` （springfox 框架默认地址） 和 `/swagger-resources.json` （本项目新增地址） 拿到 API 信息接口地址。（项目 tests 目录里有样例）
 2. 请求 `swagger-resources` 中配置的 `url`（优先） 或者 `location`（兼容旧版不提供 url 字段） 其应当返回 swagger 规范的 API 信息即可使用。
