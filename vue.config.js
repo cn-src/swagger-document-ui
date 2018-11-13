@@ -3,7 +3,7 @@ const swaggerJson = require("./tests/unit/utils/swagger.json");
 
 module.exports = {
     filenameHashing: false,
-
+    baseUrl: '',
     pages: {
         'swagger-document-ui': {
             // page 的入口
