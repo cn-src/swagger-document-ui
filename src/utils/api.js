@@ -60,6 +60,7 @@ function setCurrentSwaggerJson(path, vueObject, onSuccess) {
 }
 
 function configAxios(vueObject) {
+    axios.defaults.baseURL = getBaseURL();
     axios.defaults.timeout = 10000;
     axios.interceptors.response.use(
         response => {
@@ -84,4 +85,8 @@ function configAxios(vueObject) {
         });
 }
 
+const getBaseURL = () => {
+    const urlMatches = /(.*)\/swagger-ui.html.*/.exec(window.location.href);
+    return urlMatches[1];
+};
 export default {initApi, setCurrentSwaggerJson}
