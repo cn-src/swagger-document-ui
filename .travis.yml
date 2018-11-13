@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "11.1.0"
+before_script:
+  - npm install -g @vue/cli
+install:
+  - npm run build
+script:
+  - npm run test:unit
