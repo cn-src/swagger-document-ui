@@ -1,5 +1,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Maven Central](https://img.shields.io/maven-central/v/cn.javaer.springfox/swagger-document-ui.svg)
+[![star](https://gitee.com/cn-src/swagger-document-ui/badge/star.svg?theme=dark)](https://gitee.com/cn-src/swagger-document-ui/stargazers)
 
 Swagger 文档型 UI
 
@@ -8,9 +9,9 @@ Swagger 规范接口的文档型 API UI 界面
 
 主要使用 Vue CLI 3，iView 开发，主要体现文档的可读性功能，给接口调用者提供接口文档，省去文档编写。
 
-[Github & Issues: https://github.com/cn-src/swagger-document-ui](https://github.com/cn-src/swagger-document-ui)
+[Github](https://github.com/cn-src/swagger-document-ui)
 
-[码云: https://gitee.com/cn-src/swagger-document-ui](https://gitee.com/cn-src/swagger-document-ui)
+[码云](https://gitee.com/cn-src/swagger-document-ui)
 
 # 使用方式
 ## 主要步骤
@@ -34,7 +35,7 @@ Swagger 规范接口的文档型 API UI 界面
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
 </dependency>
 ```
 
@@ -63,7 +64,7 @@ Swagger 规范接口的文档型 API UI 界面
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
 </dependency>
 ```
 
