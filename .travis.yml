@@ -4,6 +4,8 @@ node_js:
 before_script:
   - npm install -g @vue/cli
 install:
-  - npm run build
+  - npm install
+
 script:
+  - npm run build
   - npm run test:unit
