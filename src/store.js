@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        activeMenuName: '',
         swaggerResources: [],
         currentSwaggerJson: {}
     },
@@ -14,6 +15,9 @@ export default new Vuex.Store({
         },
         currentSwaggerJson(state, data) {
             state.currentSwaggerJson = data
+        },
+        activeMenuName(state, data) {
+            state.activeMenuName = data
         }
     },
     actions: {}

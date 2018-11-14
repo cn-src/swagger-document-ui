@@ -24,7 +24,9 @@
              v-model="isCollapsed"
              hide-trigger
              collapsible>
-        <Menu theme="dark" width="auto" accordion @on-select="menuItemAction">
+        <Menu theme="dark" width="auto" accordion
+              :active-name="activeMenuName"
+              @on-select="menuItemAction">
           <MenuItem :name="'Home'">
           <Icon type="md-home"/>
           首页
@@ -88,6 +90,9 @@
             swaggerCollection() {
                 const currentSwaggerJson = this.$store.state.currentSwaggerJson;
                 return currentSwaggerJson && currentSwaggerJson.collection || {}
+            },
+            activeMenuName() {
+                return this.$store.state.activeMenuName;
             }
         },
         methods: {

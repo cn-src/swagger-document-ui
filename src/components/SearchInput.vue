@@ -38,7 +38,8 @@
                 this.entities = _.slice(fuse.search(keyword), 0, 20)
             },
             select(entityId) {
-                this.$router.push(`/entity/${entityId}`)
+                this.$router.push(`/entity/${entityId}`);
+                this.$store.commit('activeMenuName', entityId)
             }
         }
     }
