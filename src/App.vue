@@ -10,6 +10,9 @@
         {{ infoTitle }}&nbsp;
         <Icon type="md-repeat"/>
         </MenuItem>
+        <div style="float: right;margin-right: 20px;position: relative;">
+          <SearchInput/>
+        </div>
       </Menu>
       <SwaggerResources ref="swaggerResources"/>
     </Header>
@@ -54,13 +57,14 @@
 </template>
 <script>
     import MethodTag from '@/components/MethodTag'
+    import SearchInput from '@/components/SearchInput'
     import EntityView from "@/views/EntityView";
     import SwaggerResources from "@/views/SwaggerResources";
     import api from '@/utils/api'
 
     export default {
         name: 'App',
-        components: {EntityView, SwaggerResources, MethodTag},
+        components: {EntityView, SwaggerResources, MethodTag, SearchInput},
         data() {
             return {
                 tagsKeyWord: '',
