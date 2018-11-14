@@ -1,4 +1,5 @@
 import _ from "lodash";
+import pinyin from 'pinyin'
 
 function fixSwaggerJson(swaggerJson) {
     const info = {license: {}};
@@ -16,7 +17,7 @@ function fixSwaggerJson(swaggerJson) {
     const httpEntities = _.flatMap(swaggerJson.paths, (pathInfo, path) => {
         return _.flatMap(pathInfo, (methodInfo, methodType) => {
             return _.map(methodInfo.tags, (tag) => {
-                return {
+                return fixHttpEntity({
                     id: 'httpEntity' + index++,
                     tag: tag,
                     name: methodInfo.summary,
@@ -28,12 +29,22 @@ function fixSwaggerJson(swaggerJson) {
                     description: methodInfo.description,
                     paramBean: fixParamsToBean(methodInfo.parameters, swaggerJson.definitions),
                     responseBean: fixResponsesToBean(methodInfo.responses, swaggerJson.definitions)
-                }
+                })
             })
         })
     });
     data.collection = _.groupBy(httpEntities, 'tag');
     return data
+}
+
+function toPinyin(text) {
+    const pyArray = pinyin(text, {style: pinyin.STYLE_NORMAL});
+    return _.join(_.flatMap(pyArray), ' ');
+}
+
+async function fixHttpEntity(httpEntity) {
+    httpEntity.tagPinyin = toPinyin(httpEntity.tag);
+    httpEntity.namePinyin = toPinyin(httpEntity.name);
 }
 
 function fixBeanMap(definitions) {
