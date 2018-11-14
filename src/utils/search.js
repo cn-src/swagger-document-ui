@@ -1,25 +1,22 @@
-import pinyin from 'pinyin'
 import Fuse from 'fuse.js'
+import store from '@/store'
 import _ from 'lodash'
 
-const content = [];
+const content = _.flatMap(store.state.currentSwaggerJson.collection);
 const options = {
-    keys: ['text', 'pinyinStr']
+    id: 'id',
+    keys: [
+        {name: 'tag'},
+        {name: 'name'},
+        {name: 'path'},
+        {name: 'tagPinyin'},
+        {name: 'namePinyin'},
+    ]
 };
 const fuse = new Fuse(content, options);
-
-function append(id, text) {
-    const pyArray = pinyin(text, {style: pinyin.STYLE_NORMAL});
-    const pinyinStr = _.join(_.flatMap(pyArray), ' ');
-    content.push({
-        id,
-        text,
-        pinyinStr
-    })
-}
 
 function match(keyword) {
     return fuse.search(keyword)
 }
 
-export default {append, match}
+export default {match}
