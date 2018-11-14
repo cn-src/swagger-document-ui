@@ -42,9 +42,10 @@ function toPinyin(text) {
     return _.join(_.flatMap(pyArray), ' ');
 }
 
-async function fixHttpEntity(httpEntity) {
+function fixHttpEntity(httpEntity) {
     httpEntity.tagPinyin = toPinyin(httpEntity.tag);
     httpEntity.namePinyin = toPinyin(httpEntity.name);
+    return httpEntity
 }
 
 function fixBeanMap(definitions) {
