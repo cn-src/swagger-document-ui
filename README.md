@@ -36,7 +36,7 @@ Swagger 规范接口的文档型 API UI 界面
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>0.1.4</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -65,7 +65,7 @@ Swagger 规范接口的文档型 API UI 界面
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>0.1.4</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -76,5 +76,14 @@ Swagger 规范接口的文档型 API UI 界面
 2. 请求 `swagger-resources` 中配置的 `url`（优先） 或者 `location`（兼容旧版不提供 url 字段） 其应当返回 swagger 规范的 API 信息即可使用。
 # 效果预览
 
-![](docs/demo.png)
+## 右侧文档锚点导航
+![](docs/demo1.png)
+
+## 分组选择 API
+![](docs/demo2.png)
+
+## 模糊搜索
+* 支持中文，拼音，英文
+* 可搜索 API 名称，分类名称，url 路径
+![](docs/demo3.png)
 
