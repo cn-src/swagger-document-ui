@@ -41,9 +41,15 @@
                 this.$router.push(`/entity/${entityId}`);
                 this.$store.commit('activeMenu', entityId)
             }
+        },
+        watch: {
+            '$store.state.currentSwaggerJson.collection': function (val) {
+                content = _.flatMap(val);
+                fuse = new Fuse(content, options);
+            }
         }
     }
-    const content = _.flatMap(store.state.currentSwaggerJson.collection);
+    let content = _.flatMap(store.state.currentSwaggerJson.collection);
     const options = {
         keys: [
             {name: 'name',},
@@ -53,7 +59,7 @@
             {name: 'tagPinyin'},
         ]
     };
-    const fuse = new Fuse(content, options);
+    let fuse = new Fuse(content, options);
 
 </script>
 <style>
