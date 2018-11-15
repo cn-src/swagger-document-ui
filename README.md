@@ -85,5 +85,6 @@ Swagger 规范接口的文档型 API UI 界面
 ## 模糊搜索
 * 支持中文，拼音，英文
 * 可搜索 API 名称，分类名称，url 路径
+
 ![](docs/demo3.png)
 
