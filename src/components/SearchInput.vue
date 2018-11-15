@@ -39,7 +39,7 @@
             },
             select(entityId) {
                 this.$router.push(`/entity/${entityId}`);
-                this.$store.commit('activeMenuName', entityId)
+                this.$store.commit('activeMenu', entityId)
             }
         }
     }

@@ -25,14 +25,15 @@
              hide-trigger
              collapsible>
         <Menu theme="dark" width="auto" accordion
-              :active-name="activeMenuName"
+              :open-names="activeSubmenu"
+              :active-name="activeMenuItem"
               @on-select="menuItemAction">
           <MenuItem :name="'Home'">
           <Icon type="md-home"/>
           首页
           </MenuItem>
 
-          <Submenu v-for="(httpEntities,tagName, i) in swaggerCollection" :name="'m'+i" :key="i">
+          <Submenu v-for="(httpEntities,tagName, i) in swaggerCollection" :name="tagName" :key="i">
             <template slot="title">
               <Icon type="ios-pricetags"/>
               {{ tagName }}
@@ -91,8 +92,11 @@
                 const currentSwaggerJson = this.$store.state.currentSwaggerJson;
                 return currentSwaggerJson && currentSwaggerJson.collection || {}
             },
-            activeMenuName() {
-                return this.$store.state.activeMenuName;
+            activeSubmenu() {
+                return this.$store.state.activeMenu.submenu;
+            },
+            activeMenuItem() {
+                return this.$store.state.activeMenu.menuItem;
             }
         },
         methods: {
