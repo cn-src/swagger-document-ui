@@ -9,7 +9,7 @@
     <div style="height: 300px;overflow-y: scroll;">
       <Option v-for="e in entities" :value="e.name" :key="e.id">
         <!-- AutoComplete 无法通过搜索 name 而拿到 id，故自定义点击事件-->
-        <div @click="select(e.id)">
+        <div @click="select(e.id,e.tag)">
           <MethodTag :method="e.method"/>
           <span style="">{{ e.name }}</span><br>
           <span style="color: #a6a9aa">{{ e.path }}</span>
@@ -37,9 +37,9 @@
             search(keyword) {
                 this.entities = _.slice(fuse.search(keyword), 0, 20)
             },
-            select(entityId) {
+            select(entityId, entityTag) {
                 this.$router.push(`/entity/${entityId}`);
-                this.$store.commit('activeMenu', entityId)
+                this.$store.commit('activeMenu', {submenu: [entityTag], menuItem: entityId})
             }
         },
         watch: {
