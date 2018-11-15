@@ -52,11 +52,11 @@
     let content = _.flatMap(store.state.currentSwaggerJson.collection);
     const options = {
         keys: [
-            {name: 'name',},
-            {name: 'namePinyin'},
-            {name: 'path'},
-            {name: 'tag'},
-            {name: 'tagPinyin'},
+            {name: 'name', weight: 0.3},
+            {name: 'namePinyin', weight: 0.3},
+            {name: 'tag', weight: 0.1},
+            {name: 'tagPinyin', weight: 0.2},
+            {name: 'path', weight: 0.1},
         ]
     };
     let fuse = new Fuse(content, options);
