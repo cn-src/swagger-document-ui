@@ -106,7 +106,7 @@
                 paramBeanColumns: [
                     {title: '名称', key: 'name', maxWidth: 150, render: paramNameRender},
                     {title: '描述', key: 'description'},
-                    {title: '位置', key: 'in', maxWidth: 100},
+                    {title: '位置', key: 'in', maxWidth: 100, render: paramInRender},
                     {title: '类型', key: 'type', maxWidth: 100},
                     {title: '格式', key: 'format', maxWidth: 150},
                     {title: '约束', key: 'constraint', maxWidth: 250}],
@@ -215,6 +215,20 @@
         } else {
             return h(CopiedTag, {}, params.row.name)
         }
+    }
+
+    const inMapping = {
+        'header': '#ED4015',
+        'path': '#2D8CF0',
+        'query': '#18BE6B',
+        'body': '#FF9901',
+    };
+
+    function paramInRender(h, params) {
+        const color = inMapping[params.row.in] || '#7a7a7a';
+        return h('span', {
+            style: `color:${color};font-weight:bold`
+        }, params.row.in)
     }
 </script>
 <style lang="less">
