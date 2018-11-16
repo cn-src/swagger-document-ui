@@ -25,6 +25,7 @@
              hide-trigger
              collapsible>
         <Menu theme="dark" width="auto" accordion
+              ref="navMenu"
               :open-names="activeSubmenu"
               :active-name="activeMenuItem"
               @on-select="menuItemAction">
@@ -116,6 +117,13 @@
                 if (menuItemName.startsWith('httpEntity')) {
                     this.$router.push(`/entity/${menuItemName}`);
                 }
+            }
+        },
+        watch: {
+            '$store.state.activeMenu': function () {
+                this.$nextTick(() => {
+                    this.$refs.navMenu.updateOpened();
+                })
             }
         },
         beforeCreate() {
