@@ -14,6 +14,8 @@ Swagger 规范接口的文档型 API UI 界面
 
 [码云](https://gitee.com/cn-src/swagger-document-ui)
 
+[更新列表](https://github.com/cn-src/swagger-document-ui/releases)
+
 # 使用方式
 ## 主要步骤
 * 此项目需要配合 springfox 框架使用，因此使用之前需要对 springfox 有所了解
