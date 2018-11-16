@@ -227,7 +227,7 @@
     function paramInRender(h, params) {
         const color = inMapping[params.row.in] || '#7a7a7a';
         return h('span', {
-            style: `color:${color};font-weight:bold`
+            style: `color:${color};font-weight:bold;`
         }, params.row.in)
     }
 </script>
