@@ -10,6 +10,8 @@ Swagger 规范接口的文档型 API UI 界面
 
 主要使用 Vue CLI 3，iView 开发，主要体现文档的可读性功能，给接口调用者提供接口文档，省去文档编写。
 
+[在线样例](http://cn-src.gitee.io/swagger-document-ui/swagger-ui.html)
+
 [Github](https://github.com/cn-src/swagger-document-ui)
 
 [码云](https://gitee.com/cn-src/swagger-document-ui)
