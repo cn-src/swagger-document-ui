@@ -19,6 +19,8 @@ module.exports = {
     },
     assetsDir: 'webjars/swagger-document-ui',
     devServer: {
+        openPage: '/swagger-ui.html',
+        open: true,
         proxy: 'http://swagger-bootstrap-ui.xiaominfo.com',
         before: function (app) {
             app.get('/swagger-resources.json', function (req, res) {
