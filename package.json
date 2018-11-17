@@ -19,7 +19,7 @@
     "fuse.js": "^3.3.0",
     "iview": "^3.1.5",
     "json-schema-faker": "^0.5.0-rc16",
-    "jsoneditor": "^5.26.0",
+    "jsoneditor": "^5.26.2",
     "lodash": "^4.17.11",
     "pinyin": "^2.8.3",
     "vue": "^2.5.17",
