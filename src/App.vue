@@ -64,7 +64,6 @@
     import SearchInput from '@/components/SearchInput'
     import EntityView from "@/views/EntityView";
     import SwaggerResources from "@/views/SwaggerResources";
-    import api from '@/utils/api'
 
     export default {
         name: 'App',
@@ -86,11 +85,11 @@
         },
         computed: {
             infoTitle() {
-                const currentSwaggerJson = this.$store.state.currentSwaggerJson;
+                const currentSwaggerJson = this.$root.currentSwaggerJson;
                 return currentSwaggerJson && currentSwaggerJson.info && currentSwaggerJson.info.title || ''
             },
             swaggerCollection() {
-                const currentSwaggerJson = this.$store.state.currentSwaggerJson;
+                const currentSwaggerJson = this.$root.currentSwaggerJson;
                 return currentSwaggerJson && currentSwaggerJson.collection || {}
             },
             activeSubmenu() {
@@ -125,9 +124,6 @@
                     this.$refs.navMenu.updateOpened();
                 })
             }
-        },
-        beforeCreate() {
-            api.initApi(['/swagger-resources', '/swagger-resources.json'], this);
         }
     }
 

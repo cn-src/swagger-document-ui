@@ -138,36 +138,16 @@
                 return apiInfo
             },
             allChildParamBeans() {
-                return swagger.findAllBean(this.httpEntity.paramBean, this.beanMap);
+                return swagger.findAllBean(this.httpEntity.paramBean, this.$root.currentSwaggerJson.beanMap);
             },
             allChildResponseBeans() {
-                return swagger.findAllBean(this.httpEntity.responseBean, this.beanMap);
-            }
-        },
-        props: {
-            httpEntity: {
-                type: Object,
-                required: true,
-
-                id: {type: String, required: true,},
-                name: {type: String, required: true,},
-                path: {type: String, required: true,},
-                method: {type: String, required: true,},
-                consumes: {type: Array},
-                produces: {type: Array},
-                paramBean: {
-                    type: Object, required: true, props: {
-                        type: Array, required: true
-                    }
-                },
-                responseBean: {
-                    type: Object, required: true, props: {
-                        type: Array, required: true
-                    }
-                },
+                return swagger.findAllBean(this.httpEntity.responseBean, this.$root.currentSwaggerJson.beanMap);
             },
-            beanMap: {
-                type: Object, required: true
+            httpEntity() {
+                if (!this.$root.currentSwaggerJson.collection) {
+                    return {paramBean: {props: []}, responseBean: {props: []}}
+                }
+                return swagger.findHttpEntity(this.$root.currentSwaggerJson.collection, this.$route.params.id);
             }
         }
     }

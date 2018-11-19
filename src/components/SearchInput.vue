@@ -20,7 +20,6 @@
 </template>
 <script>
     import Fuse from 'fuse.js'
-    import store from '@/store'
     import _ from 'lodash'
     import MethodTag from '@/components/MethodTag'
 
@@ -40,17 +39,19 @@
             select(entityId, entityTag) {
                 this.$router.push(`/entity/${entityId}`);
                 this.$root.activeMenu = {submenu: [entityTag], menuItem: entityId}
-                // this.$store.commit('activeMenu', {submenu: [entityTag], menuItem: entityId})
             }
         },
         watch: {
-            '$store.state.currentSwaggerJson.collection': function (val) {
+            '$root.currentSwaggerJson.collection': function (val) {
                 content = _.flatMap(val);
                 fuse = new Fuse(content, options);
             }
+        },
+        created(){
+            content = _.flatMap(this.$root.currentSwaggerJson.collection);
         }
     }
-    let content = _.flatMap(store.state.currentSwaggerJson.collection);
+    let content = [];
     const options = {
         keys: [
             {name: 'name', weight: 0.3},

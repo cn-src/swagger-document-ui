@@ -10,7 +10,6 @@
 </template>
 
 <script>
-    import store from '@/store'
     import classicQuote from '@/utils/classic-quote'
 
     export default {
@@ -26,16 +25,16 @@
         },
         computed: {
             apiTitle() {
-                if (!store.state.currentSwaggerJson || !store.state.currentSwaggerJson.info) {
+                if (!this.$root.currentSwaggerJson || !this.$root.currentSwaggerJson.info) {
                     return ''
                 }
-                return store.state.currentSwaggerJson.info.title;
+                return this.$root.currentSwaggerJson.info.title;
             },
             apiInfoItems() {
-                if (!store.state.currentSwaggerJson || !store.state.currentSwaggerJson.info) {
+                if (!this.$root.currentSwaggerJson || !this.$root.currentSwaggerJson.info) {
                     return []
                 }
-                const info = store.state.currentSwaggerJson.info;
+                const info = this.$root.currentSwaggerJson.info;
 
                 return [
                     {k1: '描述:', k2: info.description},

@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "@/store";
 import swagger from "@/utils/swagger";
 import _ from 'lodash';
 
@@ -19,7 +18,7 @@ function initApi(paths, vueObject) {
                 swaggerResources.push(data)
             });
 
-            store.commit('swaggerResources', swaggerResources);
+            vueObject.$root.swaggerResources = swaggerResources;
             if (swaggerResources[0]) {
                 const url = swaggerResources[0].url || swaggerResources[0].location;
                 setCurrentSwaggerJson(url, vueObject);
@@ -54,7 +53,7 @@ function setCurrentSwaggerJson(path, vueObject, onSuccess) {
                 swaggerJson = data
             }
             onSuccess && onSuccess();
-            store.commit('currentSwaggerJson', swagger.fixSwaggerJson(swaggerJson))
+            vueObject.$root.currentSwaggerJson = swagger.fixSwaggerJson(swaggerJson)
         })
 
 }

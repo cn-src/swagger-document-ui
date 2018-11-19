@@ -28,7 +28,7 @@
         },
         computed: {
             swaggerResources: function () {
-                return this.$store.state.swaggerResources
+                return this.$root.swaggerResources
             }
         }
     }
