@@ -94,10 +94,10 @@
                 return currentSwaggerJson && currentSwaggerJson.collection || {}
             },
             activeSubmenu() {
-                return this.$store.state.activeMenu.submenu;
+                return this.$root.activeMenu.submenu;
             },
             activeMenuItem() {
-                return this.$store.state.activeMenu.menuItem;
+                return this.$root.activeMenu.menuItem;
             }
         },
         methods: {
@@ -120,7 +120,7 @@
             }
         },
         watch: {
-            '$store.state.activeMenu': function () {
+            '$root.activeMenu.submenu': function () {
                 this.$nextTick(() => {
                     this.$refs.navMenu.updateOpened();
                 })

@@ -39,7 +39,8 @@
             },
             select(entityId, entityTag) {
                 this.$router.push(`/entity/${entityId}`);
-                this.$store.commit('activeMenu', {submenu: [entityTag], menuItem: entityId})
+                this.$root.activeMenu = {submenu: [entityTag], menuItem: entityId}
+                // this.$store.commit('activeMenu', {submenu: [entityTag], menuItem: entityId})
             }
         },
         watch: {

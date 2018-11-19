@@ -12,5 +12,10 @@ Vue.config.productionTip = false;
 new Vue({
     router,
     store,
+    data() {
+        return {
+            activeMenu: {submenu: [], menuItem: ''}
+        }
+    },
     render: h => h(App)
 }).$mount('#app');
