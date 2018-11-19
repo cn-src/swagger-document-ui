@@ -232,6 +232,5 @@ function emptyBean() {
 
 export default {
     fixSwaggerJson: fixSwaggerJson,
-    findAllBean: findAllBean,
     findHttpEntity: findHttpEntity,
 }
