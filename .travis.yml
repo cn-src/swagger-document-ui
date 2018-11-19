@@ -2,10 +2,10 @@ language: node_js
 node_js:
   - "11.1.0"
 before_script:
-  - npm install -g @vue/cli
+  - yarn global add @vue/cli
 install:
-  - npm install
+  - yarn
 
 script:
-  - npm run build
-  - npm run test:unit
+  - yarn build
+  - yarn test:unit
