@@ -33,7 +33,7 @@ function initApi(paths, $root) {
         });
 }
 
-function setCurrentSwaggerJson(path, $root, onSuccess) {
+function setCurrentSwaggerJson(path, vue, onSuccess) {
     axios.get(path)
         .then(function (swaggerResponse) {
             const data = swaggerResponse.data;
@@ -43,7 +43,7 @@ function setCurrentSwaggerJson(path, $root, onSuccess) {
                     swaggerJson = JSON.parse(data)
                 } catch (e) {
                     console.warn('[swagger-document-ui]: Parse swagger json error: ' + e);
-                    $root.$Notice.error({
+                    vue.$root.$Notice.error({
                         title: 'API 初始化错误',
                         desc: `path: ${path}\n${e.toLocaleString()}`,
                         duration: 10
@@ -53,7 +53,7 @@ function setCurrentSwaggerJson(path, $root, onSuccess) {
                 swaggerJson = data
             }
             onSuccess && onSuccess();
-            $root.currentSwaggerJson = swagger.fixSwaggerJson(swaggerJson)
+            vue.$root.currentSwaggerJson = swagger.fixSwaggerJson(swaggerJson)
         })
 
 }
