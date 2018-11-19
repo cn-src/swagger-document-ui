@@ -2,8 +2,8 @@ import axios from "axios";
 import swagger from "@/utils/swagger";
 import _ from 'lodash';
 
-function initApi(paths, vueObject) {
-    configAxios(vueObject);
+function initApi(paths, $root) {
+    configAxios($root);
     if (!_.isArray(paths)) {
         paths = [paths]
     }
@@ -18,13 +18,13 @@ function initApi(paths, vueObject) {
                 swaggerResources.push(data)
             });
 
-            vueObject.$root.swaggerResources = swaggerResources;
+            $root.swaggerResources = swaggerResources;
             if (swaggerResources[0]) {
                 const url = swaggerResources[0].url || swaggerResources[0].location;
-                setCurrentSwaggerJson(url, vueObject);
+                setCurrentSwaggerJson(url, $root);
             } else {
                 console.warn('[swagger-document-ui]: Can not find url, swaggerResources: ' + swaggerResources);
-                vueObject.$Notice.warning({
+                $root.$Notice.warning({
                     title: 'API 初始化错误',
                     desc: '未找到 API 地址',
                     duration: 10
@@ -58,7 +58,7 @@ function setCurrentSwaggerJson(path, vueObject, onSuccess) {
 
 }
 
-function configAxios(vueObject) {
+function configAxios($root) {
     axios.defaults.baseURL = getBaseURL();
     axios.defaults.timeout = 10000;
     axios.interceptors.response.use(
@@ -73,7 +73,7 @@ function configAxios(vueObject) {
                 console.info(`[swagger-document-ui]: '${url}' 404`);
             } else {
                 console.warn('[swagger-document-ui]: Ajax error: ' + error);
-                vueObject.$Notice.error({
+                $root.$Notice.error({
                     title: 'Error',
                     desc: error,
                     duration: 10
