@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "11.1.0"
+  - "11.2.0"
 before_script:
   - yarn global add @vue/cli
 install:
