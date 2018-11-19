@@ -29,7 +29,7 @@ function fixSwaggerJson(swaggerJson) {
                     description: methodInfo.description,
                     paramBean: fixParamsToBean(methodInfo.parameters, swaggerJson.definitions),
                     responseBean: fixResponsesToBean(methodInfo.responses, swaggerJson.definitions)
-                })
+                }, data.beanMap)
             })
         })
     });
@@ -42,9 +42,11 @@ function toPinyin(text) {
     return _.join(_.flatMap(pyArray), ' ');
 }
 
-function fixHttpEntity(httpEntity) {
+function fixHttpEntity(httpEntity, beanMap) {
     httpEntity.tagPinyin = toPinyin(httpEntity.tag);
     httpEntity.namePinyin = toPinyin(httpEntity.name);
+    httpEntity.paramSubBeans = findAllBean(httpEntity.paramBean, beanMap);
+    httpEntity.responseSubBeans = findAllBean(httpEntity.responseBean, beanMap);
     return httpEntity
 }
 

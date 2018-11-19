@@ -25,7 +25,7 @@
                    border size="small"/>
           </li>
 
-          <template v-for="(child, index) of allChildParamBeans">
+          <template v-for="(child, index) of httpEntity.paramSubBeans">
             <li :key="'Param:' + child.schemaKey">
               <ul>
                 <li>
@@ -53,7 +53,7 @@
                    border size="small"/>
           </li>
 
-          <template v-for="(child,index) of allChildResponseBeans">
+          <template v-for="(child,index) of httpEntity.responseSubBeans">
             <li :key="'Response:' + child.schemaKey">
               <ul>
                 <li>
@@ -80,11 +80,11 @@
         <AnchorLink href="#h2_2" title="请求参数"/>
         <AnchorLink :href="'#h3_param_' + index" :title="child.title"
                     :key="'h3_param_'+child.schemaKey"
-                    v-for="(child, index) of allChildParamBeans"/>
+                    v-for="(child, index) of httpEntity.paramSubBeans"/>
         <AnchorLink href="#h2_3" title="响应信息"/>
         <AnchorLink :href="'#h3_response_' + index" :title="child.title"
                     :key="'h3_response_'+child.schemaKey"
-                    v-for="(child, index) of allChildResponseBeans"/>
+                    v-for="(child, index) of httpEntity.responseSubBeans"/>
       </Anchor>
     </div>
   </div>
@@ -136,12 +136,6 @@
                     apiInfo.splice(1, 1)
                 }
                 return apiInfo
-            },
-            allChildParamBeans() {
-                return swagger.findAllBean(this.httpEntity.paramBean, this.$root.currentSwaggerJson.beanMap);
-            },
-            allChildResponseBeans() {
-                return swagger.findAllBean(this.httpEntity.responseBean, this.$root.currentSwaggerJson.beanMap);
             },
             httpEntity() {
                 if (!this.$root.currentSwaggerJson.collection) {
