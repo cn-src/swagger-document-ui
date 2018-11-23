@@ -1,6 +1,6 @@
 <template>
   <Tooltip content="点击复制" placement="right-start">
-    <span class="copied-tag" @click="copiedToClipboard"><slot/></span>
+    <span class="copied-tag" @click="copyToClipboard"><slot/></span>
   </Tooltip>
 </template>
 
@@ -10,7 +10,7 @@
     export default {
         name: "CopiedTag",
         methods: {
-            copiedToClipboard: function () {
+            copyToClipboard: function () {
                 new ClipboardJS('.copied-tag', {
                     text: function (trigger) {
                         return trigger.innerHTML;
