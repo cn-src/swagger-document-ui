@@ -1,24 +1,23 @@
 <template>
-  <span :style="{color:actionColor(method)}" class="http-method-tag">{{ simplifyMethod }}</span>
+  <span :style="{color:actionColor(method)}" class="http-method-tag">{{ shortMethod }}</span>
 </template>
 
 <script>
-    const colorsMap = {
+    const colorsMapping = {
         'GET': '#18BE6B',
         'POST': '#FF9901',
         'PUT': '#2D8CF0',
         'DELETE': '#ED4015'
     };
-    const simplifyMethodMapping = {
+    const methodMapping = {
         'DELETE': 'DEL',
         'OPTIONS': 'OPT'
     };
     export default {
         name: "MethodTag",
         computed: {
-            simplifyMethod() {
-                const formMap = simplifyMethodMapping[this.$props.method];
-                return formMap ? formMap : this.$props.method;
+            shortMethod() {
+                return methodMapping[this.$props.method] || this.$props.method;
             }
         },
         props: {
@@ -29,8 +28,7 @@
         },
         methods: {
             actionColor(method) {
-                const colorFromMap = colorsMap[method];
-                return colorFromMap ? colorFromMap : '#EEEEEE';
+                return colorsMapping[method] || '#EEEEEE';
             }
         },
     }
