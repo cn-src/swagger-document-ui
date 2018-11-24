@@ -3,6 +3,7 @@ node_js:
   - "11.2.0"
 before_script:
   - yarn global add @vue/cli
+  - yarn global add font-spider
 install:
   - yarn
 
