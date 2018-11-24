@@ -104,14 +104,14 @@ function fixParamsToBean(parameters, definitions) {
     }
     let bean = emptyBean();
 
-    bean.props = $.chain(parameters).sortBy('in').map(schema => {
+    bean.props = $.sortBy(parameters, 'in').map(schema => {
         const propBean = {};
         propBean.name = schema.name;
         propBean.description = schema.description;
         propBean.in = schema.in;
         propBean.required = schema.required;
         return fixBean(propBean, schema, definitions)
-    }).value();
+    });
 
     return bean
 }
