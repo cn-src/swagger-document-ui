@@ -20,7 +20,7 @@
 </template>
 <script>
     import Fuse from 'fuse.js'
-    import _ from 'lodash'
+    import $ from '@/utils/$'
     import MethodTag from '@/components/MethodTag'
 
     export default {
@@ -34,7 +34,7 @@
         },
         methods: {
             search(keyword) {
-                this.entities = _.slice(fuse.search(keyword), 0, 20)
+                this.entities = $.slice(fuse.search(keyword), 0, 20)
             },
             select(entityId, entityTag) {
                 this.$router.push(`/entity/${entityId}`);
@@ -43,12 +43,12 @@
         },
         watch: {
             '$root.currentSwaggerJson.collection': function (val) {
-                content = _.flatMap(val);
+                content = $.flatMap(val);
                 fuse = new Fuse(content, options);
             }
         },
         created(){
-            content = _.flatMap(this.$root.currentSwaggerJson.collection);
+            content = $.flatMap(this.$root.currentSwaggerJson.collection);
         }
     }
     let content = [];

@@ -92,7 +92,7 @@
 <script>
     import swagger from '@/utils/swagger'
     import CopiedTag from '@/components/CopiedTag'
-    import _ from 'lodash'
+    import $ from '@/utils/$'
 
     export default {
         name: 'EntityView',
@@ -170,7 +170,7 @@
 
     function copiedTagRender(h, params) {
         let subNode = params.row.name || params.row.k2;
-        if (_.isArray(subNode)) {
+        if ($.isArray(subNode)) {
             subNode = subNode.map(it => {
                 return h(CopiedTag, {
                     style: 'margin-right:10px'

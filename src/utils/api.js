@@ -1,10 +1,10 @@
 import axios from "axios";
 import swagger from "@/utils/swagger";
-import _ from 'lodash';
+import $ from '@/utils/$'
 
 function initApi(paths, $root) {
     configAxios($root);
-    if (!_.isArray(paths)) {
+    if (!$.isArray(paths)) {
         paths = [paths]
     }
     const swaggerResources = [];
@@ -12,7 +12,7 @@ function initApi(paths, $root) {
         console.info(`[swagger-document-ui]: Can not get url '${url}', res: ` + res);
     })))
         .then(function (results) {
-            _.flatMap(results, function (it) {
+            $.flatMap(results, function (it) {
                 return it ? it.data : []
             }).forEach(function (data) {
                 swaggerResources.push(data)
@@ -66,10 +66,10 @@ function configAxios($root) {
             return response;
         },
         error => {
-            const url = _.get(error, 'request.responseURL');
+            const url = $.get(error, 'request.responseURL');
             if (url
-                && (_.get(error, 'response.status') === 404)
-                && (_.endsWith(url, '/swagger-resources.json') || _.endsWith(url, '/swagger-resources'))) {
+                && ($.get(error, 'response.status') === 404)
+                && ($.endsWith(url, '/swagger-resources.json') || $.endsWith(url, '/swagger-resources'))) {
                 console.info(`[swagger-document-ui]: '${url}' 404`);
             } else {
                 console.warn('[swagger-document-ui]: Ajax error: ' + error);
@@ -80,7 +80,7 @@ function configAxios($root) {
                 });
             }
 
-            return Promise.reject(_.get(error, 'response.data'))
+            return Promise.reject($.get(error, 'response.data'))
         });
 }
 

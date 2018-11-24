@@ -1,4 +1,4 @@
-import _ from "lodash";
+import $ from '@/utils/$'
 import pinyin from 'pinyin'
 
 function fixSwaggerJson(swaggerJson) {
@@ -14,9 +14,9 @@ function fixSwaggerJson(swaggerJson) {
     data.info.schemes = swaggerJson.schemes;
 
     let index = 0;
-    const httpEntities = _.flatMap(swaggerJson.paths, (pathInfo, path) => {
-        return _.flatMap(pathInfo, (methodInfo, methodType) => {
-            return _.map(methodInfo.tags, (tag) => {
+    const httpEntities = $.flatMap(swaggerJson.paths, (pathInfo, path) => {
+        return $.flatMap(pathInfo, (methodInfo, methodType) => {
+            return $.map(methodInfo.tags, (tag) => {
                 return fixHttpEntity({
                     id: 'httpEntity' + index++,
                     tag: tag,
@@ -33,13 +33,13 @@ function fixSwaggerJson(swaggerJson) {
             })
         })
     });
-    data.collection = _.groupBy(httpEntities, 'tag');
+    data.collection = $.groupBy(httpEntities, 'tag');
     return data
 }
 
 function toPinyin(text) {
     const pyArray = pinyin(text, {style: pinyin.STYLE_NORMAL});
-    return _.join(_.flatMap(pyArray), ' ');
+    return $.join($.flatMap(pyArray), ' ');
 }
 
 function fixHttpEntity(httpEntity, beanMap) {
@@ -52,11 +52,11 @@ function fixHttpEntity(httpEntity, beanMap) {
 
 function fixBeanMap(definitions) {
     const beanMap = {};
-    _.forOwn(definitions, (schema, schemaKey) => {
+    $.forOwn(definitions, (schema, schemaKey) => {
         let bean = emptyBean();
         bean.title = schema.title || schemaKey;
         bean.type = schema.type;
-        bean.props = _.map(schema.properties, (prop, propName) => {
+        bean.props = $.map(schema.properties, (prop, propName) => {
             return fixBean({
                 name: propName,
                 description: prop.description
@@ -104,7 +104,7 @@ function fixParamsToBean(parameters, definitions) {
     }
     let bean = emptyBean();
 
-    bean.props = _.chain(parameters).sortBy('in').map(schema => {
+    bean.props = $.chain(parameters).sortBy('in').map(schema => {
         const propBean = {};
         propBean.name = schema.name;
         propBean.description = schema.description;
@@ -118,7 +118,7 @@ function fixParamsToBean(parameters, definitions) {
 
 function fixResponsesToBean(responses, definitions) {
     let bean = emptyBean();
-    bean.props = _.map(responses, (schema, status) => {
+    bean.props = $.map(responses, (schema, status) => {
         return fixBean({
             status: status,
             description: schema.description
@@ -128,7 +128,7 @@ function fixResponsesToBean(responses, definitions) {
 }
 
 function findHttpEntity(collection, id) {
-    return _.flatMap(collection).find((v) => {
+    return $.flatMap(collection).find((v) => {
         return v.id === id
     })
 }
@@ -137,11 +137,11 @@ function fixBean(bean, schema, definitions) {
     bean.type = fixType(schema, definitions);
     bean.format = fixFormat(schema, definitions);
     const schemaRef = getSchemaRef(schema);
-    bean.hasRef = _.isString(schemaRef);
+    bean.hasRef = $.isString(schemaRef);
     bean.schemaKey = getSchemaKey(schemaRef);
     bean.constraint = '';
     if (schema.enum) {
-        bean.constraint += ' enum: ' + _.join(schema.enum, ', ')
+        bean.constraint += ' enum: ' + $.join(schema.enum, ', ')
     }
     if (schema.minLength) {
         bean.constraint += ' minLength: ' + schema.minLength
@@ -165,7 +165,7 @@ function fixType(schema, definitions) {
     if (schema.type === 'array' && schemaKey) {
         return '[' + getSchemaType(schemaKey, definitions) + ']'
     }
-    if (_.get(schema, 'schema.type') === 'array' && schemaKey) {
+    if ($.get(schema, 'schema.type') === 'array' && schemaKey) {
         return '[' + getSchemaType(schemaKey, definitions) + ']'
     }
 
@@ -173,7 +173,7 @@ function fixType(schema, definitions) {
         return getSchemaType(schemaKey, definitions)
     }
 
-    if (_.get(schema, 'schema.type')) {
+    if ($.get(schema, 'schema.type')) {
         return schema.schema.type
     }
     return schema.type
@@ -192,10 +192,10 @@ function fixFormat(schema, definitions) {
 }
 
 function getSchemaRef(schema) {
-    return _.get(schema, '$ref')
-        || _.get(schema, 'schema.$ref')
-        || _.get(schema, 'items.$ref')
-        || _.get(schema, 'schema.items.$ref');
+    return $.get(schema, '$ref')
+        || $.get(schema, 'schema.$ref')
+        || $.get(schema, 'items.$ref')
+        || $.get(schema, 'schema.items.$ref');
 }
 
 function getSchemaKey(schemaRef) {
@@ -210,9 +210,9 @@ function getSchemaType(schemaKey, definitions) {
         return definitions[schemaKey].type
     }
     // 泛型参数
-    if (_.endsWith(schemaKey, '«object»')) {
+    if ($.endsWith(schemaKey, '«object»')) {
         const sk = schemaKey.substring(0, schemaKey.length - '«object»'.length);
-        return _.get(definitions, [sk, 'type'])
+        return $.get(definitions, [sk, 'type'])
     }
 }
 
