@@ -9,6 +9,7 @@ Vue.config.productionTip = false;
 
 new Vue({
     router,
+    // 项目小，使用 $root 做全局状态管理
     data() {
         return {
             activeMenu: {submenu: [], menuItem: ''},
