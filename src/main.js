@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import 'iview/dist/styles/iview.css';
 import api from '@/utils/api'
-import './iview-cut'
+import './iview-clip'
 
 Vue.config.productionTip = false;
 
