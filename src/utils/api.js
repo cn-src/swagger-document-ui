@@ -1,3 +1,6 @@
+/**
+ * http 接口初始化以及调用。
+ */
 import axios from "axios";
 import swagger from "@/utils/swagger";
 import $ from '@/utils/$'

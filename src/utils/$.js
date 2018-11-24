@@ -1,3 +1,7 @@
+/**
+ * 精简 lodash，以及自定义工具方法。
+ */
+
 import flatMap from 'lodash/flatMap'
 import map from 'lodash/map'
 import groupBy from 'lodash/groupBy'

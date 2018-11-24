@@ -1,3 +1,6 @@
+/**
+ * 精简 iview 。
+ */
 import Vue from 'vue'
 import {
     Layout,

@@ -1,3 +1,6 @@
+/**
+ * 将 swagger json 转成渲染所需的结构，并添加部分字段的拼音。
+ */
 import $ from '@/utils/$'
 import pinyin from 'pinyin'
 
