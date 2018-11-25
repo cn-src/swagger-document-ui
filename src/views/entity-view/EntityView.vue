@@ -4,9 +4,9 @@
             Divider: h2 {{ httpEntity.name }}
         div#doc-content
             ul
-                EntityViewApiInfo
-                EntityViewParam
-                EntityViewResponse
+                EntityViewApiInfo(:httpEntity="httpEntity")
+                EntityViewParam(:httpEntity="httpEntity")
+                EntityViewResponse(:httpEntity="httpEntity")
         div.anchor-auto
             Anchor(show-ink container='#doc-content')
                 AnchorLink(href='#h2_1' title='接口说明')
@@ -27,13 +27,22 @@
 
 </template>
 <script>
+    import swagger from '@/utils/swagger'
     import EntityViewApiInfo from './EntityViewApiInfo'
     import EntityViewParam from './EntityViewParam'
     import EntityViewResponse from './EntityViewResponse'
 
     export default {
         name: "EntityView",
-        components: {EntityViewApiInfo, EntityViewParam, EntityViewResponse}
+        components: {EntityViewApiInfo, EntityViewParam, EntityViewResponse},
+        computed: {
+            httpEntity() {
+                if (!this.$root.currentSwaggerJson.collection) {
+                    return {paramBean: {props: []}, responseBean: {props: []}}
+                }
+                return swagger.findHttpEntity(this.$root.currentSwaggerJson.collection, this.$route.params.id);
+            }
+        }
     }
 </script>
 <style lang="less">
