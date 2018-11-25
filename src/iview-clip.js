@@ -22,7 +22,9 @@ import {
     Tag,
     Modal,
     CellGroup,
-    Cell
+    Cell,
+    Message,
+    Notice
 } from 'iview'
 
 Vue.prototype.$IVIEW = {};
@@ -46,3 +48,6 @@ Vue.component('Tag', Tag);
 Vue.component('Modal', Modal);
 Vue.component('CellGroup', CellGroup);
 Vue.component('Cell', Cell);
+
+Vue.prototype.$Message = Message;
+Vue.prototype.$Notice = Notice;
