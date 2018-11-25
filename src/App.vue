@@ -2,11 +2,13 @@
     Layout(stype="overflow-y:hide")
         AppHeader
         Layout(:style="{height: '100vh', paddingTop:'64px', background: '#FFF'}")
+            AppSider
             Content(:style="{background: '#fff'}")
                 router-view
 </template>
 <script>
-    import {AppHeader, AppSider} from './views/app-layout'
+    import AppHeader from './views/app-layout/AppHeader'
+    import AppSider from './views/app-layout/AppSider'
 
     export default {
         name: 'App',
