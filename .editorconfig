@@ -6,7 +6,7 @@ insert_final_newline = true
 [*.{js,css,vue}]
 charset = utf-8
 
-[*.{js,css}]
+[*.{js,css,vue}]
 indent_style = space
 indent_size = 4
 
