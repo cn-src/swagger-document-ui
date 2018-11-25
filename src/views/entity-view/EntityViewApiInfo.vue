@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import {copiedTagRender} from './EntityViewCommon'
+    import copiedTagRender from './copiedTagRender'
 
     export default {
         name: "EntityViewApiInfo",

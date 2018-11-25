@@ -5,25 +5,16 @@
     :columns='paramBeanColumns'
     :data='httpEntity.paramBean.props'
     border size='small')
-  template(v-for='(child, index) of httpEntity.paramSubBeans')
-    li(:key='"Param:" + child.schemaKey')
-      ul
-        li
-          h3(:id="'h3_param_' + index")
-            | 类型
-            Icon(type='md-arrow-dropright' size='20')
-            | {{ child.title }}
-        li
-          Table(:columns='beanColumns' :data="child.props" border size="small")
-
+  EntityViewBean(:idTag="'param'" :beans='httpEntity.paramSubBeans')
 </template>
 
 <script>
     import CopiedTag from '@/components/CopiedTag'
-    import {beanColumns} from './EntityViewCommon'
+    import EntityViewBean from './EntityViewBean'
 
     export default {
-        name: "EntityViewParam",
+        name: 'EntityViewParam',
+        components: {EntityViewBean},
         data() {
             return {
                 paramBeanColumns: [
@@ -33,7 +24,6 @@
                     {title: '类型', key: 'type', maxWidth: 100},
                     {title: '格式', key: 'format', maxWidth: 150},
                     {title: '约束', key: 'constraint', maxWidth: 250}],
-                beanColumns
             }
         },
         props: {
