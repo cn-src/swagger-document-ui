@@ -36,7 +36,42 @@
 
     export default {
         name: 'AppSider',
-        components: {MethodTag}
+        components: {MethodTag},
+        data() {
+            return {
+                isCollapsed: false,
+            }
+        },
+        methods: {
+            menuItemAction(menuItemName) {
+                if (menuItemName === 'Home') {
+                    this.$router.push('/');
+                    return
+                }
+                if (menuItemName.startsWith('httpEntity')) {
+                    this.$router.push(`/entity/${menuItemName}`);
+                }
+            }
+        },
+        computed: {
+            swaggerCollection() {
+                const currentSwaggerJson = this.$root.currentSwaggerJson;
+                return currentSwaggerJson && currentSwaggerJson.collection || {}
+            },
+            activeSubmenu() {
+                return this.$root.activeMenu.submenu;
+            },
+            activeMenuItem() {
+                return this.$root.activeMenu.menuItem;
+            }
+        },
+        watch: {
+            '$root.activeMenu.submenu': function () {
+                this.$nextTick(() => {
+                    this.$refs.navMenu.updateOpened();
+                })
+            }
+        }
     }
 </script>
 
