@@ -1,20 +1,15 @@
 <template lang="pug">
-    li: h2#h2_2 请求参数
-    li
-        Table(
-        :columns='paramBeanColumns'
-        :data='httpEntity.paramBean.props'
-        border size='small')
-    EntityViewBean(:idTag="'param'" :beans='httpEntity.paramSubBeans')
+    Table(
+    :columns='paramBeanColumns'
+    :data='httpEntity.paramBean.props'
+    border size='small')
 </template>
 
 <script>
     import CopiedTag from '@/components/CopiedTag'
-    import EntityViewBean from './EntityViewBean'
 
     export default {
         name: 'EntityViewParam',
-        components: {EntityViewBean},
         data() {
             return {
                 paramBeanColumns: [

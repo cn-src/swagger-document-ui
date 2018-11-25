@@ -4,9 +4,31 @@
             Divider: h2 {{ httpEntity.name }}
         div#doc-content
             ul
-                EntityViewApiInfo(:httpEntity="httpEntity")
-                EntityViewParam(:httpEntity="httpEntity")
-                EntityViewResponse(:httpEntity="httpEntity")
+                li: h2#h2_1 接口说明
+                li.no-border
+                    EntityViewApiInfo(:httpEntity="httpEntity")
+                li: h2#h2_2 请求参数
+                li
+                    EntityViewParam(:httpEntity="httpEntity")
+                template(v-for='(child, index) of httpEntity.paramSubBeans')
+                    li(:key='`h3_param_${child.schemaKey}`')
+                        h3(:id="`h3_param_${index}`")
+                            | 类型
+                            Icon(type='md-arrow-dropright' size='20')
+                            | {{ child.title }}
+                    li(:key='`param_${child.schemaKey}`')
+                        EntityViewBean(:props="child.props")
+                li: h2#h2_3 响应信息
+                li
+                    EntityViewResponse(:httpEntity="httpEntity")
+                template(v-for='(child, index) of httpEntity.responseSubBeans')
+                    li(:key='`h3_response_${child.schemaKey}`')
+                        h3(:id="`h3_response_${index}`")
+                            | 类型
+                            Icon(type='md-arrow-dropright' size='20')
+                            | {{ child.title }}
+                    li(:key='`response_${child.schemaKey}`')
+                        EntityViewBean(:props="child.props")
         div.anchor-auto
             Anchor(show-ink container='#doc-content')
                 AnchorLink(href='#h2_1' title='接口说明')
@@ -31,10 +53,11 @@
     import EntityViewApiInfo from './EntityViewApiInfo'
     import EntityViewParam from './EntityViewParam'
     import EntityViewResponse from './EntityViewResponse'
+    import EntityViewBean from './EntityViewBean'
 
     export default {
         name: "EntityView",
-        components: {EntityViewApiInfo, EntityViewParam, EntityViewResponse},
+        components: {EntityViewApiInfo, EntityViewParam, EntityViewResponse, EntityViewBean},
         computed: {
             httpEntity() {
                 if (!this.$root.currentSwaggerJson.collection) {
