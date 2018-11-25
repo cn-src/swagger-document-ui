@@ -7,11 +7,13 @@
     theme='dark' width='auto' accordion
     )
         MenuItem(:name="'Home'")
-            Icon(type='md-home') 首页
+            Icon(type='md-home')
+            | 首页
         Submenu(v-for='(httpEntities,tagName, i) in swaggerCollection'
         :name='tagName' :key='i')
             template(slot='title')
-                Icon(type='ios-pricetags') {{ tagName }}
+                Icon(type='ios-pricetags')
+                | {{ tagName }}
             template(v-for='httpEntity in httpEntities')
                 MenuItem(:name="httpEntity.id" :key="httpEntity.id")
                     MethodTag(:method="httpEntity.method" :key="httpEntity.id")
