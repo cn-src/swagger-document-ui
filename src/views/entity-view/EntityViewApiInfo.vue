@@ -1,9 +1,9 @@
 <template lang="pug">
-  li: h2#h2_1 接口说明
-  li.no-border
-    Table(
-    :columns='apiInfoColumns' :data='apiInfo'
-    :show-header='false' size='small')
+    li: h2#h2_1 接口说明
+    li.no-border
+        Table(
+        :columns='apiInfoColumns' :data='apiInfo'
+        :show-header='false' size='small')
 
 </template>
 

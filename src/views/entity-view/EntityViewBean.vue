@@ -1,14 +1,14 @@
 <template lang="pug">
-  template(v-for='(child, index) of beans')
-    li(:key='child.schemaKey')
-      ul
-        li
-          h3(:id="`h3_${idTag}_${index}`")
-            | 类型
-            Icon(type='md-arrow-dropright' size='20')
-            | {{ child.title }}
-        li
-          Table(:columns='beanColumns' :data="child.props" border size="small")
+    template(v-for='(child, index) of beans')
+        li(:key='child.schemaKey')
+            ul
+                li
+                    h3(:id="`h3_${idTag}_${index}`")
+                        | 类型
+                        Icon(type='md-arrow-dropright' size='20')
+                        | {{ child.title }}
+                li
+                    Table(:columns='beanColumns' :data="child.props" border size="small")
 
 </template>
 

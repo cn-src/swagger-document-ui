@@ -1,6 +1,6 @@
 <template lang="pug">
-  span(:style='{color:actionColor(method)}' class='http-method-tag')
-    | {{ shortMethod }}
+    span(:style='{color:actionColor(method)}' class='http-method-tag')
+        | {{ shortMethod }}
 </template>
 
 <script>
@@ -36,12 +36,12 @@
 </script>
 
 <style scoped>
-  .http-method-tag {
-    font-size: 10px;
-    font-weight: bold;
-    width: 50px;
-    display: inline-block;
-    text-align: right;
-    padding-right: 5px;
-  }
+    .http-method-tag {
+        font-size: 10px;
+        font-weight: bold;
+        width: 50px;
+        display: inline-block;
+        text-align: right;
+        padding-right: 5px;
+    }
 </style>

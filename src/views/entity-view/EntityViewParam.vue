@@ -1,11 +1,11 @@
 <template lang="pug">
-  li: h2#h2_2 请求参数
-  li
-    Table(
-    :columns='paramBeanColumns'
-    :data='httpEntity.paramBean.props'
-    border size='small')
-  EntityViewBean(:idTag="'param'" :beans='httpEntity.paramSubBeans')
+    li: h2#h2_2 请求参数
+    li
+        Table(
+        :columns='paramBeanColumns'
+        :data='httpEntity.paramBean.props'
+        border size='small')
+    EntityViewBean(:idTag="'param'" :beans='httpEntity.paramSubBeans')
 </template>
 
 <script>

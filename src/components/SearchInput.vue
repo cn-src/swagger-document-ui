@@ -1,14 +1,14 @@
 <template lang="pug">
-  AutoComplete(
-  v-model='keyword' @on-search='search'
-  clearable icon='ios-search' placeholder='搜索 API' style='width:300px')
-    div(style='height: 300px;overflow-y: scroll;')
-      Option(v-for="e in entities" :value="e.name" :key="e.id")
-        <!--AutoComplete 无法通过搜索 name 而拿到 id，故自定义点击事件-->
-        div(@click="select(e.id,e.tag)")
-          MethodTag(:method="e.method")
-          span {{ e.name }}<br>
-          span(style="color: #a6a9aa") {{ e.path }}
+    AutoComplete(
+    v-model='keyword' @on-search='search'
+    clearable icon='ios-search' placeholder='搜索 API' style='width:300px')
+        div(style='height: 300px;overflow-y: scroll;')
+            Option(v-for="e in entities" :value="e.name" :key="e.id")
+                <!--AutoComplete 无法通过搜索 name 而拿到 id，故自定义点击事件-->
+                div(@click="select(e.id,e.tag)")
+                    MethodTag(:method="e.method")
+                    span {{ e.name }}<br>
+                    span(style="color: #a6a9aa") {{ e.path }}
 </template>
 <script>
     import Fuse from 'fuse.js'
