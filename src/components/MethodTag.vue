@@ -1,5 +1,6 @@
-<template>
-  <span :style="{color:actionColor(method)}" class="http-method-tag">{{ shortMethod }}</span>
+<template lang="pug">
+  span(:style="{color:actionColor(method)}" class="http-method-tag")
+    | {{ shortMethod }}
 </template>
 
 <script>

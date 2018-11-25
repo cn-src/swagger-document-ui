@@ -1,12 +1,9 @@
-<template>
-  <div style="height: 85vh; overflow: auto; padding: 24px 24px 50px;">
-    <Divider>{{ apiTitle }}</Divider>
-    <Table :columns="apiInfoColumns" :data="apiInfoItems" border
-           :show-header="false"/>
-    <div style="margin: 0 auto;text-align: center;position:relative;top: 20px;color: #a9a9a9;">
-      {{ classicQuote }}
-    </div>
-  </div>
+<template lang="pug">
+  div(style='height: 85vh; overflow: auto; padding: 24px 24px 50px;')
+    Divider {{ apiTitle }}
+    Table(:columns='apiInfoColumns' :data='apiInfoItems' :show-header='false' border)
+    div(style='margin: 0 auto;text-align: center;position:relative;top: 20px;color: #a9a9a9;')
+      | {{ classicQuote }}
 </template>
 
 <script>
@@ -61,8 +58,7 @@
                     href: license.url
                 }
             }, license.name);
-        }
-        else if (params.row.k1 === '服务条款:') {
+        } else if (params.row.k1 === '服务条款:') {
             return h('a', {
                 attrs: {
                     target: '_blank',
@@ -76,8 +72,7 @@
                     href: 'mailto:' + params.row.k2
                 }
             }, params.row.k2);
-        }
-        else {
+        } else {
             return h('span', {}, params.row.k2)
         }
     }
