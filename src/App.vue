@@ -1,140 +1,26 @@
-<template>
-  <Layout stype="overflow-y:hide">
-    <Header :style="{padding: 0,position: 'fixed', width: '100%',zIndex:999}">
-      <Menu mode="horizontal" theme="dark" @on-select="headerAction">
-        <MenuItem name="1">
-        <Icon type="md-menu"
-              size="24" @click.native="collapsedSider"/>
-        </MenuItem>
-        <MenuItem name="swaggerResources">
-        {{ infoTitle }}&nbsp;
-        <Icon type="md-repeat"/>
-        </MenuItem>
-        <div style="float: right;margin-right: 20px;position: relative;">
-          <SearchInput/>
-        </div>
-      </Menu>
-      <SwaggerResources ref="swaggerResources"/>
-    </Header>
-    <Layout :style="{height: '100vh', paddingTop:'64px', background: '#FFF'}">
-      <Sider ref="side1" :style="{overflow: 'auto'}"
-             breakpoint="md"
-             :width="270"
-             :collapsed-width="0"
-             v-model="isCollapsed"
-             hide-trigger
-             collapsible>
-        <Menu theme="dark" width="auto" accordion
-              ref="navMenu"
-              :open-names="activeSubmenu"
-              :active-name="activeMenuItem"
-              @on-select="menuItemAction">
-          <MenuItem :name="'Home'">
-          <Icon type="md-home"/>
-          首页
-          </MenuItem>
-
-          <Submenu v-for="(httpEntities,tagName, i) in swaggerCollection" :name="tagName" :key="i">
-            <template slot="title">
-              <Icon type="ios-pricetags"/>
-              {{ tagName }}
-            </template>
-            <template v-for="httpEntity in httpEntities">
-              <MenuItem :name="httpEntity.id" :key="httpEntity.id">
-              <MethodTag :method="httpEntity.method" :key="httpEntity.id"/>
-              <template v-if="httpEntity.deprecated">
-                <span :key="httpEntity.id" style="color: #787a7b"><del>{{ httpEntity.name }}</del></span>
-              </template>
-              <template v-else>
-                {{ httpEntity.name }}
-              </template>
-              </MenuItem>
-            </template>
-          </Submenu>
-        </Menu>
-      </Sider>
-      <Content :style="{background: '#fff'}">
-        <router-view/>
-      </Content>
-    </Layout>
-  </Layout>
+<template lang="pug">
+    Layout(stype="overflow-y:hide")
+        AppHeader
+        Layout(:style="{height: '100vh', paddingTop:'64px', background: '#FFF'}")
+            Content(:style="{background: '#fff'}")
+                router-view
 </template>
 <script>
-    import MethodTag from '@/components/MethodTag'
-    import SearchInput from '@/components/SearchInput'
-    import EntityView from "@/views/EntityView";
-    import SwaggerResources from "@/views/SwaggerResources";
+    import {AppHeader, AppSider} from './views/app-layout'
 
     export default {
         name: 'App',
-        components: {EntityView, SwaggerResources, MethodTag, SearchInput},
-        data() {
-            return {
-                tagsKeyWord: '',
-                isCollapsed: false,
-                httpEntity: {
-                    parameters: {
-                        props: []
-                    },
-                    responseBean: {
-                        props: []
-                    }
-                },
-                beanMap: {}
-            }
-        },
-        computed: {
-            infoTitle() {
-                const currentSwaggerJson = this.$root.currentSwaggerJson;
-                return currentSwaggerJson && currentSwaggerJson.info && currentSwaggerJson.info.title || ''
-            },
-            swaggerCollection() {
-                const currentSwaggerJson = this.$root.currentSwaggerJson;
-                return currentSwaggerJson && currentSwaggerJson.collection || {}
-            },
-            activeSubmenu() {
-                return this.$root.activeMenu.submenu;
-            },
-            activeMenuItem() {
-                return this.$root.activeMenu.menuItem;
-            }
-        },
-        methods: {
-            collapsedSider() {
-                this.$refs.side1.toggleCollapse();
-            },
-            headerAction(menuItemName) {
-                if (menuItemName === 'swaggerResources') {
-                    this.$refs.swaggerResources.show = true
-                }
-            },
-            menuItemAction(menuItemName) {
-                if (menuItemName === 'Home') {
-                    this.$router.push('/');
-                    return
-                }
-                if (menuItemName.startsWith('httpEntity')) {
-                    this.$router.push(`/entity/${menuItemName}`);
-                }
-            }
-        },
-        watch: {
-            '$root.activeMenu.submenu': function () {
-                this.$nextTick(() => {
-                    this.$refs.navMenu.updateOpened();
-                })
-            }
-        }
+        components: {AppHeader, AppSider},
     }
 
 
 </script>
 <style lang="less">
-  html {
-    overflow-y: hidden;
-  }
+    html {
+        overflow-y: hidden;
+    }
 
-  .ivu-menu-item {
-    padding-left: 20px !important;
-  }
+    .ivu-menu-item {
+        padding-left: 20px !important;
+    }
 </style>
