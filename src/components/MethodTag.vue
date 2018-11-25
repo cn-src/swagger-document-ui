@@ -1,5 +1,5 @@
 <template lang="pug">
-  span(:style="{color:actionColor(method)}" class="http-method-tag")
+  span(:style='{color:actionColor(method)}' class='http-method-tag')
     | {{ shortMethod }}
 </template>
 

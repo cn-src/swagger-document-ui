@@ -1,6 +1,6 @@
 <template lang="pug">
   Tooltip(content='点击复制' placement='right-start')
-    span(class="copied-tag" @click="copyToClipboard"): slot
+    span(class='copied-tag' @click='copyToClipboard'): slot
 </template>
 
 <script>
