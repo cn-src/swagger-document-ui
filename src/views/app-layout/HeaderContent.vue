@@ -7,7 +7,7 @@
             Icon(type='md-repeat')
         div(style='float: right;margin-right: 20px;position: relative;')
             SearchInput
-    SwaggerResources(ref='swaggerResources')
+        SwaggerResources(ref='swaggerResources')
 </template>
 
 <script>
