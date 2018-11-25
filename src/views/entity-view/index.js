@@ -1,3 +1,3 @@
-import EntityView from 'EntityView'
+import EntityView from './EntityView'
 
 export default EntityView
