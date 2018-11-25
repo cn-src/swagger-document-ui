@@ -25,7 +25,7 @@
                 }
             },
             collapsedSider() {
-                this.$refs.side1.toggleCollapse();
+                this.$root.isCollapsed = !this.$root.isCollapsed;
             },
         },
         computed: {

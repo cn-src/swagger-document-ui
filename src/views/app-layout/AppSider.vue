@@ -70,6 +70,9 @@
                 this.$nextTick(() => {
                     this.$refs.navMenu.updateOpened();
                 })
+            },
+            '$root.isCollapsed': function () {
+                this.$refs.side1.toggleCollapse()
             }
         }
     }
