@@ -17,10 +17,22 @@
 
     export default {
         name: "AppHeader",
-        components: {SearchInput, SwaggerResources}
+        components: {SearchInput, SwaggerResources},
+        methods: {
+            headerAction(menuItemName) {
+                if (menuItemName === 'swaggerResources') {
+                    this.$refs.swaggerResources.show = true
+                }
+            },
+            collapsedSider() {
+                this.$refs.side1.toggleCollapse();
+            },
+        },
+        computed: {
+            infoTitle() {
+                const currentSwaggerJson = this.$root.currentSwaggerJson;
+                return currentSwaggerJson && currentSwaggerJson.info && currentSwaggerJson.info.title || ''
+            }
+        }
     }
 </script>
-
-<style scoped>
-
-</style>
