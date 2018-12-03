@@ -16,9 +16,9 @@
                 | {{ tagName }}
             template(v-for='httpEntity in httpEntities')
                 MenuItem(:name="httpEntity.id" :key="httpEntity.id")
-                    MethodTag(:method="httpEntity.method" :key="httpEntity.id")
+                    MethodTag(:method="httpEntity.method")
                     template(v-if="httpEntity.deprecated")
-                        span(:key="httpEntity.id" style="color: #787a7b")
+                        span(style="color: #787a7b")
                             del {{ httpEntity.name }}
                     template(v-else)
                         | {{ httpEntity.name }}
