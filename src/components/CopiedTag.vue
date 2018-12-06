@@ -20,9 +20,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .copied-tag {
-
-    }
-</style>
