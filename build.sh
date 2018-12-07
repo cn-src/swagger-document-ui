@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 rm -rf dist
 npm run build
-node generatePom.js
+node config/generatePom.js
 mvn clean package

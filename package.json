@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "font-spider font-cut.html && vue-cli-service build",
+    "build": "font-spider config/font-cut.html && vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },

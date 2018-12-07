@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-const pg = JSON.parse(fs.readFileSync('package.json', {encoding: 'UTF-8'}));
-let data = fs.readFileSync('pom.template.xml', {encoding: 'UTF-8'});
+const pg = JSON.parse(fs.readFileSync(__dirname + '/../package.json', { encoding: 'UTF-8' }));
+let data = fs.readFileSync(__dirname + '/pom.template.xml', { encoding: 'UTF-8' });
 
 data = data.replace(/{{artifactId}}/g, pg.name);
 data = data.replace(/{{version}}/g, pg.version);
@@ -15,6 +15,6 @@ data = data.replace(/{{license.name}}/g, pg.license);
 data = data.replace(/{{repo-git.url}}/g, pg.repository);
 data = data.replace(/{{repo.url}}/g, pg.repository.substring(0, pg.repository.length - 4));
 
-console.log("generate: pom.xml");
-fs.writeFileSync('pom.xml', data);
+console.log("[Generate]: pom.xml");
+fs.writeFileSync(__dirname + '/../pom.xml', data);
 
