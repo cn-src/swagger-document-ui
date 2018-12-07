@@ -1,704 +1,704 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "title": "测试系统 API 文档",
-    "version": "1.0.0",
-    "termsOfService": "http://demo.io/terms/",
-    "description": "description",
-    "contact": {
-      "email": "demo@demo.io"
+    "swagger": "2.0",
+    "info": {
+        "title": "测试系统 API 文档",
+        "version": "1.0.0",
+        "termsOfService": "http://demo.io/terms/",
+        "description": "description",
+        "contact": {
+            "email": "demo@demo.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
     },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    "host": "demo.io",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "用户管理",
+            "description": "User Controller"
+        },
+        {
+            "name": "项目数据",
+            "description": "Project Data Controller"
+        },
+        {
+            "name": "项目管理",
+            "description": "Project Controller"
+        }
+    ],
+    "paths": {
+        "/projects": {
+            "get": {
+                "tags": [
+                    "项目管理"
+                ],
+                "summary": "项目列表",
+                "operationId": "listUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "分页-页码（0起始）",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "分页-条数",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Page«Project»"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "项目管理"
+                ],
+                "summary": "创建项目",
+                "operationId": "createUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "project",
+                        "description": "project",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Project"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/projects/{projectId}/data": {
+            "get": {
+                "tags": [
+                    "项目数据"
+                ],
+                "summary": "项目数据列表",
+                "operationId": "findByProjectIdUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "分页-页码（0起始）",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "projectId",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "分页-条数",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Page«ProjectData»"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/projects/{projectId}/data/upload": {
+            "post": {
+                "tags": [
+                    "项目数据"
+                ],
+                "summary": "项目数据上传",
+                "operationId": "uploadUsingPOST",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "projectId",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ProjectDataUploadInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/projects/{projectId}/users": {
+            "get": {
+                "tags": [
+                    "项目管理"
+                ],
+                "summary": "项目用户",
+                "operationId": "getUsersUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "projectId",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/用户基本信息"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            },
+            "put": {
+                "tags": [
+                    "项目管理"
+                ],
+                "summary": "分配用户",
+                "operationId": "saveUsersUsingPUT",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "projectId",
+                        "in": "path",
+                        "description": "projectId",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    {
+                        "in": "body",
+                        "name": "userIds",
+                        "description": "userIds",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "format": "uuid"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "用户列表",
+                "operationId": "findAllUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "分页-页码（0起始）",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "分页-条数",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Page«用户基本信息»"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            },
+            "post": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "创建用户",
+                "operationId": "createUsingPOST_1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "userForm",
+                        "description": "userForm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/UserForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            }
+        },
+        "/users/me": {
+            "get": {
+                "tags": [
+                    "用户管理"
+                ],
+                "summary": "当前用户",
+                "operationId": "meUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/用户基本信息"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    },
+                    "401": {
+                        "description": "权限不足"
+                    }
+                },
+                "security": [
+                    {
+                        "Authorization": [
+                            "global"
+                        ]
+                    }
+                ],
+                "deprecated": false
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Authorization": {
+            "type": "apiKey",
+            "name": "TOKEN",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "Pageable": {
+            "type": "object",
+            "properties": {
+                "offset": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "pageNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pageSize": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "paged": {
+                    "type": "boolean"
+                },
+                "sort": {
+                    "$ref": "#/definitions/Sort"
+                },
+                "unpaged": {
+                    "type": "boolean"
+                }
+            },
+            "title": "Pageable"
+        },
+        "Page«ProjectData»": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "description": "分页-内容列表",
+                    "items": {
+                        "$ref": "#/definitions/ProjectData"
+                    }
+                },
+                "number": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-页码（0起始）"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-条数"
+                },
+                "totalElements": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "分页-总条数"
+                },
+                "totalPages": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-总页数"
+                }
+            },
+            "title": "Page«ProjectData»"
+        },
+        "Page«Project»": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "description": "分页-内容列表",
+                    "items": {
+                        "$ref": "#/definitions/Project"
+                    }
+                },
+                "number": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-页码（0起始）"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-条数"
+                },
+                "totalElements": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "分页-总条数"
+                },
+                "totalPages": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-总页数"
+                }
+            },
+            "title": "Page«Project»"
+        },
+        "Page«用户基本信息»": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "array",
+                    "description": "分页-内容列表",
+                    "items": {
+                        "$ref": "#/definitions/用户基本信息"
+                    }
+                },
+                "number": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-页码（0起始）"
+                },
+                "size": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-条数"
+                },
+                "totalElements": {
+                    "type": "integer",
+                    "format": "int64",
+                    "description": "分页-总条数"
+                },
+                "totalPages": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "分页-总页数"
+                }
+            },
+            "title": "Page«用户基本信息»"
+        },
+        "Project": {
+            "type": "object",
+            "properties": {
+                "createdBy": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "createdDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "创建时间"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "项目名称"
+                },
+                "updatedDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "修改时间"
+                }
+            },
+            "title": "Project"
+        },
+        "ProjectData": {
+            "type": "object",
+            "properties": {
+                "batch": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "createdDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "创建时间"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "projectId": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "updatedDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "修改时间"
+                }
+            },
+            "title": "ProjectData"
+        },
+        "UserForm": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "description": "密码",
+                    "minLength": 6,
+                    "maxLength": 18
+                },
+                "username": {
+                    "type": "string",
+                    "description": "用户名",
+                    "pattern": "[a-zA-Z][a-zA-Z0-9@_.]{6,18}"
+                }
+            },
+            "title": "UserForm"
+        },
+        "用户基本信息": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "username": {
+                    "type": "string",
+                    "description": "用户名",
+                    "pattern": "[a-zA-Z][a-zA-Z0-9@_.]{6,18}"
+                }
+            },
+            "title": "用户基本信息"
+        }
     }
-  },
-  "host": "demo.io",
-  "basePath": "/",
-  "tags": [
-    {
-      "name": "用户管理",
-      "description": "User Controller"
-    },
-    {
-      "name": "项目数据",
-      "description": "Project Data Controller"
-    },
-    {
-      "name": "项目管理",
-      "description": "Project Controller"
-    }
-  ],
-  "paths": {
-    "/projects": {
-      "get": {
-        "tags": [
-          "项目管理"
-        ],
-        "summary": "项目列表",
-        "operationId": "listUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页-页码（0起始）",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "分页-条数",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Page«Project»"
-            }
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      },
-      "post": {
-        "tags": [
-          "项目管理"
-        ],
-        "summary": "创建项目",
-        "operationId": "createUsingPOST",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "project",
-            "description": "project",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Project"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/projects/{projectId}/data": {
-      "get": {
-        "tags": [
-          "项目数据"
-        ],
-        "summary": "项目数据列表",
-        "operationId": "findByProjectIdUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页-页码（0起始）",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "projectId",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "分页-条数",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Page«ProjectData»"
-            }
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/projects/{projectId}/data/upload": {
-      "post": {
-        "tags": [
-          "项目数据"
-        ],
-        "summary": "项目数据上传",
-        "operationId": "uploadUsingPOST",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "file",
-            "in": "formData",
-            "description": "file",
-            "required": true,
-            "type": "file"
-          },
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "projectId",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProjectDataUploadInfo"
-            }
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/projects/{projectId}/users": {
-      "get": {
-        "tags": [
-          "项目管理"
-        ],
-        "summary": "项目用户",
-        "operationId": "getUsersUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "projectId",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/用户基本信息"
-              }
-            }
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      },
-      "put": {
-        "tags": [
-          "项目管理"
-        ],
-        "summary": "分配用户",
-        "operationId": "saveUsersUsingPUT",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "projectId",
-            "required": true,
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "in": "body",
-            "name": "userIds",
-            "description": "userIds",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "uuid"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/users": {
-      "get": {
-        "tags": [
-          "用户管理"
-        ],
-        "summary": "用户列表",
-        "operationId": "findAllUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "分页-页码（0起始）",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "分页-条数",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Page«用户基本信息»"
-            }
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      },
-      "post": {
-        "tags": [
-          "用户管理"
-        ],
-        "summary": "创建用户",
-        "operationId": "createUsingPOST_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "userForm",
-            "description": "userForm",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UserForm"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    },
-    "/users/me": {
-      "get": {
-        "tags": [
-          "用户管理"
-        ],
-        "summary": "当前用户",
-        "operationId": "meUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/用户基本信息"
-            }
-          },
-          "400": {
-            "description": "参数错误"
-          },
-          "401": {
-            "description": "权限不足"
-          }
-        },
-        "security": [
-          {
-            "Authorization": [
-              "global"
-            ]
-          }
-        ],
-        "deprecated": false
-      }
-    }
-  },
-  "securityDefinitions": {
-    "Authorization": {
-      "type": "apiKey",
-      "name": "TOKEN",
-      "in": "header"
-    }
-  },
-  "definitions": {
-    "Pageable": {
-      "type": "object",
-      "properties": {
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageNumber": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "paged": {
-          "type": "boolean"
-        },
-        "sort": {
-          "$ref": "#/definitions/Sort"
-        },
-        "unpaged": {
-          "type": "boolean"
-        }
-      },
-      "title": "Pageable"
-    },
-    "Page«ProjectData»": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "array",
-          "description": "分页-内容列表",
-          "items": {
-            "$ref": "#/definitions/ProjectData"
-          }
-        },
-        "number": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-页码（0起始）"
-        },
-        "size": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-条数"
-        },
-        "totalElements": {
-          "type": "integer",
-          "format": "int64",
-          "description": "分页-总条数"
-        },
-        "totalPages": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-总页数"
-        }
-      },
-      "title": "Page«ProjectData»"
-    },
-    "Page«Project»": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "array",
-          "description": "分页-内容列表",
-          "items": {
-            "$ref": "#/definitions/Project"
-          }
-        },
-        "number": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-页码（0起始）"
-        },
-        "size": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-条数"
-        },
-        "totalElements": {
-          "type": "integer",
-          "format": "int64",
-          "description": "分页-总条数"
-        },
-        "totalPages": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-总页数"
-        }
-      },
-      "title": "Page«Project»"
-    },
-    "Page«用户基本信息»": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "array",
-          "description": "分页-内容列表",
-          "items": {
-            "$ref": "#/definitions/用户基本信息"
-          }
-        },
-        "number": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-页码（0起始）"
-        },
-        "size": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-条数"
-        },
-        "totalElements": {
-          "type": "integer",
-          "format": "int64",
-          "description": "分页-总条数"
-        },
-        "totalPages": {
-          "type": "integer",
-          "format": "int32",
-          "description": "分页-总页数"
-        }
-      },
-      "title": "Page«用户基本信息»"
-    },
-    "Project": {
-      "type": "object",
-      "properties": {
-        "createdBy": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "createdDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "创建时间"
-        },
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "name": {
-          "type": "string",
-          "description": "项目名称"
-        },
-        "updatedDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "修改时间"
-        }
-      },
-      "title": "Project"
-    },
-    "ProjectData": {
-      "type": "object",
-      "properties": {
-        "batch": {
-          "type": "string"
-        },
-        "createdBy": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "createdDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "创建时间"
-        },
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "projectId": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "updatedDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "修改时间"
-        }
-      },
-      "title": "ProjectData"
-    },
-    "UserForm": {
-      "type": "object",
-      "properties": {
-        "password": {
-          "type": "string",
-          "description": "密码",
-          "minLength": 6,
-          "maxLength": 18
-        },
-        "username": {
-          "type": "string",
-          "description": "用户名",
-          "pattern": "[a-zA-Z][a-zA-Z0-9@_.]{6,18}"
-        }
-      },
-      "title": "UserForm"
-    },
-    "用户基本信息": {
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "是否启用"
-        },
-        "id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "username": {
-          "type": "string",
-          "description": "用户名",
-          "pattern": "[a-zA-Z][a-zA-Z0-9@_.]{6,18}"
-        }
-      },
-      "title": "用户基本信息"
-    }
-  }
 }

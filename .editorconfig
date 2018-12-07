@@ -3,10 +3,8 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
-[*.{js,css,vue}]
+[*.{js,css,vue,json}]
 charset = utf-8
-
-[*.{js,css,vue}]
 indent_style = space
 indent_size = 4
 
