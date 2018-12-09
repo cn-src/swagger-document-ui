@@ -1,37 +1,37 @@
 <template lang="pug">
-    Menu(mode='horizontal' theme='dark' @on-select='headerAction')
-        MenuItem(name='1')
-            Icon(@click.native='collapsedSider' type='md-menu' size='24')
-        MenuItem(name='swaggerResources')
-            | {{ infoTitle }}&nbsp;
-            Icon(type='md-repeat')
-        div(style='float: right;margin-right: 20px;position: relative;')
-            SearchInput
-        SwaggerResources(ref='swaggerResources')
+Menu(mode='horizontal' theme='dark' @on-select='headerAction')
+    MenuItem(name='1')
+        Icon(@click.native='collapsedSider' type='md-menu' size='24')
+    MenuItem(name='swaggerResources')
+        | {{ infoTitle }}&nbsp;
+        Icon(type='md-repeat')
+    div(style='float: right;margin-right: 20px;position: relative;')
+        SearchInput
+    SwaggerResources(ref='swaggerResources')
 </template>
 
 <script>
-    import SearchInput from '@/components/SearchInput'
-    import SwaggerResources from '@/components/SwaggerResources'
+import SearchInput from '@/components/SearchInput'
+import SwaggerResources from '@/components/SwaggerResources'
 
-    export default {
-        name: "HeaderContent",
-        components: {SearchInput, SwaggerResources},
-        methods: {
-            headerAction(menuItemName) {
-                if (menuItemName === 'swaggerResources') {
-                    this.$refs.swaggerResources.show = true
-                }
-            },
-            collapsedSider() {
-                this.$root.isCollapsed = !this.$root.isCollapsed;
-            },
-        },
-        computed: {
-            infoTitle() {
-                const currentSwaggerJson = this.$root.currentSwaggerJson;
-                return currentSwaggerJson && currentSwaggerJson.info && currentSwaggerJson.info.title || ''
+export default {
+    name: "HeaderContent",
+    components: {SearchInput, SwaggerResources},
+    methods: {
+        headerAction(menuItemName) {
+            if (menuItemName === 'swaggerResources') {
+                this.$refs.swaggerResources.show = true
             }
+        },
+        collapsedSider() {
+            this.$root.isCollapsed = !this.$root.isCollapsed;
+        },
+    },
+    computed: {
+        infoTitle() {
+            const currentSwaggerJson = this.$root.currentSwaggerJson;
+            return currentSwaggerJson && currentSwaggerJson.info && currentSwaggerJson.info.title || ''
         }
     }
+}
 </script>
