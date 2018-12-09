@@ -1670,7 +1670,7 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-batch-processor@^1.0.0:
+batch-processor@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/batch-processor/download/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
   integrity sha1-dclcMrdI4IUNEMKxaPa9vpiRrOg=
@@ -2492,15 +2492,10 @@ copy-webpack-plugin@^4.6.0:
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
 
-core-js@^2.4.0, core-js@^2.5.7:
+core-js@^2.4.0, core-js@^2.5.0, core-js@^2.5.7:
   version "2.6.0"
   resolved "http://registry.npm.taobao.org/core-js/download/core-js-2.6.0.tgz#1e30793e9ee5782b307e37ffa22da0eacddd84d4"
   integrity sha1-HjB5Pp7leCswfjf/oi2g6s3dhNQ=
-
-core-js@^2.5.0:
-  version "2.5.7"
-  resolved "http://registry.npm.taobao.org/core-js/download/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
-  integrity sha1-+XJgj/DOrWi4QaFqky0LGDeRgU4=
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -3206,11 +3201,11 @@ electron-to-chromium@^1.3.47, electron-to-chromium@^1.3.86:
   integrity sha1-82qzJjT0nvKw/cHoLi0cwX/rKec=
 
 element-resize-detector@^1.1.14:
-  version "1.1.14"
-  resolved "http://registry.npm.taobao.org/element-resize-detector/download/element-resize-detector-1.1.14.tgz#af064a0a618a820ad570a95c5eec5b77be0128c1"
-  integrity sha1-rwZKCmGKggrVcKlcXuxbd74BKME=
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/element-resize-detector/download/element-resize-detector-1.2.0.tgz#63344fd6f4e5ecff6f018d027e17b281fd4fa338"
+  integrity sha1-YzRP1vTl7P9vAY0Cfheygf1Pozg=
   dependencies:
-    batch-processor "^1.0.0"
+    batch-processor "1.0.0"
 
 elliptic@^6.0.0:
   version "6.4.1"
@@ -6967,9 +6962,9 @@ pn@^1.1.0:
   integrity sha1-4vTO8OIZ9GPBeas3Rj5OHs3Muvs=
 
 popper.js@^1.14.1:
-  version "1.14.5"
-  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.14.5.tgz#98abcce7c7c34c4ee47fcbc6b3da8af2c0a127bc"
-  integrity sha1-mKvM58fDTE7kf8vGs9qK8sChJ7w=
+  version "1.14.6"
+  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.14.6.tgz#ab20dd4edf9288b8b3b6531c47c361107b60b4b0"
+  integrity sha1-qyDdTt+SiLiztlMcR8NhEHtgtLA=
 
 portfinder@^1.0.19, portfinder@^1.0.9:
   version "1.0.20"
@@ -8890,7 +8885,7 @@ toposort@^1.0.0:
   resolved "http://registry.npm.taobao.org/toposort/download/toposort-1.0.7.tgz#2e68442d9f64ec720b8cc89e6443ac6caa950029"
   integrity sha1-LmhELZ9k7HILjMieZEOsbKqVACk=
 
-tough-cookie@>=2.3.3:
+tough-cookie@>=2.3.3, tough-cookie@^2.3.4:
   version "2.5.0"
   resolved "http://registry.npm.taobao.org/tough-cookie/download/tough-cookie-2.5.0.tgz#cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2"
   integrity sha1-zZ+yoKodWhK0c72fuW+j3P9lreI=
@@ -8898,7 +8893,7 @@ tough-cookie@>=2.3.3:
     psl "^1.1.28"
     punycode "^2.1.1"
 
-tough-cookie@^2.3.4, tough-cookie@~2.4.3:
+tough-cookie@~2.4.3:
   version "2.4.3"
   resolved "http://registry.npm.taobao.org/tough-cookie/download/tough-cookie-2.4.3.tgz#53f36da3f47783b0925afa06ff9f3b165280f781"
   integrity sha1-U/Nto/R3g7CSWvoG/587FlKA94E=
@@ -9173,9 +9168,9 @@ uuid@^3.0.1, uuid@^3.3.2:
   integrity sha1-G0r0lV6zB3xQHCOHL8ZROBFYcTE=
 
 v-click-outside-x@^3.5.0:
-  version "3.5.5"
-  resolved "http://registry.npm.taobao.org/v-click-outside-x/download/v-click-outside-x-3.5.5.tgz#a28a841b3c610eeec85cac3d63b3f94cbf87047f"
-  integrity sha1-ooqEGzxhDu7IXKw9Y7P5TL+HBH8=
+  version "3.5.6"
+  resolved "http://registry.npm.taobao.org/v-click-outside-x/download/v-click-outside-x-3.5.6.tgz#fa4159c5540609f4b81c4d2973ed2307fe8fe4da"
+  integrity sha1-+kFZxVQGCfS4HE0pc+0jB/6P5No=
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
@@ -9282,10 +9277,10 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.17:
-  version "2.5.17"
-  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.17.tgz#52a4a078c327deb937482a509ae85c06f346c3cb"
-  integrity sha1-UqSgeMMn3rk3SCpQmuhcBvNGw8s=
+vue-template-compiler@^2.5.18:
+  version "2.5.18"
+  resolved "http://registry.npm.taobao.org/vue-template-compiler/download/vue-template-compiler-2.5.18.tgz#8a346e477c5ada6efc890a2db4857090a2c54a05"
+  integrity sha1-ijRuR3xa2m78iQottIVwkKLFSgU=
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -9295,10 +9290,10 @@ vue-template-es2015-compiler@^1.6.0:
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
   integrity sha1-3EJpcTMwLOMBdSQ1amxht7abShg=
 
-vue@^2.5.17:
-  version "2.5.17"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.17.tgz#0f8789ad718be68ca1872629832ed533589c6ada"
-  integrity sha1-D4eJrXGL5oyhhyYpgy7VM1icato=
+vue@^2.5.18:
+  version "2.5.18"
+  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.18.tgz#885586eda5c8efc77140a497500b73620e53c1dd"
+  integrity sha1-iFWG7aXI78dxQKSXUAtzYg5Twd0=
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"

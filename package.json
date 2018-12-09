@@ -19,7 +19,7 @@
         "iview": "^3.1.5",
         "lodash": "^4.17.11",
         "pinyin": "^2.8.3",
-        "vue": "^2.5.17",
+        "vue": "^2.5.18",
         "vue-router": "^3.0.2"
     },
     "devDependencies": {
@@ -37,7 +37,7 @@
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
         "vue-cli-plugin-pug": "^1.0.7",
-        "vue-template-compiler": "^2.5.17"
+        "vue-template-compiler": "^2.5.18"
     },
     "babel": {
         "presets": [
