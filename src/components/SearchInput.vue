@@ -54,8 +54,4 @@ const options = {
     ]
 };
 let fuse = new Fuse(content, options);
-
 </script>
-<style>
-
-</style>
