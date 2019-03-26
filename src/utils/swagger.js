@@ -184,6 +184,11 @@ function fixType(schema, definitions) {
 
 function fixFormat(schema, definitions) {
 
+    const format = $.get(schema, 'schema.items.format');
+    if (format) {
+        return format
+    }
+
     const schemaRef = getSchemaRef(schema);
     if (schemaRef) {
         const schemaKey = getSchemaKey(schemaRef);
