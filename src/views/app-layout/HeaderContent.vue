@@ -5,7 +5,7 @@ Menu(mode='horizontal' theme='dark' @on-select='headerAction')
     MenuItem(name='swaggerResources')
         | {{ infoTitle }}&nbsp;
         Icon(type='md-repeat')
-    MenuItem(name='exportPostman')
+    MenuItem(name='exportPostman' style='float: right;')
         | 导出 Postman
     div(style='float: right;margin-right: 20px;position: relative;')
         SearchInput
