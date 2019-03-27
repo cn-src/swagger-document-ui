@@ -8,14 +8,14 @@ Modal(v-model='show' title='选择 Swagger API')
 </template>
 
 <script>
-import api from '../utils/api'
+import api from '../utils/api';
 
 export default {
-    name: "SwaggerResources",
+    name: 'SwaggerResources',
     data() {
         return {
             show: false
-        }
+        };
     },
     methods: {
         setCurrentSwaggerJsonAction(url) {
@@ -26,11 +26,11 @@ export default {
         }
     },
     computed: {
-        swaggerResources: function () {
-            return this.$root.swaggerResources
+        swaggerResources: function() {
+            return this.$root.swaggerResources;
         }
     }
-}
+};
 </script>
 <style>
 /* 修补压缩图标字体后造成的图标移位问题 */
