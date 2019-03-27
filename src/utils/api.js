@@ -1,24 +1,29 @@
 /**
  * http 接口初始化以及调用。
  */
-import axios from "axios";
-import swagger from "@/utils/swagger";
-import $ from '@/utils/$'
+import axios from 'axios';
+import swagger from '@/utils/swagger';
+import $ from '@/utils/$';
 
 function initApi(paths, $root) {
     configAxios($root);
     if (!$.isArray(paths)) {
-        paths = [paths]
+        paths = [paths];
     }
     const swaggerResources = [];
-    axios.all(paths.map(url => axios.get(url).catch(res => {
-        console.info(`[swagger-document-ui]: Can not get url '${url}', res: ` + res);
-    })))
-        .then(function (results) {
-            $.flatMap(results, function (it) {
-                return it ? it.data : []
-            }).forEach(function (data) {
-                swaggerResources.push(data)
+    axios
+        .all(
+            paths.map(url =>
+                axios.get(url).catch(res => {
+                    console.info(`[swagger-document-ui]: Can not get url '${url}', res: ` + res);
+                })
+            )
+        )
+        .then(function(results) {
+            $.flatMap(results, function(it) {
+                return it ? it.data : [];
+            }).forEach(function(data) {
+                swaggerResources.push(data);
             });
 
             $root.swaggerResources = swaggerResources;
@@ -37,28 +42,26 @@ function initApi(paths, $root) {
 }
 
 function setCurrentSwaggerJson(path, vue, onSuccess) {
-    axios.get(path)
-        .then(function (swaggerResponse) {
-            const data = swaggerResponse.data;
-            let swaggerJson;
-            if (typeof data === "string") {
-                try {
-                    swaggerJson = JSON.parse(data)
-                } catch (e) {
-                    console.warn('[swagger-document-ui]: Parse swagger json error: ' + e);
-                    vue.$root.$Notice.error({
-                        title: 'API 初始化错误',
-                        desc: `path: ${path}\n${e.toLocaleString()}`,
-                        duration: 10
-                    });
-                }
-            } else {
-                swaggerJson = data
+    axios.get(path).then(function(swaggerResponse) {
+        const data = swaggerResponse.data;
+        let swaggerJson;
+        if (typeof data === 'string') {
+            try {
+                swaggerJson = JSON.parse(data);
+            } catch (e) {
+                console.warn('[swagger-document-ui]: Parse swagger json error: ' + e);
+                vue.$root.$Notice.error({
+                    title: 'API 初始化错误',
+                    desc: `path: ${path}\n${e.toLocaleString()}`,
+                    duration: 10
+                });
             }
-            onSuccess && onSuccess();
-            vue.$root.currentSwaggerJson = swagger.fixSwaggerJson(swaggerJson)
-        })
-
+        } else {
+            swaggerJson = data;
+        }
+        onSuccess && onSuccess();
+        vue.$root.currentSwaggerJson = swagger.fixSwaggerJson(swaggerJson);
+    });
 }
 
 function configAxios($root) {
@@ -70,9 +73,11 @@ function configAxios($root) {
         },
         error => {
             const url = $.get(error, 'request.responseURL');
-            if (url
-                && ($.get(error, 'response.status') === 404)
-                && ($.endsWith(url, '/swagger-resources.json') || $.endsWith(url, '/swagger-resources'))) {
+            if (
+                url &&
+                $.get(error, 'response.status') === 404 &&
+                ($.endsWith(url, '/swagger-resources.json') || $.endsWith(url, '/swagger-resources'))
+            ) {
                 console.info(`[swagger-document-ui]: '${url}' 404`);
             } else {
                 console.warn('[swagger-document-ui]: Ajax error: ' + error);
@@ -83,12 +88,13 @@ function configAxios($root) {
                 });
             }
 
-            return Promise.reject($.get(error, 'response.data'))
-        });
+            return Promise.reject($.get(error, 'response.data'));
+        }
+    );
 }
 
 const getBaseURL = () => {
     const urlMatches = /(.*)\/swagger-ui.html.*/.exec(window.location.href);
     return urlMatches[1];
 };
-export default {initApi, setCurrentSwaggerJson}
+export default { initApi, setCurrentSwaggerJson };
