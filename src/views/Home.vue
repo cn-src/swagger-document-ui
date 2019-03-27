@@ -2,12 +2,9 @@
 div(style='height: 85vh; overflow: auto; padding: 24px 24px 50px;')
     Divider {{ apiTitle }}
     Table(:columns='apiInfoColumns' :data='apiInfoItems' :show-header='false' border)
-    div(style='margin: 0 auto;text-align: center;position:relative;top: 20px;color: #a9a9a9;')
-        | {{ classicQuote }}
 </template>
 
 <script>
-import classicQuote from '@/utils/classic-quote'
 
 export default {
     name: "Home",
@@ -43,9 +40,6 @@ export default {
                 {k1: 'basePath:', k2: info.basePath}
             ]
         }
-    },
-    created() {
-        this.$data.classicQuote = classicQuote()
     }
 }
 
