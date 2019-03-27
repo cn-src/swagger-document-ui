@@ -14,8 +14,10 @@ import isArray from 'lodash/isArray'
 import random from 'lodash/random'
 import slice from 'lodash/slice'
 import sortBy from 'lodash/sortBy'
+import split from 'lodash/split'
+import remove from 'lodash/remove'
 
 export default {
     flatMap, map, groupBy, forOwn, join,
-    get, isString, endsWith, isArray, random, slice, sortBy
+    get, isString, endsWith, isArray, random, slice, sortBy, split,remove
 }
