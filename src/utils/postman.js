@@ -7,6 +7,18 @@ function parseUrl(url, basePath) {
     url.host = a.hostname.split('.');
     url.port = a.port;
     url.path = $.remove([...$.split(a.pathname, '/'), ...url.path], it => it !== '')
+        .map(it => {
+            if (it.match(/{.+}/)) {
+                let pathVar = it.substring(1, it.length - 1);
+                if (!url.variable) {
+                    url.variable = []
+                }
+                url.variable.push({key: pathVar})
+                return ':' + pathVar;
+            } else {
+                return it
+            }
+        })
 }
 
 function parseParam(url, paramBean) {
@@ -15,7 +27,7 @@ function parseParam(url, paramBean) {
             if (!url.query) {
                 url.query = []
             }
-            url.query.push({key: prop.name})
+            url.query.push({key: prop.name, disabled: !prop.required})
         }
     });
 }
