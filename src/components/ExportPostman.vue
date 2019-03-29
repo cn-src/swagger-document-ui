@@ -6,7 +6,7 @@ Modal(v-model='show' title='导出 Postman')
         FormItem(label="导出方式：")
             RadioGroup(v-model="formData.exportType")
                 Radio(label="copy") 复制到剪贴板
-                Radio(label="download") 下载文件
+                Radio(label="download" :disabled="exportDownloadDisabled") 下载文件
     div(slot="footer")
         Button(type="primary" size="large" long @click="onOk" id="exportOkBtn") 确定
 </template>
@@ -22,6 +22,8 @@ export default {
     data() {
         return {
             show: false,
+            // 是否支持文件生成
+            exportDownloadDisabled: false,
             formData: { exportType: 'copy' }
         };
     },
@@ -47,6 +49,11 @@ export default {
     },
     created() {
         this.$data.formData.basePath = this.$root.baseURL;
+        try {
+            this.$data.exportDownloadDisabled = !new Blob();
+        } catch (e) {
+            /*ignore*/
+        }
     }
 };
 </script>
