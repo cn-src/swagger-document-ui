@@ -13,6 +13,8 @@ Modal(v-model='show' title='导出 Postman')
 
 <script>
 import ClipboardJS from 'clipboard';
+import FileSaver from 'file-saver';
+
 import postman from '@/utils/postman';
 
 export default {
@@ -34,6 +36,12 @@ export default {
                 });
                 this.$Message.success('复制成功');
                 this.$data.show = false;
+            } else if (this.$data.formData.exportType === 'download') {
+                const exportJson = postman.exportJson(vue.$root.currentSwaggerJson, {
+                    basePath: vue.formData.basePath
+                });
+                const blob = new Blob([exportJson], { type: 'text/plain;charset=utf-8' });
+                FileSaver.saveAs(blob, vue.$root.currentSwaggerJson.info.title + '.json');
             }
         }
     },
