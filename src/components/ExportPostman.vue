@@ -44,6 +44,8 @@ export default {
                 });
                 const blob = new Blob([exportJson], { type: 'text/plain;charset=utf-8' });
                 FileSaver.saveAs(blob, vue.$root.currentSwaggerJson.info.title + '.json');
+                this.$Message.success('下载成功');
+                this.$data.show = false;
             }
         }
     },
