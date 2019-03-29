@@ -1055,10 +1055,10 @@
     eslint "^4.19.1"
     eslint-plugin-vue "^4.7.1"
 
-"@vue/cli-plugin-unit-jest@^3.5.1":
-  version "3.5.1"
-  resolved "http://registry.npm.taobao.org/@vue/cli-plugin-unit-jest/download/@vue/cli-plugin-unit-jest-3.5.1.tgz#bcd90bac895f44150bb736a0e9a0fef25c51b9fe"
-  integrity sha1-vNkLrIlfRBULtzag6aD+8lxRuf4=
+"@vue/cli-plugin-unit-jest@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.5.3.tgz#d11f0879d73f6eb712df45072d9470d8a87d09e5"
+  integrity sha512-6GRN3dhFXF8FTqvAylHA8fh+ii5+KoKPPz972j18V/MedYgm39qVSkDWD2sLKOueTX5SSVqk3QKyF6gy+Uhp7Q==
   dependencies:
     "@vue/cli-shared-utils" "^3.5.1"
     babel-jest "^23.6.0"
