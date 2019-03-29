@@ -65,7 +65,9 @@ function setCurrentSwaggerJson(path, vue, onSuccess) {
 }
 
 function configAxios($root) {
-    axios.defaults.baseURL = getBaseURL();
+    const baseURL = getBaseURL();
+    $root.baseURL = baseURL;
+    axios.defaults.baseURL = baseURL;
     axios.defaults.timeout = 10000;
     axios.interceptors.response.use(
         response => {

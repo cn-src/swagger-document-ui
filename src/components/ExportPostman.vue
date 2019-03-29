@@ -1,16 +1,44 @@
 <template lang="pug">
 Modal(v-model='show' title='导出 Postman')
-    CellGroup(@on-click='')
-        Cell()
+    Form(:label-width="80" style="width: 90%; margin: 0 auto;")
+        FormItem(label="基本路径：")
+            Input(v-model="formData.basePath" placeholder="如：http://localhost")
+        FormItem(label="导出方式：")
+            RadioGroup(v-model="formData.exportType")
+                Radio(label="copy") 复制到剪贴板
+                Radio(label="download") 下载文件
+    div(slot="footer")
+        Button(type="primary" size="large" long @click="onOk" id="exportOkBtn") 确定
 </template>
 
 <script>
+import ClipboardJS from 'clipboard';
+import postman from '@/utils/postman';
+
 export default {
     name: 'ExportPostman',
     data() {
         return {
-            show: false
+            show: false,
+            formData: { exportType: 'copy' }
         };
+    },
+    methods: {
+        onOk() {
+            const vue = this;
+            if (this.$data.formData.exportType === 'copy') {
+                new ClipboardJS('#exportOkBtn', {
+                    text: function() {
+                        return postman.exportJson(vue.$root.currentSwaggerJson, { basePath: vue.formData.basePath });
+                    }
+                });
+                this.$Message.success('复制成功');
+                this.$data.show = false;
+            }
+        }
+    },
+    created() {
+        this.$data.formData.basePath = this.$root.baseURL;
     }
 };
 </script>
