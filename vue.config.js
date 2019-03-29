@@ -1,9 +1,9 @@
-const swaggerResources = require("./tests/swagger-resources");
-const swaggerJson = require("./tests/unit/utils/swagger.json");
+const swaggerResources = require('./tests/swagger-resources');
+const swaggerJson = require('./tests/unit/utils/swagger.json');
 
 module.exports = {
     filenameHashing: false,
-    baseUrl: '',
+    publicPath: '',
     pages: {
         'swagger-document-ui': {
             // page 的入口
@@ -22,11 +22,11 @@ module.exports = {
         openPage: '/swagger-ui.html',
         open: true,
         proxy: 'http://swagger-bootstrap-ui.xiaominfo.com',
-        before: function (app) {
-            app.get('/swagger-resources.json', function (req, res) {
+        before: function(app) {
+            app.get('/swagger-resources.json', function(req, res) {
                 res.json(swaggerResources);
             });
-            app.get('/swagger.json', function (req, res) {
+            app.get('/swagger.json', function(req, res) {
                 res.json(swaggerJson);
             });
         }
