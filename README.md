@@ -106,3 +106,7 @@ Swagger 规范接口的文档型 API UI 界面
 -   可搜索 API 名称，分类名称，url 路径
 
 ![](docs/demo3.png)
+
+## 导出 Postman
+
+![](docs/demo4.png)
