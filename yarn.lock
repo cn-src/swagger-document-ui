@@ -1068,10 +1068,10 @@
     jest-transform-stub "^2.0.0"
     vue-jest "^3.0.3"
 
-"@vue/cli-service@^3.5.1":
-  version "3.5.1"
-  resolved "http://registry.npm.taobao.org/@vue/cli-service/download/@vue/cli-service-3.5.1.tgz#d400ab956569a87f3947e7d6972f35c97de84145"
-  integrity sha1-1ACrlWVpqH85R+fWly81yX3oQUU=
+"@vue/cli-service@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.5.3.tgz#079b09065ad6597211906c65c12b5862092637f2"
+  integrity sha512-28MDRVZe+yebtiSJHfYS6fOvPN1P8DX4BIsDp4rLqZxc7l8yoG6pBWyv9ENT4WO9gAXRGzEsKcJ5qLtXLvQeYQ==
   dependencies:
     "@intervolga/optimize-cssnano-plugin" "^1.0.5"
     "@soda/friendly-errors-webpack-plugin" "^1.7.1"
