@@ -110,3 +110,5 @@ Swagger 规范接口的文档型 API UI 界面
 ## 导出 Postman
 
 ![](docs/demo4.png)
+![](docs/postman1.png)
+![](docs/postman2.png)
