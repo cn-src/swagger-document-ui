@@ -3,6 +3,7 @@ const swaggerJson = require('./tests/unit/utils/swagger.json');
 
 module.exports = {
     filenameHashing: false,
+    productionSourceMap: false,
     publicPath: '',
     indexPath: 'swagger-ui.html',
     assetsDir: 'webjars/swagger-document-ui',
