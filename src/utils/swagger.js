@@ -39,7 +39,8 @@ function fixSwaggerJson(swaggerJson) {
             });
         });
     });
-    data.collection = $.groupBy(httpEntities, 'tag');
+
+    data.collection = $.groupBy($.sortBy(httpEntities, 'tag'), 'tag');
     return data;
 }
 
