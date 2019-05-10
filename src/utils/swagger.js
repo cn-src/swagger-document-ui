@@ -175,6 +175,9 @@ function fixType(schema, definitions) {
     if (schema.type === 'array' && schema.items && schema.items.type) {
         return '[' + schema.items.type + ']';
     }
+    if ($.get(schema, 'schema.type') === 'array' && $.get(schema, 'schema.items.type')) {
+        return '[' + schema.schema.items.type + ']';
+    }
 
     const schemaKey = getSchemaKey(getSchemaRef(schema));
     if (schema.type === 'array' && schemaKey) {
