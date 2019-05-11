@@ -11,30 +11,30 @@ clearable icon='ios-search' placeholder='搜索 API' style='width:300px')
                 span(style="color: #a6a9aa") {{ e.path }}
 </template>
 <script>
-import Fuse from 'fuse.js'
-import $ from '@/utils/$'
-import MethodTag from '@/components/MethodTag'
+import Fuse from 'fuse.js';
+import $ from '@/utils/$';
+import MethodTag from '@/components/MethodTag';
 
 export default {
     name: 'SearchInput',
-    components: {MethodTag},
+    components: { MethodTag },
     data() {
         return {
             keyword: '',
             entities: []
-        }
+        };
     },
     methods: {
         search(keyword) {
-            this.entities = $.slice(fuse.search(keyword), 0, 20)
+            this.entities = $.slice(fuse.search(keyword), 0, 20);
         },
         select(entityId, entityTag) {
             this.$router.push(`/entity/${entityId}`);
-            this.$root.activeMenu = {submenu: [entityTag], menuItem: entityId}
+            this.$root.activeMenu = { submenu: [entityTag], menuItem: entityId };
         }
     },
     watch: {
-        '$root.currentSwaggerJson.collection': function (val) {
+        '$root.currentSwaggerJson.collection': function(val) {
             content = $.flatMap(val);
             fuse = new Fuse(content, options);
         }
@@ -42,15 +42,15 @@ export default {
     created() {
         content = $.flatMap(this.$root.currentSwaggerJson.collection);
     }
-}
+};
 let content = [];
 const options = {
     keys: [
-        {name: 'name', weight: 0.3},
-        {name: 'namePinyin', weight: 0.3},
-        {name: 'tag', weight: 0.1},
-        {name: 'tagPinyin', weight: 0.2},
-        {name: 'path', weight: 0.1},
+        { name: 'name', weight: 0.3 },
+        { name: 'namePinyin', weight: 0.3 },
+        { name: 'tag', weight: 0.1 },
+        { name: 'tagPinyin', weight: 0.2 },
+        { name: 'path', weight: 0.1 }
     ]
 };
 let fuse = new Fuse(content, options);
