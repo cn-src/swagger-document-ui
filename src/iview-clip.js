@@ -33,7 +33,7 @@ import {
     RadioGroup
 } from 'iview';
 
-Vue.prototype.$IVIEW = {};
+Vue.prototype.$IVIEW = { modal: { maskClosable: '' }, menu: { customArrow: '' } };
 Vue.component('Layout', Layout);
 Vue.component('Header', Header);
 Vue.component('Content', Content);

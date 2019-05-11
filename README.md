@@ -46,7 +46,7 @@ Swagger 规范接口的文档型 API UI 界面
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -78,7 +78,7 @@ Swagger 规范接口的文档型 API UI 界面
 <dependency>
     <groupId>cn.javaer.springfox</groupId>
     <artifactId>swagger-document-ui</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 

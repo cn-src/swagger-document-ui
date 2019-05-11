@@ -1,5 +1,6 @@
 const swaggerResources = require('./tests/swagger-resources');
 const swaggerJson = require('./tests/unit/utils/swagger.json');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     filenameHashing: false,
@@ -20,5 +21,11 @@ module.exports = {
             });
         }
     },
-    lintOnSave: undefined
+    configureWebpack: () => {
+        if (process.env.NODE_ENV === 'production') {
+            return {
+                plugins: [new CompressionPlugin({ exclude: /\/*.html/ })]
+            };
+        }
+    }
 };

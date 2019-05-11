@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - "11.2.0"
+    - '11.14.0'
 before_script:
-  - yarn global add @vue/cli
-  - yarn global add font-spider
+    - yarn global add @vue/cli
+    - yarn global add font-spider
 install:
-  - yarn
+    - yarn
 
 script:
-  - yarn build
-  - yarn test:unit
+    - yarn build
+    - yarn test:unit

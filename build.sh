@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-rm -rf dist
-npm run build
+yarn run font-spider config/font-clip.html
+yarn run build
 node config/generatePom.js
 mvn clean package

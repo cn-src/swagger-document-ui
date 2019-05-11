@@ -39,7 +39,8 @@ function fixSwaggerJson(swaggerJson) {
             });
         });
     });
-    data.collection = $.groupBy(httpEntities, 'tag');
+
+    data.collection = $.groupBy($.sortBy(httpEntities, 'tag'), 'tag');
     return data;
 }
 
@@ -174,6 +175,9 @@ function fixBean(bean, schema, definitions) {
 function fixType(schema, definitions) {
     if (schema.type === 'array' && schema.items && schema.items.type) {
         return '[' + schema.items.type + ']';
+    }
+    if ($.get(schema, 'schema.type') === 'array' && $.get(schema, 'schema.items.type')) {
+        return '[' + schema.schema.items.type + ']';
     }
 
     const schemaKey = getSchemaKey(getSchemaRef(schema));
