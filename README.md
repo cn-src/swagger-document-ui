@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build Status](https://travis-ci.org/cn-src/swagger-document-ui.svg?branch=dev)](https://travis-ci.org/cn-src/swagger-document-ui)
-![Maven Central](https://img.shields.io/maven-central/v/cn.javaer.springfox/swagger-document-ui.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/cn.javaer.springfox/swagger-document-ui.svg)](https://search.maven.org/search?q=g:cn.javaer.springfox%20AND%20a:swagger-document-ui&core=gav)
 [![star](https://gitee.com/cn-src/swagger-document-ui/badge/star.svg?theme=dark)](https://gitee.com/cn-src/swagger-document-ui/stargazers)
 
 Swagger 文档型 UI
