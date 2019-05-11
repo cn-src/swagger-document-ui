@@ -97,6 +97,6 @@ function configAxios($root) {
 
 const getBaseURL = () => {
     const urlMatches = /(.*)\/swagger-ui.html.*/.exec(window.location.href);
-    return urlMatches[1];
+    return urlMatches !== null ? urlMatches[1] : '/';
 };
 export default { initApi, setCurrentSwaggerJson };
