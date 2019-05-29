@@ -1,16 +1,16 @@
-<template lang='pug'>
+<template lang="pug">
 Menu(
-@on-select='menuItemAction'
-:open-names='activeSubmenu'
-:active-name='activeMenuItem'
-ref='navMenu'
-theme='dark' width='auto' accordion
+    @on-select='menuItemAction'
+    :open-names='activeSubmenu'
+    :active-name='activeMenuItem'
+    ref='navMenu'
+    theme='dark' width='auto' accordion
 )
     MenuItem(:name="'Home'")
         Icon(type='md-home')
         | 首页
     Submenu(v-for='(httpEntities,tagName, i) in swaggerCollection'
-    :name='tagName' :key='i')
+        :name='tagName' :key='i')
         template(slot='title')
             Icon(type='ios-pricetags')
             | {{ tagName }}
@@ -25,18 +25,16 @@ theme='dark' width='auto' accordion
 </template>
 
 <script>
-import MethodTag from '@/components/MethodTag'
+import MethodTag from '@/components/MethodTag';
 
 export default {
     name: 'SiderContent',
-    components: {MethodTag},
+    components: { MethodTag },
     methods: {
         menuItemAction(menuItemName) {
             if (menuItemName === 'Home') {
                 this.$router.push('/');
-                return
-            }
-            if (menuItemName.startsWith('httpEntity')) {
+            } else {
                 this.$router.push(`/entity/${menuItemName}`);
             }
         }
@@ -44,7 +42,7 @@ export default {
     computed: {
         swaggerCollection() {
             const currentSwaggerJson = this.$root.currentSwaggerJson;
-            return currentSwaggerJson && currentSwaggerJson.collection || {}
+            return (currentSwaggerJson && currentSwaggerJson.collection) || {};
         },
         activeSubmenu() {
             return this.$root.activeMenu.submenu;
@@ -54,12 +52,11 @@ export default {
         }
     },
     watch: {
-        '$root.activeMenu.submenu': function () {
+        '$root.activeMenu.submenu': function() {
             this.$nextTick(() => {
                 this.$refs.navMenu.updateOpened();
-            })
+            });
         }
     }
-}
+};
 </script>
-
