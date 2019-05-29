@@ -29,20 +29,20 @@ div(style='padding: 24px 0 0 24px;')
                     EntityViewBean(:props="child.props")
     div.anchor-auto
         Anchor(show-ink container='#doc-content')
-            AnchorLink(href='#h2_1' title='接口说明')
-            AnchorLink(href='#h2_2' title='请求参数')
+            AnchorLink(href='#h2_1' title='# 接口说明')
+            AnchorLink(href='#h2_2' title='# 请求参数')
             AnchorLink(
-            v-for='(child, index) of httpEntity.paramSubBeans'
-            :key="'h3_param_'+child.schemaKey"
-            :href="'#h3_param_' + index"
-            :title="child.title"
+                v-for='(child, index) of httpEntity.paramSubBeans'
+                :key="'h3_param_'+child.schemaKey"
+                :href="'#h3_param_' + index"
+                :title="child.title"
             )
-            AnchorLink(href='#h2_3' title='响应信息')
+            AnchorLink(href='#h2_3' title='# 响应信息')
             AnchorLink(
-            v-for='(child, index) of httpEntity.responseSubBeans'
-            :key="'h3_response_'+child.schemaKey"
-            :href="'#h3_response_' + index"
-            :title="child.title"
+                v-for='(child, index) of httpEntity.responseSubBeans'
+                :key="'h3_response_'+child.schemaKey"
+                :href="'#h3_response_' + index"
+                :title="child.title"
             )
 
 </template>
