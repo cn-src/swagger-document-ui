@@ -4,9 +4,10 @@ Table(
     :data='httpEntity.paramBean.props'
     border size='small')
     template(slot-scope="{ row, index }" slot="name")
-        CopiedTag {{row.name}}
-        template(v-if="row.required === true")
-            span(style="color:red;") *
+        span(style="color:red;" v-if="row.required === true")
+            CopiedTag {{row.name}}
+            | &nbsp;*
+        CopiedTag(v-else) {{row.name}}
 </template>
 
 <script>
