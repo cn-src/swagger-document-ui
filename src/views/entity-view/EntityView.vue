@@ -49,24 +49,24 @@ div(style='padding: 24px 0 0 24px;')
 
 </template>
 <script>
-import swagger from '@/utils/swagger'
-import EntityViewApiInfo from './EntityViewApiInfo'
-import EntityViewParam from './EntityViewParam'
-import EntityViewResponse from './EntityViewResponse'
-import EntityViewBean from './EntityViewBean'
+import swagger from '@/utils/swagger';
+import EntityViewApiInfo from './EntityViewApiInfo';
+import EntityViewParam from './EntityViewParam';
+import EntityViewResponse from './EntityViewResponse';
+import EntityViewBean from './EntityViewBean';
 
 export default {
-    name: "EntityView",
-    components: {EntityViewApiInfo, EntityViewParam, EntityViewResponse, EntityViewBean},
+    name: 'EntityView',
+    components: { EntityViewApiInfo, EntityViewParam, EntityViewResponse, EntityViewBean },
     computed: {
         httpEntity() {
             if (!this.$root.currentSwaggerJson.collection) {
-                return {paramBean: {props: []}, responseBean: {props: []}}
+                return { paramBean: { props: [] }, responseBean: { props: [] } };
             }
             return swagger.findHttpEntity(this.$root.currentSwaggerJson.collection, this.$route.params.id);
         }
     }
-}
+};
 </script>
 <style lang="less">
 #doc-content {
@@ -80,7 +80,8 @@ export default {
     li {
         margin: 5px 0;
 
-        h2, h3 {
+        h2,
+        h3 {
             margin-top: 30px;
         }
     }
@@ -115,10 +116,9 @@ export default {
         }
     }
 
-    .ivu-table:before, .ivu-table:after {
+    .ivu-table:before,
+    .ivu-table:after {
         width: 0;
-
     }
 }
-
 </style>
