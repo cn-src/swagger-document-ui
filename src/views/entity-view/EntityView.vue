@@ -13,7 +13,6 @@ div(style='padding: 24px 0 0 24px;')
             template(v-for='(child, index) of httpEntity.paramSubBeans')
                 li(:key='`h3_param_${child.schemaKey}`')
                     h3(:id="`h3_param_${index}`")
-                        | 类型
                         Icon(type='md-arrow-dropright' size='20')
                         | {{ child.title }}
                 li(:key='`param_${child.schemaKey}`')
@@ -24,7 +23,6 @@ div(style='padding: 24px 0 0 24px;')
             template(v-for='(child, index) of httpEntity.responseSubBeans')
                 li(:key='`h3_response_${child.schemaKey}`')
                     h3(:id="`h3_response_${index}`")
-                        | 类型
                         Icon(type='md-arrow-dropright' size='20')
                         | {{ child.title }}
                 li(:key='`response_${child.schemaKey}`')
