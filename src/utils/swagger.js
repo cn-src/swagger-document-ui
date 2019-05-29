@@ -22,7 +22,7 @@ function fixSwaggerJson(swaggerJson) {
             return $.map(methodInfo.tags, tag => {
                 return fixHttpEntity(
                     {
-                        id: 'httpEntity' + index++,
+                        id: index++,
                         tag: tag,
                         name: methodInfo.summary,
                         path: path,
@@ -146,7 +146,8 @@ function fixResponsesToBean(responses, definitions) {
 
 function findHttpEntity(collection, id) {
     return $.flatMap(collection).find(v => {
-        return v.id === id;
+        // 菜单传过来的 id 是 string 类型
+        return v.id + '' === id;
     });
 }
 
@@ -256,6 +257,6 @@ function emptyBean() {
 }
 
 export default {
-    fixSwaggerJson: fixSwaggerJson,
-    findHttpEntity: findHttpEntity
+    fixSwaggerJson,
+    findHttpEntity
 };
