@@ -32,14 +32,10 @@
     "paths": {
         "/projects": {
             "get": {
-                "tags": [
-                    "项目管理"
-                ],
+                "tags": ["项目管理"],
                 "summary": "项目列表",
                 "operationId": "listUsingGET",
-                "produces": [
-                    "*/*"
-                ],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "name": "page",
@@ -74,25 +70,17 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
             },
             "post": {
-                "tags": [
-                    "项目管理"
-                ],
+                "tags": ["项目管理"],
                 "summary": "创建项目",
                 "operationId": "createUsingPOST",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "*/*"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "in": "body",
@@ -117,9 +105,7 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
@@ -127,14 +113,10 @@
         },
         "/projects/{projectId}/data": {
             "get": {
-                "tags": [
-                    "项目数据"
-                ],
+                "tags": ["项目数据"],
                 "summary": "项目数据列表",
                 "operationId": "findByProjectIdUsingGET",
-                "produces": [
-                    "*/*"
-                ],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "name": "page",
@@ -177,9 +159,7 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
@@ -187,17 +167,11 @@
         },
         "/projects/{projectId}/data/upload": {
             "post": {
-                "tags": [
-                    "项目数据"
-                ],
+                "tags": ["项目数据"],
                 "summary": "项目数据上传",
                 "operationId": "uploadUsingPOST",
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "*/*"
-                ],
+                "consumes": ["multipart/form-data"],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "name": "file",
@@ -231,9 +205,7 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
@@ -241,14 +213,10 @@
         },
         "/projects/{projectId}/users": {
             "get": {
-                "tags": [
-                    "项目管理"
-                ],
+                "tags": ["项目管理"],
                 "summary": "项目用户",
                 "operationId": "getUsersUsingGET",
-                "produces": [
-                    "*/*"
-                ],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "name": "projectId",
@@ -278,25 +246,17 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
             },
             "put": {
-                "tags": [
-                    "项目管理"
-                ],
+                "tags": ["项目管理"],
                 "summary": "分配用户",
                 "operationId": "saveUsersUsingPUT",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "*/*"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "name": "projectId",
@@ -333,9 +293,7 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
@@ -343,14 +301,10 @@
         },
         "/users": {
             "get": {
-                "tags": [
-                    "用户管理"
-                ],
+                "tags": ["用户管理"],
                 "summary": "用户列表",
                 "operationId": "findAllUsingGET",
-                "produces": [
-                    "*/*"
-                ],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "name": "page",
@@ -385,25 +339,17 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
             },
             "post": {
-                "tags": [
-                    "用户管理"
-                ],
+                "tags": ["用户管理"],
                 "summary": "创建用户",
                 "operationId": "createUsingPOST_1",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "*/*"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["*/*"],
                 "parameters": [
                     {
                         "in": "body",
@@ -428,9 +374,7 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
@@ -438,14 +382,10 @@
         },
         "/users/me": {
             "get": {
-                "tags": [
-                    "用户管理"
-                ],
+                "tags": ["用户管理"],
                 "summary": "当前用户",
                 "operationId": "meUsingGET",
-                "produces": [
-                    "*/*"
-                ],
+                "produces": ["*/*"],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -462,9 +402,7 @@
                 },
                 "security": [
                     {
-                        "Authorization": [
-                            "global"
-                        ]
+                        "Authorization": ["global"]
                     }
                 ],
                 "deprecated": false
