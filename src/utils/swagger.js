@@ -32,7 +32,7 @@ function fixSwaggerJson(swaggerJson) {
                         consumes: methodInfo.consumes,
                         description: methodInfo.description,
                         paramBean: fixParamsToBean(methodInfo.parameters, swaggerJson.definitions),
-                        responseBean: fixResponsesToBean(methodInfo.responses, swaggerJson.definitions)
+                        responseBean: fixResponsesToBean(methodInfo.responses, swaggerJson.definitions, data)
                     },
                     data.beanMap
                 );
@@ -129,9 +129,14 @@ function fixParamsToBean(parameters, definitions) {
     return bean;
 }
 
-function fixResponsesToBean(responses, definitions) {
+function fixResponsesToBean(responses, definitions, data) {
     let bean = emptyBean();
     bean.props = $.map(responses, (schema, status) => {
+        if (isMergeSchema(schema)) {
+            const mergeSchema = createMergeSchema(schema, definitions);
+            data.beanMap = fixBeanMap(definitions);
+            schema = mergeSchema;
+        }
         return fixBean(
             {
                 status: status,
@@ -215,6 +220,13 @@ function fixFormat(schema, definitions) {
     return schema.format;
 }
 
+function getSchema(schemaRef, definitions) {
+    const schemaKey = getSchemaKey(schemaRef);
+    if (definitions.hasOwnProperty(schemaKey)) {
+        return definitions[schemaKey];
+    }
+}
+
 function getSchemaRef(schema) {
     return (
         $.get(schema, '$ref') ||
@@ -246,6 +258,63 @@ function getSchemaTitle(schemaKey, definitions) {
     if (definitions.hasOwnProperty(schemaKey)) {
         return definitions[schemaKey].title;
     }
+}
+
+function isMergeSchema(schema) {
+    return !!$.get(schema, 'schema.properties') || !!$.get(schema, 'schema.allOf');
+}
+
+/**
+ * 创建组合 Schema.
+ */
+let mergeSchemaIndex = 0;
+
+function createMergeSchema(schema, definitions) {
+    const key = '_MergeSchema' + mergeSchemaIndex++;
+    const mergeSchema = { type: 'object', title: key, properties: {} };
+    if ($.isArray($.get(schema, 'schema.allOf'))) {
+        for (const fragment of schema.schema.allOf) {
+            if (fragment.hasOwnProperty('$ref')) {
+                const s = getSchema(fragment['$ref'], definitions);
+                if (s.properties) {
+                    Object.assign(mergeSchema.properties, s.properties);
+                }
+            }
+        }
+    }
+    const properties = $.get(schema, 'schema.properties');
+    if (properties) {
+        $.forOwn(properties, function(value, key) {
+            if ($.isArray(value.allOf)) {
+                const propKey = '_MergeSchema' + mergeSchemaIndex++;
+                const propMergeSchema = { type: 'object', title: propKey, properties: {} };
+                for (const fragment of value.allOf) {
+                    if (fragment.hasOwnProperty('$ref')) {
+                        const s = getSchema(fragment['$ref'], definitions);
+                        if (s.properties) {
+                            Object.assign(propMergeSchema.properties, s.properties);
+                        }
+                    }
+                }
+                definitions[propKey] = propMergeSchema;
+                const toMeg = {};
+                toMeg[key] = {
+                    description: schema.description,
+                    schema: {
+                        $ref: '#/definitions/' + propKey
+                    }
+                };
+                Object.assign(mergeSchema.properties, toMeg);
+            }
+        });
+    }
+    definitions[key] = mergeSchema;
+    return {
+        description: schema.description,
+        schema: {
+            $ref: '#/definitions/' + key
+        }
+    };
 }
 
 function emptyBean() {
